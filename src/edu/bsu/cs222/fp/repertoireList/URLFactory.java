@@ -13,7 +13,7 @@ public class URLFactory {
 		} catch (UnsupportedEncodingException e) {
 			new ExceptionHandler("Error!  Try Again.");
 		}
-		url =  "http://developer.echonest.com/api/v4/song/search?api_key=NDVFILMAVOOY8ITWS&artist=" + encodedQuery + "&format=json&results=100";
+		url =  "http://developer.echonest.com/api/v4/song/search?api_key=NDVFILMAVOOY8ITWS&artist=" + encodedQuery + "&format=xml&results=100";
 	}
 	
 	public String getURL() {
