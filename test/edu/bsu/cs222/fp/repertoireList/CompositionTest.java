@@ -19,12 +19,10 @@ public class CompositionTest {
 	
 	@Test
 	public void testComposer() {
-		assertEquals(composer, current.getComposer());
+		assertEquals(composer, current.composer());
 	}
 	
 	public void testTitle() {
-		assertEquals(title, current.getTitle());		
+		assertEquals(title, current.title());		
 	}
-	
-	
 }

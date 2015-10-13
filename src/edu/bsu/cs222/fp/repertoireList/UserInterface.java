@@ -1,7 +1,5 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -39,7 +37,7 @@ public class UserInterface extends Application {
 	private Button searchButton = new Button("Search");
 	
 	private ObservableList<Composition> observableCompositionList;
-	private TableView<String> resultsTable = new TableView<String>();
+	private TableView<Composition> resultsTable = new TableView<Composition>();
 	
 	public void start(Stage primaryStage) {
 		welcomeText.setFont(new Font("Arial", 20));
@@ -61,7 +59,6 @@ public class UserInterface extends Application {
 			}
 		});
 
-		
 		Scene scene = new Scene(tabPane, 680,530);
 		primaryStage.setTitle("Repertoire List");
 		primaryStage.setScene(scene);
@@ -79,22 +76,22 @@ public class UserInterface extends Application {
 		
 		ArrayList<Composition> searchResults = parser.getListOfCompositions();
 		observableCompositionList = FXCollections.observableArrayList(searchResults);
-		resultsTable = setResultTableView();
+		this.resultsTable = setResultTableView();
 		resultsTab.setContent(createNewVBoxWithTable(resultsTable));
 	}
 	
-	private VBox createNewVBoxWithTable(TableView table) {
+	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
 		return vBox;
 	}
 	
-	private TableView setResultTableView() {
-		TableView table = new TableView();
+	private TableView<Composition> setResultTableView() {
+		TableView<Composition> table = new TableView<Composition>();
 		TableColumn<Composition, String> composerColumn = createComposerColumn();
 		TableColumn<Composition, String> titleColumn = createTitleColumn();
-		table.setItems(observableCompositionList);
 		table.getColumns().addAll(composerColumn, titleColumn);
+		table.setItems(observableCompositionList);
 		table.getColumns().addListener(new ListChangeListener() {
 			public boolean suspended;
 
@@ -113,15 +110,15 @@ public class UserInterface extends Application {
 	
 	private TableColumn<Composition, String> createComposerColumn() {
 		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
-		composerColumn.setMinWidth(100);
 		composerColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("composer"));
+		composerColumn.setMinWidth(150);
 		return composerColumn;
 	}
 
 	private TableColumn<Composition, String> createTitleColumn() {
 		TableColumn<Composition, String> titleColumn = new TableColumn<>("Title");
-		titleColumn.setMinWidth(175);
 		titleColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
+		titleColumn.setMinWidth(200);
 		return titleColumn;
 	}
 }
