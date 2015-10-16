@@ -9,7 +9,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -33,15 +32,22 @@ public class Parser {
 	public ArrayList<Composition> createListOfCompositions() {
     	compositionsList = new ArrayList<Composition>();
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
-    		Element currentComposition = (Element) compositionsNodeList.item(i);
-    		String composer = currentComposition.getAttribute("artist_name");
-    		String title = currentComposition.getAttribute("title"); 
-    		Composition nextComposition = new Composition.Builder().byComposer(composer).withTitle(title);
-    		compositionsList.add(nextComposition);
+    		Node songNode = compositionsNodeList.item(i);
+    		Composition current = createComposition(songNode);
+    		compositionsList.add(current);
     	}
     	return compositionsList;
     }
     
+	public Composition createComposition(Node songData) {
+		Node currentNode = songData.getLastChild();
+		String title = currentNode.getTextContent();
+		currentNode = currentNode.getPreviousSibling();
+		String composer = currentNode.getTextContent();
+		Composition nextComposition = new Composition.Builder().byComposer(composer).withTitle(title);
+		return nextComposition;
+	}
+	
 	public NodeList getNodeListOfCompositions() {
 		Node compositions = getSongsNode();
 		NodeList compositionsList = compositions.getChildNodes();

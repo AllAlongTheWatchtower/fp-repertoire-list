@@ -9,11 +9,11 @@ public class Composition {
 		this.title = builder.titleToAdd;
 	}
 	
-	public String composer() {
+	public String getComposer() {
 		return this.composer;
 	}
 	
-	public String title() {
+	public String getTitle() {
 		return this.title;
 	}
 	

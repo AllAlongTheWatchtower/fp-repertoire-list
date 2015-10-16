@@ -52,14 +52,14 @@ public class ParserTest {
 	public void testArrayListComposer() {
 		ArrayList<Composition> listOfCompositions = parser.getListOfCompositions();
 		Composition first = listOfCompositions.get(1);
-		String composer = first.composer();
+		String composer = first.getComposer();
 		assertTrue(composer.equals("Antoine Forqueray"));
 	}
 	
 	public void testArrayListTitle() {
 		ArrayList<Composition> listOfCompositions = parser.getListOfCompositions();
 		Composition first = listOfCompositions.get(1);
-		String composer = first.title();
+		String composer = first.getTitle();
 		assertTrue(composer.equals("Pieces de viole: Suite No. 1 in D Minor: VI. La Couperin"));
 	}
 	

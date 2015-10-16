@@ -37,7 +37,7 @@ public class UserInterface extends Application {
 	private Button searchButton = new Button("Search");
 	
 	private ObservableList<Composition> observableCompositionList;
-	private TableView<Composition> resultsTable = new TableView<Composition>();
+	private TableView<Composition> resultsTable = new TableView();
 	
 	public void start(Stage primaryStage) {
 		welcomeText.setFont(new Font("Arial", 20));
@@ -80,18 +80,18 @@ public class UserInterface extends Application {
 		resultsTab.setContent(createNewVBoxWithTable(resultsTable));
 	}
 	
-	private VBox createNewVBoxWithTable(TableView<Composition> table) {
+	private VBox createNewVBoxWithTable(TableView table) {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
 		return vBox;
 	}
 	
-	private TableView<Composition> setResultTableView() {
-		TableView<Composition> table = new TableView<Composition>();
+	private TableView setResultTableView() {
+		TableView table = new TableView();
 		TableColumn<Composition, String> composerColumn = createComposerColumn();
 		TableColumn<Composition, String> titleColumn = createTitleColumn();
-		table.getColumns().addAll(composerColumn, titleColumn);
 		table.setItems(observableCompositionList);
+		table.getColumns().addAll(composerColumn, titleColumn);
 		table.getColumns().addListener(new ListChangeListener() {
 			public boolean suspended;
 
@@ -118,7 +118,7 @@ public class UserInterface extends Application {
 	private TableColumn<Composition, String> createTitleColumn() {
 		TableColumn<Composition, String> titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
-		titleColumn.setMinWidth(200);
+		titleColumn.setMinWidth(400);
 		return titleColumn;
 	}
 }
