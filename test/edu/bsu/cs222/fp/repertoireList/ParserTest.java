@@ -52,7 +52,6 @@ public class ParserTest {
 		NodeList songList = parser.getNodeListOfCompositions();
 		Element first = (Element) songList.item(1);
 		String title = first.getLastChild().getTextContent();
-		System.out.println(title);
 		assertTrue(title.equals("Pieces de viole: Suite No. 1 in D Minor: VI. La Couperin: Noblement et marque"));
 	}
 	
