@@ -43,17 +43,4 @@ public class DatabaseConnector {
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		return documentBuilder.parse(connection.getInputStream());
 	}
-	
-	public Document readXMLSample() {
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder;
-		Document sampleXML = null;
-		try {
-			documentBuilder = documentBuilderFactory.newDocumentBuilder();
-			sampleXML = documentBuilder.parse("sample.xml");
-		} catch (Exception e) {
-			new ExceptionHandler("Please try again!");
-		}
-		return sampleXML;
-	}
 }

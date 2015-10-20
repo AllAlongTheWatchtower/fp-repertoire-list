@@ -22,6 +22,7 @@ public class CompositionTest {
 		assertEquals(composer, current.getComposer());
 	}
 	
+	@Test
 	public void testTitle() {
 		assertEquals(title, current.getTitle());		
 	}

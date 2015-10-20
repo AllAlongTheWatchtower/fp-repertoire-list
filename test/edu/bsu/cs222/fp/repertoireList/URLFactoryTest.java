@@ -29,6 +29,7 @@ public class URLFactoryTest {
 		assertTrue(targetURL.equals(urlFactory.getURL()));
 	}
 	
+	@Test
 	public void testInternationalCharacters() {
 		String query = "譚盾";
 		String targetURL = "http://developer.echonest.com/api/v4/song/search?api_key=NDVFILMAVOOY8ITWS&artist=%E8%AD%9A%E7%9B%BE&format=xml&results=100";
