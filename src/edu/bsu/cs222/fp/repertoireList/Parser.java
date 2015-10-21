@@ -1,12 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -16,7 +11,6 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class Parser {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
@@ -24,18 +18,6 @@ public class Parser {
 	private Document searchResults;
 	private NodeList compositionsNodeList;
 	private ArrayList<Composition> compositionsList;
-	
-	// empty constructor to be used with testing
-	public Parser () {
-		try {
-			this.searchResults = readXMLDocumentFromSample();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.compositionsNodeList = getNodeListOfCompositions();
-		this.compositionsList = createListOfCompositions();
-	}
 	
 	public Parser(Document searchResults) {
 		this.searchResults = searchResults;
@@ -98,14 +80,4 @@ public class Parser {
 		}
     	return pathway;
     }
-    
-    // to be used with unit tests
-	public Document readXMLDocumentFromSample() throws ParserConfigurationException, SAXException, IOException {
-		InputStream sampleFileInputStream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("sample.xml");
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document sampleXML = documentBuilder.parse(sampleFileInputStream);
-		return sampleXML;
-	}
 }

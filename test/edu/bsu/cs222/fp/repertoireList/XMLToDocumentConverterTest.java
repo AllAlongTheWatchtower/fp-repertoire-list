@@ -1,6 +1,8 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -10,16 +12,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ParserTest {
-	
-	String composer = "Antoine Forqueray";
+public class XMLToDocumentConverterTest {
 	XMLToDocumentConverter converter = new XMLToDocumentConverter("sample.xml");
 	Document document = converter.getDocument();
 	Parser parser = new Parser(document);
 	
 	@Test
 	public void testReadXmlDocumentFromFile() {
-		Document document = parser.getSearchResults();
 		assertNotNull(document.getDocumentElement());
 	}
 	
