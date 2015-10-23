@@ -1,21 +1,17 @@
 package edu.bsu.cs222.fp.repertoireList;
 
 import java.util.ArrayList;
-
 import org.w3c.dom.Document;
-
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,6 +19,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.collections.ListChangeListener;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.util.Callback;
 
 public class UserInterface extends Application {
 	public static void main(String[] args) {
@@ -30,6 +32,7 @@ public class UserInterface extends Application {
 	}
 	private Tab searchTab = new Tab("Search");
 	private Tab resultsTab = new Tab("Search Results");
+	private Tab listTab = new Tab("Repertoire List");
 	private Label space = new Label("");
 	private Label welcomeText = new Label("Welcome to your repertoire list maker!");
 	private Label directionText = new Label("Please enter the composer whose work you would like to search for:");
@@ -37,16 +40,17 @@ public class UserInterface extends Application {
 	private Button searchButton = new Button("Search");
 	
 	private ObservableList<Composition> observableCompositionList;
-	private TableView<Composition> resultsTable = new TableView();
+	private TableView resultsTable = new TableView();
 	
+	@Override
 	public void start(Stage primaryStage) {
 		welcomeText.setFont(new Font("Arial", 20));
 		
 		TabPane tabPane = new TabPane();
 		searchTab.setClosable(false);
 		resultsTab.setClosable(false);
-		tabPane.getTabs().addAll(searchTab, resultsTab);
-		
+		listTab.setClosable(false);
+		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
 		VBox searchVBox = new VBox();
 		searchVBox.setSpacing(15); 
 		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton);
@@ -60,53 +64,76 @@ public class UserInterface extends Application {
 		});
 
 		Scene scene = new Scene(tabPane, 680,530);
-		primaryStage.setTitle("Repertoire List");
+		primaryStage.setTitle("Repertoire List Maker");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
 	}
 	
+	
 	public void pressGo() {
-		String composer = inputField.getText();
-		
+		String composer = inputField.getText();	
 		URLFactory urlMaker = new URLFactory(composer);
 		String url = urlMaker.getURL();	
 		DatabaseConnector connection = new DatabaseConnector(url);
 		Document results = connection.getListOfCompositions();
 		Parser parser = new Parser(results);
-		
 		ArrayList<Composition> searchResults = parser.getListOfCompositions();
 		observableCompositionList = FXCollections.observableArrayList(searchResults);
 		this.resultsTable = setResultTableView();
 		resultsTab.setContent(createNewVBoxWithTable(resultsTable));
 	}
 	
-	private VBox createNewVBoxWithTable(TableView table) {
+	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
 		return vBox;
 	}
 	
-	private TableView setResultTableView() {
-		TableView table = new TableView();
-		TableColumn<Composition, String> composerColumn = createComposerColumn();
-		TableColumn<Composition, String> titleColumn = createTitleColumn();
-		table.setItems(observableCompositionList);
-		table.getColumns().addAll(composerColumn, titleColumn);
-		table.getColumns().addListener(new ListChangeListener() {
-			public boolean suspended;
 
+	private TableView<Composition> setResultTableView() {
+		TableView<Composition> table = new TableView<Composition>();
+		TableColumn<Composition, String> composerColumn = createComposerColumn();
+		TableColumn<Composition, String> titleColumn = createTitleColumn();		
+		TableColumn actionColumn = new TableColumn<>("Action");
+        actionColumn.setSortable(false);
+        actionColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Composition, Boolean>, 
+                ObservableValue<Boolean>>() {
+ 
+            @Override
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Composition, Boolean> p) {
+                return new SimpleBooleanProperty(p.getValue() != null);
+            }
+        });
+ 
+        actionColumn.setCellFactory(
+                new Callback<TableColumn<Composition, Boolean>, TableCell<Composition, Boolean>>() {
+ 
+            @Override
+            public TableCell<Composition, Boolean> call(TableColumn<Composition, Boolean> p) {
+                return new ButtonCell(resultsTable);
+            }
+         
+        });
+        
+		table.setItems(observableCompositionList);
+		table.getColumns().addAll(composerColumn, titleColumn, actionColumn);
+		table.getColumns().addListener(new ListChangeListener<Object>() {
+			public boolean suspended;
 			@Override
-			public void onChanged(Change change) {
+			public void onChanged(Change<?> change) {
 				change.next();
 				if (change.wasReplaced() && !suspended) {
 					this.suspended = true;
-					table.getColumns().setAll(composerColumn, titleColumn);
+					table.getColumns().setAll(composerColumn, titleColumn, actionColumn);
 					this.suspended = false;
 				}
 			}
 		});
 		return table;
 	}
+	
 	
 	private TableColumn<Composition, String> createComposerColumn() {
 		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");

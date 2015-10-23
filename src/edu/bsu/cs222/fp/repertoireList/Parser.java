@@ -17,7 +17,7 @@ public class Parser {
 	
 	private Document searchResults;
 	private NodeList compositionsNodeList;
-	private ArrayList<Composition> compositionsList;
+	private ArrayList<Composition> compositionsList = new ArrayList<Composition>();
 	
 	public Parser(Document searchResults) {
 		this.searchResults = searchResults;
@@ -34,22 +34,23 @@ public class Parser {
 	}
 	
 	public ArrayList<Composition> createListOfCompositions() {
-    	compositionsList = new ArrayList<Composition>();
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
-    		Node songNode = compositionsNodeList.item(i);
-    		Composition current = createComposition(songNode);
-    		compositionsList.add(current);
+    		addComposerAtIndex(i);
     	}
     	return compositionsList;
     }
+	
+	public void addComposerAtIndex(int i) {
+		Node currentNode = compositionsNodeList.item(i).getLastChild();
+		Composition current = createComposition(currentNode);
+		compositionsList.add(current);
+	}
     
-	public Composition createComposition(Node songData) {
-		Node currentNode = songData.getLastChild();
+	public Composition createComposition(Node currentNode) {			
+		String composer = currentNode.getPreviousSibling().getTextContent();
 		String title = currentNode.getTextContent();
-		currentNode = currentNode.getPreviousSibling();
-		String composer = currentNode.getTextContent();
-		Composition nextComposition = new Composition.Builder().byComposer(composer).withTitle(title);
-		return nextComposition;
+		Composition composition = new Composition.Builder().byComposer(composer).withTitle(title);
+		return composition;
 	}
 	
 	public NodeList getNodeListOfCompositions() {
@@ -58,13 +59,13 @@ public class Parser {
 		return compositionsList;
 	}
 	
-    public Node getSongsNode() {
+	public Node getSongsNode() {
     	XPathExpression pathway = createXPathExpression(PATH_TO_SONGS_ELEMENT);
     	Node compositionsNode = null;
 		try {
 			compositionsNode = (Node) pathway.evaluate(searchResults, XPathConstants.NODE);
 		} catch (XPathExpressionException e) {
-			new Exception("Error!  Try Again!");
+			throw new RuntimeException(e);
 		}
     	return compositionsNode;
     }
