@@ -36,20 +36,11 @@ public class XMLWriterTest {
 		int countSongsAfter = songsAfter.getChildNodes().getLength();
 		assertEquals(countSongsBefore + 1, countSongsAfter);
 	}
-	
-	@Test
-	public void testLengthOfListIncreases() {
-		System.out.println(lengthOfListBefore);
-		Parser afterParser = createParser();
-		int lengthOfListAfter = afterParser.getNodeListOfCompositions().getLength();
-		System.out.println(lengthOfListAfter);
-		assertEquals(lengthOfListBefore + 1, lengthOfListAfter);
-	}
 
 	private Parser createParser() {
 		XMLToDocumentConverter converter = new XMLToDocumentConverter("RepertoireList.xml");
-		Document afterDocument = converter.getDocument();
-		Parser parser = new Parser(afterDocument);
+		Document document = converter.getDocument();
+		Parser parser = new Parser(document);
 		return parser;
 	}
 }
