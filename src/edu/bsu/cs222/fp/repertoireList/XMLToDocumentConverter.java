@@ -24,7 +24,8 @@ public class XMLToDocumentConverter {
 	public Document getDocument() {
 		return convertedXML;
 	}
-	public Document readXMLDocumentFromFile(String inputFile) throws ParserConfigurationException, SAXException, IOException {
+	
+	private Document readXMLDocumentFromFile(String inputFile) throws ParserConfigurationException, SAXException, IOException {
 		InputStream sampleFileInputStream = Thread.currentThread().getContextClassLoader()
 				.getResourceAsStream(inputFile);
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

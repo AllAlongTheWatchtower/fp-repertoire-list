@@ -88,7 +88,7 @@ public class XMLWriter {
     	return compositionsNode;
     }
     
-    public XPathExpression createXPathExpression(String path) {
+    private XPathExpression createXPathExpression(String path) {
     	XPathFactory xpathFactory = XPathFactory.newInstance();
     	XPath xpath = xpathFactory.newXPath();
     	XPathExpression pathway = null;

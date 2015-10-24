@@ -33,20 +33,20 @@ public class Parser {
 		return searchResults;
 	}
 	
-	public ArrayList<Composition> createListOfCompositions() {
+	private ArrayList<Composition> createListOfCompositions() {
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
     		addComposerAtIndex(i);
     	}
     	return compositionsList;
     }
 	
-	public void addComposerAtIndex(int i) {
+	private void addComposerAtIndex(int i) {
 		Node currentNode = compositionsNodeList.item(i).getLastChild();
 		Composition current = createComposition(currentNode);
 		compositionsList.add(current);
 	}
     
-	public Composition createComposition(Node currentNode) {			
+	private Composition createComposition(Node currentNode) {			
 		String composer = currentNode.getPreviousSibling().getTextContent();
 		String title = currentNode.getTextContent();
 		Composition composition = new Composition.Builder().byComposer(composer).withTitle(title);
@@ -70,7 +70,7 @@ public class Parser {
     	return compositionsNode;
     }
     
-    public XPathExpression createXPathExpression(String path) {
+    private XPathExpression createXPathExpression(String path) {
     	XPathFactory xpathFactory = XPathFactory.newInstance();
     	XPath xpath = xpathFactory.newXPath();
     	XPathExpression pathway = null;
