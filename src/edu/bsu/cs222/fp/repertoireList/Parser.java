@@ -53,7 +53,7 @@ public class Parser {
 		return composition;
 	}
 	
-	public NodeList getNodeListOfCompositions() {
+	private NodeList getNodeListOfCompositions() {
 		Node compositions = getSongsNode();
 		NodeList compositionsList = compositions.getChildNodes();
 		return compositionsList;

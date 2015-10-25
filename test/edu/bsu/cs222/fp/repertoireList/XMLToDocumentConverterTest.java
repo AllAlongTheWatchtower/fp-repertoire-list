@@ -36,13 +36,13 @@ public class XMLToDocumentConverterTest {
 	
 	@Test
 	public void testCountSongsList() {
-		NodeList songList = parser.getNodeListOfCompositions();
+		NodeList songList = parser.getSongsNode().getChildNodes();
 		assertEquals(songList.getLength(), 87);
 	}
 
 	@Test
 	public void testFindComposerInFirstNode() {
-		NodeList songList = parser.getNodeListOfCompositions();
+		NodeList songList = parser.getSongsNode().getChildNodes();
 		Element first = (Element) songList.item(1);
 		String composer = first.getLastChild().getPreviousSibling().getTextContent();
 		assertTrue(composer.equals("Antoine Forqueray"));
@@ -50,7 +50,7 @@ public class XMLToDocumentConverterTest {
 	
 	@Test
 	public void testFindTitleInFirstNode() {
-		NodeList songList = parser.getNodeListOfCompositions();
+		NodeList songList = parser.getSongsNode().getChildNodes();
 		Element first = (Element) songList.item(1);
 		String title = first.getLastChild().getTextContent();
 		assertTrue(title.equals("Pieces de viole: Suite No. 1 in D Minor: VI. La Couperin: Noblement et marque"));

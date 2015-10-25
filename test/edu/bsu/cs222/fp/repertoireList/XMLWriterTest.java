@@ -10,7 +10,7 @@ import edu.bsu.cs222.fp.repertoireList.Composition.Builder;
 
 public class XMLWriterTest {
 	Parser beforeParser = createParser();
-	int lengthOfListBefore = beforeParser.getNodeListOfCompositions().getLength();
+	int lengthOfListBefore = beforeParser.getSongsNode().getChildNodes().getLength();
 
 	Composition testComposition = new Builder().byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
 	
