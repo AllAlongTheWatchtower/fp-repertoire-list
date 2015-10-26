@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class ParserTest {
 	
@@ -21,40 +18,6 @@ public class ParserTest {
 	public void testReadXmlDocumentFromFile() {
 		Document document = parser.getSearchResults();
 		assertNotNull(document.getDocumentElement());
-	}
-	
-	@Test 
-	public void testGetSongsNode() {
-		Node songs = parser.getSongsNode();
-		assertTrue(songs.getNodeName().equals("songs"));
-	}
-	
-	@Test
-	public void testCountSongs() {
-		Node songs = parser.getSongsNode();
-		assertEquals(songs.getChildNodes().getLength(), 87);
-	}
-	
-	@Test
-	public void testCountSongsList() {
-		NodeList songList = parser.getSongsNode().getChildNodes();
-		assertEquals(songList.getLength(), 87);
-	}
-
-	@Test
-	public void testFindComposerInFirstNode() {
-		NodeList songList = parser.getSongsNode().getChildNodes();
-		Element first = (Element) songList.item(1);
-		String composer = first.getLastChild().getPreviousSibling().getTextContent();
-		assertTrue(composer.equals("Antoine Forqueray"));
-	}
-	
-	@Test
-	public void testFindTitleInFirstNode() {
-		NodeList songList = parser.getSongsNode().getChildNodes();
-		Element first = (Element) songList.item(1);
-		String title = first.getLastChild().getTextContent();
-		assertTrue(title.equals("Pieces de viole: Suite No. 1 in D Minor: VI. La Couperin: Noblement et marque"));
 	}
 	
 	@Test

@@ -10,7 +10,6 @@ import edu.bsu.cs222.fp.repertoireList.Composition.Builder;
 
 public class XMLWriterTest {
 	Parser beforeParser = createParser();
-	int lengthOfListBefore = beforeParser.getSongsNode().getChildNodes().getLength();
 
 	Composition testComposition = new Builder().byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
 	
@@ -30,8 +29,7 @@ public class XMLWriterTest {
 	
 	@Test
 	public void testAddsElementToDocument() {
-		Node songsBefore = beforeParser.getSongsNode();
-		int countSongsBefore = songsBefore.getChildNodes().getLength();
+		int countSongsBefore = beforeParser.getListOfCompositions().size();
 		Node songsAfter = writer.getSongsNode();
 		int countSongsAfter = songsAfter.getChildNodes().getLength();
 		assertEquals(countSongsBefore + 1, countSongsAfter);

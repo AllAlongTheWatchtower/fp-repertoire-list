@@ -59,13 +59,13 @@ public class Parser {
 		return compositionsList;
 	}
 	
-	public Node getSongsNode() {
+	private Node getSongsNode() {
     	XPathExpression pathway = createXPathExpression(PATH_TO_SONGS_ELEMENT);
     	Node compositionsNode = null;
 		try {
 			compositionsNode = (Node) pathway.evaluate(searchResults, XPathConstants.NODE);
 		} catch (XPathExpressionException e) {
-			throw new RuntimeException(e);
+			new Exception("System Error: please try again!");
 		}
     	return compositionsNode;
     }
