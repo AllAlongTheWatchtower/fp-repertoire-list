@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
@@ -34,7 +36,9 @@ public class UserInterface extends Application {
 	private Label directionText = new Label("Please enter the composer whose work you would like to search for:");
 	private TextField inputField = new TextField("Search Field");
 	private Button searchButton = new Button("Search");
-
+    private Image logo = new Image("echoNestLogo.png");
+    private Label logoLabel = new Label();
+    
 	@Override
 	public void start(Stage primaryStage) {
 		welcomeText.setFont(new Font("Arial", 20));
@@ -45,7 +49,8 @@ public class UserInterface extends Application {
 		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
 		VBox searchVBox = new VBox();
 		searchVBox.setSpacing(15);
-		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton);
+	    logoLabel.setGraphic(new ImageView(logo));
+		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel);
 		searchVBox.setAlignment(Pos.CENTER);
 		searchTab.setContent(searchVBox);
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
