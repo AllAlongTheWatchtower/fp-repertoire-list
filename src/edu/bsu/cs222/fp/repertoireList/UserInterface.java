@@ -3,25 +3,34 @@ package edu.bsu.cs222.fp.repertoireList;
 import java.util.ArrayList;
 import org.w3c.dom.Document;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 
 public class UserInterface extends Application {
 	public static void main(String[] args) {
@@ -32,69 +41,44 @@ public class UserInterface extends Application {
 	private Tab resultsTab = new Tab("Search Results");
 	private Tab listTab = new Tab("Repertoire List");
 	private Label space = new Label("");
-	private Label welcomeText = new Label("Welcome to your repertoire list maker!");
+	private Label welcomeText = new Label("Welcome to your Repertoire List Creator!");
 	private Label directionText = new Label("Please enter the composer whose work you would like to search for:");
+	private Image logo = new Image("echoNestLogo.png");
+	private Label logoLabel = new Label();
+	private Label legalText = new Label(
+			"Data retrieved using The Echo Nest API\nWebsite: http://the.echonest.com/\nA special thanks to The Echo Nest!");
 	private TextField inputField = new TextField("Search Field");
 	private Button searchButton = new Button("Search");
-    private Image logo = new Image("echoNestLogo.png");
-    private Label logoLabel = new Label();
-    
+	private TableView<Composition> repertoireTable = new TableView<Composition>();
+	private TableView<Composition> searchTable = new TableView<Composition>();
+	private ObservableList<Composition> observableRepertoireListOfCompositions = makeObservableList(
+			getRepertoireListDocument());
+
 	@Override
 	public void start(Stage primaryStage) {
 		welcomeText.setFont(new Font("Arial", 20));
+		setTabsClosable();
 		TabPane tabPane = new TabPane();
+		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
+		setRepertoireListTable();
+		setSearchButtonAction(tabPane);
+		setTheEnterKeyAction(tabPane);
+		setSearchVBox();
+		Scene scene = new Scene(tabPane, 680, 530);
+		primaryStage.setTitle("Repertoire List Creator");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	private void setTabsClosable() {
 		searchTab.setClosable(false);
 		resultsTab.setClosable(false);
 		listTab.setClosable(false);
-		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
-		VBox searchVBox = new VBox();
-		searchVBox.setSpacing(15);
-	    logoLabel.setGraphic(new ImageView(logo));
-		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel);
-		searchVBox.setAlignment(Pos.CENTER);
-		searchTab.setContent(searchVBox);
-		searchButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent arg0) {
-				tabPane.getSelectionModel().select(1);
-				pressGo();
-			}
-		});
-
-		inputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent x) {
-				if (x.getCode() == KeyCode.ENTER) {
-					tabPane.getSelectionModel().select(1);
-					pressGo();
-				}
-			}
-		});
-
-		Scene scene = new Scene(tabPane, 680, 530);
-		primaryStage.setTitle("Repertoire List Maker");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		setRepertoireListTable();
-	}
-
-	public void pressGo() {
-		setSearchListTable();
-	}
-
-	public void setSearchListTable() {
-		String composer = inputField.getText();
-		URLFactory urlMaker = new URLFactory(composer);
-		String url = urlMaker.getURL();
-		DatabaseConnector connection = new DatabaseConnector(url);
-		Document searchResults = connection.getListOfCompositions();
-		TableOfCompositions searchTable = makeTable(searchResults);
-		resultsTab.setContent(createNewVBoxWithTable(searchTable.getTable()));
 	}
 
 	private void setRepertoireListTable() {
-		Document repertoireListResults = getRepertoireListDocument();
-		TableOfCompositions repTable = makeTable(repertoireListResults);
-		listTab.setContent(createNewVBoxWithTable(repTable.getTable()));
+		setItemsInRepertoireTableView();
+		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 	}
 
 	private Document getRepertoireListDocument() {
@@ -103,18 +87,221 @@ public class UserInterface extends Application {
 		return convertedDocument;
 	}
 
-	private TableOfCompositions makeTable(Document results) {
+	private ObservableList<Composition> makeObservableList(Document results) {
 		Parser parser = new Parser(results);
 		ArrayList<Composition> arrayListOfCompositions = parser.getListOfCompositions();
+		informUserIfThereAreNoSearchResults(arrayListOfCompositions);
 		ObservableList<Composition> observableListOfCompositions = FXCollections
 				.observableArrayList(arrayListOfCompositions);
-		TableOfCompositions tableOfCompositions = new TableOfCompositions(observableListOfCompositions);
-		return tableOfCompositions;
+		return observableListOfCompositions;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setItemsInRepertoireTableView() {
+		TableColumn<Composition, String> composerColumn = createComposerColumn();
+		TableColumn<Composition, String> titleColumn = createTitleColumn();
+		repertoireTable.setItems(observableRepertoireListOfCompositions);
+		repertoireTable.getColumns().addAll(composerColumn, titleColumn);
+		repertoireTable.getColumns().addListener(new ListChangeListener<Object>() {
+			public boolean suspended;
+
+			@Override
+			public void onChanged(Change<?> change) {
+				change.next();
+				if (change.wasReplaced() && !suspended) {
+					this.suspended = true;
+					repertoireTable.getColumns().setAll(composerColumn, titleColumn);
+					this.suspended = false;
+				}
+			}
+		});
+	}
+
+	private void setSearchButtonAction(TabPane tabPane) {
+		searchButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				pressGo(tabPane);
+			}
+		});
+	}
+
+	private void setTheEnterKeyAction(TabPane tabPane) {
+		inputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent x) {
+				if (x.getCode() == KeyCode.ENTER) {
+					pressGo(tabPane);
+				}
+			}
+		});
+	}
+
+	private void pressGo(TabPane tabPane) {
+		tabPane.getSelectionModel().select(1);
+		setSearchListTable();
+	}
+
+	private void setSearchListTable() {
+		searchTable = new TableView<Composition>();
+		ObservableList<Composition> observableListOfCompositions = makeObservableList(getSearchResults());
+		setItemsInSearchResultTableView(observableListOfCompositions);
+		resultsTab.setContent(createNewVBoxWithTable(searchTable));
+	}
+
+	private Document getSearchResults() {
+		String composer = inputField.getText();
+		URLFactory urlMaker = new URLFactory(composer);
+		String url = urlMaker.getURL();
+		DatabaseConnector connection = new DatabaseConnector(url);
+		Document searchResults = connection.getListOfCompositions();
+		return searchResults;
+	}
+
+	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
+		if (arrayListOfCompositions.isEmpty()) {
+			Stage stage = new Stage();
+			stage.setScene(new Scene(new Group(new Text(25, 25, "Sorry, that composer is not in our system!"))));
+			stage.show();
+		}
 	}
 
 	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
 		return vBox;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setItemsInSearchResultTableView(ObservableList<Composition> observableCompositionList) {
+		TableColumn<Composition, String> composerColumn = createComposerColumn();
+		TableColumn<Composition, String> titleColumn = createTitleColumn();
+		TableColumn<Composition, Boolean> actionColumn = createActionColumn();
+		searchTable.setItems(observableCompositionList);
+		searchTable.getColumns().addAll(composerColumn, titleColumn, actionColumn);
+		searchTable.getColumns().addListener(new ListChangeListener<Object>() {
+			public boolean suspended;
+
+			@Override
+			public void onChanged(Change<?> change) {
+				change.next();
+				if (change.wasReplaced() && !suspended) {
+					this.suspended = true;
+					searchTable.getColumns().setAll(composerColumn, titleColumn, actionColumn);
+					this.suspended = false;
+				}
+			}
+		});
+	}
+
+	private TableColumn<Composition, Boolean> createActionColumn() {
+		TableColumn<Composition, Boolean> actionColumn = new TableColumn<>("Action");
+		actionColumn.setSortable(false);
+		createButtonBooleanProperty(actionColumn);
+		createButtonClass(actionColumn);
+		return actionColumn;
+	}
+
+	private void createButtonClass(TableColumn<Composition, Boolean> actionColumn) {
+		actionColumn.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Composition, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Composition, Boolean> p) {
+						return new SimpleBooleanProperty(p.getValue() != null);
+					}
+				});
+	}
+
+	private void createButtonBooleanProperty(TableColumn<Composition, Boolean> actionColumn) {
+		actionColumn.setCellFactory(new Callback<TableColumn<Composition, Boolean>, TableCell<Composition, Boolean>>() {
+			@Override
+			public TableCell<Composition, Boolean> call(TableColumn<Composition, Boolean> p) {
+				ButtonCell cell = new ButtonCell(searchTable);
+				return cell;
+			}
+		});
+	}
+
+	private TableColumn<Composition, String> createComposerColumn() {
+		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
+		composerColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("composer"));
+		composerColumn.setMinWidth(150);
+		return composerColumn;
+	}
+
+	private TableColumn<Composition, String> createTitleColumn() {
+		TableColumn<Composition, String> titleColumn = new TableColumn<>("Title");
+		titleColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
+		titleColumn.setMinWidth(400);
+		return titleColumn;
+	}
+
+	private void setSearchVBox() {
+		VBox searchVBox = new VBox();
+		searchVBox.setSpacing(15);
+		logoLabel.setGraphic(new ImageView(logo));
+		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel,
+				legalText);
+		searchVBox.setAlignment(Pos.CENTER);
+		searchTab.setContent(searchVBox);
+	}
+	
+	private class ButtonCell extends TableCell<Composition, Boolean> {	
+		private TableView<Composition> resultsTable;
+		private Composition selectedRecord;
+		
+		Button cellButton = new Button("Add to List");
+		ButtonCell(TableView<Composition> resultsTable) {
+			this.resultsTable = resultsTable;
+			cellButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					setSelectedComposition();
+					Composition selectedComposition = getSelectedComposition();
+					updateDocument(selectedComposition);
+					refreshRepertoireTable(selectedComposition);
+					showPopInformingUserThatTheCompositionIsAdded(selectedComposition);
+				}
+			});
+		}
+
+		public Composition getSelectedComposition() {		
+			return selectedRecord;
+		}
+		
+
+		private void refreshRepertoireTable(Composition selectedRecord) {
+			observableRepertoireListOfCompositions.add(selectedRecord);
+			repertoireTable.setItems(null);
+			repertoireTable.layout();
+			repertoireTable.setItems(observableRepertoireListOfCompositions);
+		}
+		
+		private void setSelectedComposition(){
+			int selectdIndex = getTableRow().getIndex();
+			this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
+		
+		}
+
+		private void updateDocument(Composition selectedRecord) {
+			DocumentUpdater updater = new DocumentUpdater(selectedRecord);
+			Document updatedDocument = updater.getDocument();
+			new XMLWriter(updatedDocument);
+		}
+
+		private void showPopInformingUserThatTheCompositionIsAdded(Composition selectedRecord) {
+			Stage stage = new Stage();
+			stage.setScene(new Scene(
+					new Group(new Text(25, 25, selectedRecord.getTitle() + " has been added to your Repertoire List!"))));
+			stage.show();
+		}
+
+		@Override
+		protected void updateItem(Boolean t, boolean empty) {
+			super.updateItem(t, empty);
+			if (!empty) {
+				setGraphic(cellButton);
+			}
+		}
 	}
 }

@@ -3,8 +3,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.Composition.Builder;
-
 public class CompositionTest {
 	
 	String composer = "Antoine Foqueray";
@@ -12,10 +10,10 @@ public class CompositionTest {
 	
 	@Test
 	public void testProducesComposition() {
-		assertTrue(new Builder().byComposer(composer).withTitle(title) instanceof Composition);
+		assertTrue(Composition.byComposer(composer).withTitle(title) instanceof Composition);
 	}
 	
-	Composition current = new Builder().byComposer(composer).withTitle(title);
+	Composition current = Composition.byComposer(composer).withTitle(title);
 	
 	@Test
 	public void testComposer() {

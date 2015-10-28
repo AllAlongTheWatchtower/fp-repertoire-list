@@ -63,7 +63,7 @@ public class DocumentUpdater {
 		try {
 			compositionsNode = (Node) pathway.evaluate(repertoireListAsDocument, XPathConstants.NODE);
 		} catch (XPathExpressionException e) {
-			new Exception("Error!  Try Again!");
+			new ExceptionHandler("Error!  Try Again!");
 		}
     	return compositionsNode;
     }
@@ -75,7 +75,7 @@ public class DocumentUpdater {
 		try {
 			pathway = xpath.compile(path);
 		} catch (XPathExpressionException e) {
-			new Exception("System error!  Try Again.");
+			new ExceptionHandler("System error!  Try Again.");
 		}
     	return pathway;
     }

@@ -1,11 +1,29 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-public class Composition {
-	private String composer;
-	private String title;
+public final class Composition {
+	public static Builder byComposer(String composer){
+			return new Builder(composer);
+		}
+	
+	public static final class Builder {
+		private String composer;
+		private String titleToAdd;
+
+		public Builder(String composer) {
+			this.composer = composer;
+		}
+		
+		public Composition withTitle(String titleToAdd) {
+			this.titleToAdd = titleToAdd;
+			return new Composition(this);
+		}
+	}	
+	
+	private final String composer;
+	private final String title;
 
 	public Composition(Builder builder) {
-		this.composer = builder.composerToAdd;
+		this.composer = builder.composer;
 		this.title = builder.titleToAdd;
 	}
 	
@@ -15,24 +33,5 @@ public class Composition {
 	
 	public String getTitle() {
 		return this.title;
-	}
-	
-	public static final class Builder {
-		private String composerToAdd;
-		private String titleToAdd;
-
-		public Builder() {
-			
-		}
-		
-		public Builder byComposer(String composerToAdd){
-			this.composerToAdd = composerToAdd;
-			return this;
-		}
-
-		public Composition withTitle(String titleToAdd) {
-			this.titleToAdd = titleToAdd;
-			return new Composition(this);
-		}
-	}
+	}	
 }

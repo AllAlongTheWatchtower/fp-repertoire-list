@@ -49,7 +49,7 @@ public class Parser {
 	private Composition createComposition(Node currentNode) {			
 		String composer = currentNode.getPreviousSibling().getTextContent();
 		String title = currentNode.getTextContent();
-		Composition composition = new Composition.Builder().byComposer(composer).withTitle(title);
+		Composition composition = Composition.byComposer(composer).withTitle(title);
 		return composition;
 	}
 	
@@ -65,7 +65,7 @@ public class Parser {
 		try {
 			compositionsNode = (Node) pathway.evaluate(searchResults, XPathConstants.NODE);
 		} catch (XPathExpressionException e) {
-			new Exception("System Error: please try again!");
+			new ExceptionHandler("System error!  Please try again.");
 		}
     	return compositionsNode;
     }
@@ -77,7 +77,7 @@ public class Parser {
 		try {
 			pathway = xpath.compile(path);
 		} catch (XPathExpressionException e) {
-			new Exception("System error!  Try Again.");
+			new ExceptionHandler("System error!  Please try again.");
 		}
     	return pathway;
     }

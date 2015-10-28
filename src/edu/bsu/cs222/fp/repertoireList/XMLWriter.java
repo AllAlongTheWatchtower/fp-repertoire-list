@@ -11,24 +11,24 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 
 public class XMLWriter {
-	
+
 	private final String xmlFile = "RepertoireListData/RepertoireList.xml";
 	private Document repertoireListAsDocument;
-	
-	public XMLWriter(Document repertoireList) {	
-        this.repertoireListAsDocument = repertoireList;
-        try {
+
+	public XMLWriter(Document repertoireList) {
+		this.repertoireListAsDocument = repertoireList;
+		try {
 			writeChangesToXmlFile();
 		} catch (Exception e) {
-			new Exception("Error!  Try again!");
+			new ExceptionHandler("System error!  Please try again.");
 		}
-    }
-    
-    private void writeChangesToXmlFile() throws TransformerException {
-    	TransformerFactory transformerFactory = TransformerFactory.newInstance();  
-    	Transformer transformer = transformerFactory.newTransformer();  
-    	DOMSource domSource = new DOMSource(repertoireListAsDocument);  
-    	StreamResult streamResult = new StreamResult(new File(xmlFile));  
-    	transformer.transform(domSource, streamResult);  
-    }
-}    
+	}
+
+	private void writeChangesToXmlFile() throws TransformerException {
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource domSource = new DOMSource(repertoireListAsDocument);
+		StreamResult streamResult = new StreamResult(new File(xmlFile));
+		transformer.transform(domSource, streamResult);
+	}
+}
