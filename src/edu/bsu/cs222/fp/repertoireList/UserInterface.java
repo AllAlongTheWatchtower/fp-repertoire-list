@@ -56,18 +56,44 @@ public class UserInterface extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		welcomeText.setFont(new Font("Arial", 20));
-		setTabsClosable();
 		TabPane tabPane = new TabPane();
 		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
-		setRepertoireListTable();
-		setSearchButtonAction(tabPane);
-		setTheEnterKeyAction(tabPane);
-		setSearchVBox();
+		setWindow(tabPane);
 		Scene scene = new Scene(tabPane, 680, 530);
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	private void setWindow(TabPane tabPane) {
+		setTabsClosable();
+		welcomeText.setFont(new Font("Arial", 20));
+		setRepertoireListTable();
+		setSearchVBox();
+		setActionForButtons(tabPane);
+	}
+
+	private ObservableList<Composition> makeObservableList(Document results) {
+		Parser parser = new Parser(results);
+		ArrayList<Composition> arrayListOfCompositions = parser.getListOfCompositions();
+		informUserIfThereAreNoSearchResults(arrayListOfCompositions);
+		ObservableList<Composition> observableListOfCompositions = FXCollections
+				.observableArrayList(arrayListOfCompositions);
+		return observableListOfCompositions;
+	}
+
+	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
+		if (arrayListOfCompositions.isEmpty()) {
+			Stage stage = new Stage();
+			stage.setScene(new Scene(new Group(new Text(25, 25, "Sorry, that composer is not in our system!"))));
+			stage.show();
+		}
+	}
+
+	private Document getRepertoireListDocument() {
+		XMLToDocumentConverter converter = new XMLToDocumentConverter("RepertoireList.xml");
+		Document convertedDocument = converter.getDocument();
+		return convertedDocument;
 	}
 
 	private void setTabsClosable() {
@@ -81,21 +107,9 @@ public class UserInterface extends Application {
 		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 	}
 
-	private Document getRepertoireListDocument() {
-		XMLToDocumentConverter converter = new XMLToDocumentConverter("RepertoireList.xml");
-		Document convertedDocument = converter.getDocument();
-		return convertedDocument;
-	}
-
-	private ObservableList<Composition> makeObservableList(Document results) {
-		Parser parser = new Parser(results);
-		ArrayList<Composition> arrayListOfCompositions = parser.getListOfCompositions();
-		informUserIfThereAreNoSearchResults(arrayListOfCompositions);
-		ObservableList<Composition> observableListOfCompositions = FXCollections
-				.observableArrayList(arrayListOfCompositions);
-		return observableListOfCompositions;
-	}
-
+	// Creates warning when inserting any column because of it creating varargs
+	// with what is sent though the parameter, yet this is the way the Oracle
+	// says to insert them.
 	@SuppressWarnings("unchecked")
 	private void setItemsInRepertoireTableView() {
 		TableColumn<Composition, String> composerColumn = createComposerColumn();
@@ -115,6 +129,41 @@ public class UserInterface extends Application {
 				}
 			}
 		});
+	}
+
+	private TableColumn<Composition, String> createComposerColumn() {
+		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
+		composerColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("composer"));
+		composerColumn.setMinWidth(150);
+		return composerColumn;
+	}
+
+	private TableColumn<Composition, String> createTitleColumn() {
+		TableColumn<Composition, String> titleColumn = new TableColumn<>("Title");
+		titleColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
+		titleColumn.setMinWidth(400);
+		return titleColumn;
+	}
+
+	private VBox createNewVBoxWithTable(TableView<Composition> table) {
+		VBox vBox = new VBox();
+		vBox.getChildren().add(table);
+		return vBox;
+	}
+
+	private void setSearchVBox() {
+		VBox searchVBox = new VBox();
+		searchVBox.setSpacing(15);
+		logoLabel.setGraphic(new ImageView(logo));
+		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel,
+				legalText);
+		searchVBox.setAlignment(Pos.CENTER);
+		searchTab.setContent(searchVBox);
+	}
+
+	private void setActionForButtons(TabPane tabPane) {
+		setSearchButtonAction(tabPane);
+		setTheEnterKeyAction(tabPane);
 	}
 
 	private void setSearchButtonAction(TabPane tabPane) {
@@ -158,20 +207,9 @@ public class UserInterface extends Application {
 		return searchResults;
 	}
 
-	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
-		if (arrayListOfCompositions.isEmpty()) {
-			Stage stage = new Stage();
-			stage.setScene(new Scene(new Group(new Text(25, 25, "Sorry, that composer is not in our system!"))));
-			stage.show();
-		}
-	}
-
-	private VBox createNewVBoxWithTable(TableView<Composition> table) {
-		VBox vBox = new VBox();
-		vBox.getChildren().add(table);
-		return vBox;
-	}
-
+	// Creates warning when inserting any column because of it creating varargs
+	// with what is sent though the parameter, yet this is the way the Oracle
+	// says to insert them.
 	@SuppressWarnings("unchecked")
 	private void setItemsInSearchResultTableView(ObservableList<Composition> observableCompositionList) {
 		TableColumn<Composition, String> composerColumn = createComposerColumn();
@@ -216,41 +254,17 @@ public class UserInterface extends Application {
 		actionColumn.setCellFactory(new Callback<TableColumn<Composition, Boolean>, TableCell<Composition, Boolean>>() {
 			@Override
 			public TableCell<Composition, Boolean> call(TableColumn<Composition, Boolean> p) {
-				ButtonCell cell = new ButtonCell(searchTable);
-				return cell;
+				return new ButtonCell(searchTable);
 			}
 		});
 	}
 
-	private TableColumn<Composition, String> createComposerColumn() {
-		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
-		composerColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("composer"));
-		composerColumn.setMinWidth(150);
-		return composerColumn;
-	}
-
-	private TableColumn<Composition, String> createTitleColumn() {
-		TableColumn<Composition, String> titleColumn = new TableColumn<>("Title");
-		titleColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
-		titleColumn.setMinWidth(400);
-		return titleColumn;
-	}
-
-	private void setSearchVBox() {
-		VBox searchVBox = new VBox();
-		searchVBox.setSpacing(15);
-		logoLabel.setGraphic(new ImageView(logo));
-		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel,
-				legalText);
-		searchVBox.setAlignment(Pos.CENTER);
-		searchTab.setContent(searchVBox);
-	}
-	
-	private class ButtonCell extends TableCell<Composition, Boolean> {	
+	private class ButtonCell extends TableCell<Composition, Boolean> {
 		private TableView<Composition> resultsTable;
 		private Composition selectedRecord;
-		
+
 		Button cellButton = new Button("Add to List");
+
 		ButtonCell(TableView<Composition> resultsTable) {
 			this.resultsTable = resultsTable;
 			cellButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -265,10 +279,9 @@ public class UserInterface extends Application {
 			});
 		}
 
-		public Composition getSelectedComposition() {		
+		public Composition getSelectedComposition() {
 			return selectedRecord;
 		}
-		
 
 		private void refreshRepertoireTable(Composition selectedRecord) {
 			observableRepertoireListOfCompositions.add(selectedRecord);
@@ -276,11 +289,10 @@ public class UserInterface extends Application {
 			repertoireTable.layout();
 			repertoireTable.setItems(observableRepertoireListOfCompositions);
 		}
-		
-		private void setSelectedComposition(){
+
+		private void setSelectedComposition() {
 			int selectdIndex = getTableRow().getIndex();
 			this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
-		
 		}
 
 		private void updateDocument(Composition selectedRecord) {
@@ -291,8 +303,8 @@ public class UserInterface extends Application {
 
 		private void showPopInformingUserThatTheCompositionIsAdded(Composition selectedRecord) {
 			Stage stage = new Stage();
-			stage.setScene(new Scene(
-					new Group(new Text(25, 25, selectedRecord.getTitle() + " has been added to your Repertoire List!"))));
+			stage.setScene(new Scene(new Group(
+					new Text(25, 25, selectedRecord.getTitle() + " has been added to your Repertoire List!"))));
 			stage.show();
 		}
 
