@@ -11,7 +11,7 @@ public class URLFactory {
 		try {
 			encodedQuery = URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("message");
+			new ExceptionHandler("System error!  Please try again.");
 		}
 		url =  "http://developer.echonest.com/api/v4/song/search?api_key=NDVFILMAVOOY8ITWS&artist=" + encodedQuery + "&format=xml&results=100";
 	}
