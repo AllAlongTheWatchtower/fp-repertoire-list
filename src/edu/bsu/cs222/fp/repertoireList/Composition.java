@@ -1,5 +1,11 @@
 package edu.bsu.cs222.fp.repertoireList;
 
+/**
+ * Holds the info for the composition
+ * 
+ * @author Ari
+ *
+ */
 public final class Composition {
 	public static Builder byComposer(String composer){
 			return new Builder(composer);

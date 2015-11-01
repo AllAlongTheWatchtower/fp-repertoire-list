@@ -5,15 +5,9 @@ import org.junit.Test;
 
 public class CompositionTest {
 	
-	String composer = "Antoine Foqueray";
-	String title = "Jupiter";
-	
-	@Test
-	public void testProducesComposition() {
-		assertTrue(Composition.byComposer(composer).withTitle(title) instanceof Composition);
-	}
-	
-	Composition current = Composition.byComposer(composer).withTitle(title);
+	private String composer = "Antoine Foqueray";
+	private String title = "Jupiter";
+	private Composition current = Composition.byComposer(composer).withTitle(title);
 	
 	@Test
 	public void testComposer() {

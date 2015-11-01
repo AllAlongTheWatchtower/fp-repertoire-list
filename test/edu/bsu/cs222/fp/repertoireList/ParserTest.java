@@ -4,15 +4,22 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
 public class ParserTest {
 	
-	String composer = "Antoine Forqueray";
-	XMLToDocumentConverter converter = new XMLToDocumentConverter("sample.xml");
-	Document document = converter.getDocument();
-	Parser parser = new Parser(document);
+	private XMLToDocumentConverter converter;
+	private Document document;
+	private Parser parser;
+	
+	@Before 
+	public void initialize() {
+		converter = new XMLToDocumentConverter("sample.xml");
+		document = converter.getDocument();
+		parser = new Parser(document);
+	}
 	
 	@Test
 	public void testReadXmlDocumentFromFile() {
