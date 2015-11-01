@@ -8,6 +8,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -15,13 +16,22 @@ import org.w3c.dom.Node;
 public class DocumentUpdaterTest {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
 
-	XMLToDocumentConverter converter = new XMLToDocumentConverter("RepertoireList.xml");
-	Document beforeDocument = converter.getDocument();
-	int numOfCompositionsBefore = getSongsNode(beforeDocument).getChildNodes().getLength();
-
-	Composition testComposition = Composition.byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
-	DocumentUpdater updater = new DocumentUpdater(testComposition);
-	Document afterDocument = updater.getDocument();
+	private XMLToDocumentConverter converter;
+	private Document beforeDocument;
+	private int numOfCompositionsBefore;
+	private Composition testComposition;
+	private DocumentUpdater updater;
+	Document afterDocument;
+	
+	@Before 
+	public void initialize () {
+		converter = new XMLToDocumentConverter("RepertoireList.xml");
+		beforeDocument = converter.getDocument();
+		numOfCompositionsBefore = getSongsNode(beforeDocument).getChildNodes().getLength();
+		testComposition = Composition.byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
+		updater = new DocumentUpdater(testComposition);
+		afterDocument = updater.getDocument();
+	}
 
 	@Test
 	public void testReturnsDocument() {

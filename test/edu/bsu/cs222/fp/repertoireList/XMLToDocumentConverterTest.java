@@ -6,13 +6,21 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
 public class XMLToDocumentConverterTest {
-	XMLToDocumentConverter converter = new XMLToDocumentConverter("sample.xml");
-	Document document = converter.getDocument();
-	Parser parser = new Parser(document);
+	private XMLToDocumentConverter converter;
+	private Document document;
+	private Parser parser = new Parser(document);
+	
+	@Before 
+	public void initialize() {
+		converter = new XMLToDocumentConverter("sample.xml");
+		document = converter.getDocument();
+		parser = new Parser(document);
+	}
 	
 	@Test
 	public void testReadXmlDocumentFromFile() {
