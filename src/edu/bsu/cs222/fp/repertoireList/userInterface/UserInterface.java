@@ -1,7 +1,15 @@
-package edu.bsu.cs222.fp.repertoireList;
+package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import java.util.ArrayList;
 import org.w3c.dom.Document;
+
+import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
+import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
+import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;

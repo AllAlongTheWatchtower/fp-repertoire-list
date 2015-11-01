@@ -1,7 +1,9 @@
-package edu.bsu.cs222.fp.repertoireList;
+package edu.bsu.cs222.fp.repertoireList.network;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;                          
+import java.net.URLEncoder;
+
+import edu.bsu.cs222.fp.repertoireList.dataHandling.ExceptionHandler;                          
 
 public class URLFactory {
 	private String url;

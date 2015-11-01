@@ -13,6 +13,10 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
+
 public class DocumentUpdaterTest {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
 

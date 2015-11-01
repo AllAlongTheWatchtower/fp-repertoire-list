@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
+
 public class URLFactoryTest {
 	
 	@Test
