@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList;
+package edu.bsu.cs222.fp.repertoireList.dataHandling;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

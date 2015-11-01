@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
+import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
+
 public class DatabaseConnectorTest {
 	
 	private DatabaseConnector connection;

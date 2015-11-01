@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList;
+package edu.bsu.cs222.fp.repertoireList.network;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +10,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import edu.bsu.cs222.fp.repertoireList.dataHandling.ExceptionHandler;
 
 public class DatabaseConnector {
 	private Document listOfCompositions;
