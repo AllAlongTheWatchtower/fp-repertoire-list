@@ -17,7 +17,7 @@ import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 public class XMLToDocumentConverterTest {
 	private XMLToDocumentConverter converter;
 	private Document document;
-	private Parser parser = new Parser(document);
+	private Parser parser;
 	
 	@Before 
 	public void initialize() {
