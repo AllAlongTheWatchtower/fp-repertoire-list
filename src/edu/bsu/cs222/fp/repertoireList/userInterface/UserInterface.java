@@ -45,6 +45,8 @@ public class UserInterface extends Application {
 		launch(args);
 	}
 
+	private final String apiKey = "NDVFILMAVOOY8ITWS";
+	
 	private Tab searchTab = new Tab("Search");
 	private Tab resultsTab = new Tab("Search Results");
 	private Tab listTab = new Tab("Repertoire List");
@@ -208,8 +210,8 @@ public class UserInterface extends Application {
 
 	private Document getSearchResults() {
 		String composer = inputField.getText();
-		URLFactory urlMaker = new URLFactory(composer);
-		String url = urlMaker.getURL();
+		URLFactory urlMaker = new URLFactory(apiKey);
+		String url = urlMaker.createURLForSearchTerm(composer);
 		DatabaseConnector connection = new DatabaseConnector(url);
 		Document searchResults = connection.getListOfCompositions();
 		return searchResults;
