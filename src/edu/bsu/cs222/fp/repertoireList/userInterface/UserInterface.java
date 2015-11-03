@@ -1,11 +1,13 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import java.util.ArrayList;
+
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.WarningDialog;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
@@ -94,9 +96,7 @@ public class UserInterface extends Application {
 
 	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
 		if (arrayListOfCompositions.isEmpty()) {
-			Stage stage = new Stage();
-			stage.setScene(new Scene(new Group(new Text(25, 25, "Sorry, that composer is not in our system!"))));
-			stage.show();
+			new WarningDialog("Sorry, that composer is not in our system!");
 		}
 	}
 
@@ -210,13 +210,19 @@ public class UserInterface extends Application {
 
 	private Document getSearchResults() {
 		String composer = inputField.getText();
-		URLFactory urlMaker = new URLFactory(apiKey);
-		String url = urlMaker.createURLForSearchTerm(composer);
-		DatabaseConnector connection = new DatabaseConnector(url);
-		Document searchResults = connection.getListOfCompositions();
+		DatabaseConnector connection;
+		Document searchResults = null;
+		try {
+			URLFactory urlMaker = new URLFactory(apiKey);
+			String url = urlMaker.createURLForSearchTerm(composer);
+			connection = new DatabaseConnector(url);
+			searchResults = connection.getListOfCompositions();
+		} catch (RuntimeException e) {
+			new WarningDialog("Could not connect to the database.  Please check your network connect!");
+		}
 		return searchResults;
 	}
-
+	
 	// Creates warning when inserting any column because of it creating varargs
 	// with what is sent though the parameter, yet this is the way the Oracle
 	// says to insert them.
@@ -326,4 +332,6 @@ public class UserInterface extends Application {
 			}
 		}
 	}
+	
+	
 }

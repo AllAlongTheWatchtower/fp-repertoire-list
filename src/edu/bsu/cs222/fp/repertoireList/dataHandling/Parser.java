@@ -65,7 +65,7 @@ public class Parser {
 		try {
 			compositionsNode = (Node) pathway.evaluate(searchResults, XPathConstants.NODE);
 		} catch (XPathExpressionException e) {
-			new ExceptionHandler("System error!  Please try again.");
+			throw new RuntimeException(e);
 		}
     	return compositionsNode;
     }
@@ -77,7 +77,7 @@ public class Parser {
 		try {
 			pathway = xpath.compile(path);
 		} catch (XPathExpressionException e) {
-			new ExceptionHandler("System error!  Please try again.");
+			throw new RuntimeException(e);
 		}
     	return pathway;
     }

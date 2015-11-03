@@ -11,8 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.ExceptionHandler;
-
 public class DatabaseConnector {
 	private Document listOfCompositions;
 	
@@ -21,9 +19,8 @@ public class DatabaseConnector {
 			URLConnection connection = connectToDatabase(webAddress);
 			Document document = readXMLDocumentFrom(connection);
 			this.listOfCompositions = document;
-		}
-		catch (Exception e) {
-			new ExceptionHandler("Problem connecting to Music Database!  Try again.");
+		} catch (IOException | ParserConfigurationException | SAXException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	
