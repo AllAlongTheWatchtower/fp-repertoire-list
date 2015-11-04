@@ -17,7 +17,7 @@ public class XMLToDocumentConverter {
 		try {
 			convertedXML = readXMLDocumentFromFile(inputFile);
 		} catch (Exception e) {
-			new ExceptionHandler("System error!  Please try again.");
+			throw new RuntimeException(e);
 		}
 	}
 	

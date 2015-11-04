@@ -20,7 +20,7 @@ public class XMLWriter {
 		try {
 			writeChangesToXmlFile();
 		} catch (Exception e) {
-			new ExceptionHandler("System error!  Please try again.");
+			throw new RuntimeException(e);
 		}
 	}
 

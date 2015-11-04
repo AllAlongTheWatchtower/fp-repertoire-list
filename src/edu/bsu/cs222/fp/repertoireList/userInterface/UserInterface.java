@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.WarningDialog;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
@@ -314,9 +313,13 @@ public class UserInterface extends Application {
 		private void updateDocument(Composition selectedRecord) {
 			DocumentUpdater updater = new DocumentUpdater(selectedRecord);
 			Document updatedDocument = updater.getDocument();
-			new XMLWriter(updatedDocument);
+			try {
+				new XMLWriter(updatedDocument);
+			} catch (RuntimeException e){
+				new WarningDialog("System Error: could not add piece to your repertoire list.  Try again!");
+			}
 		}
-
+			
 		private void showPopInformingUserThatTheCompositionIsAdded(Composition selectedRecord) {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(new Group(
@@ -332,6 +335,4 @@ public class UserInterface extends Application {
 			}
 		}
 	}
-	
-	
 }

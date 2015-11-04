@@ -51,7 +51,7 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 			updatedDocument = updater.getDocument();
 			new XMLWriter(updatedDocument);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			new WarningDialog("System error!  Cannot add this piece to your repertoire list.  Try again.");
 		}
 	}
 

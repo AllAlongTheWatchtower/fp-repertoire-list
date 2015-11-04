@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataHandling;
+package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
