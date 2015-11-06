@@ -15,18 +15,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -82,14 +82,25 @@ public class UserInterface extends Application {
 
 	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
 		if (arrayListOfCompositions.isEmpty()) {
-			Stage stage = new Stage();
-			stage.setScene(new Scene(new Group(new Text(25, 25, "Sorry, that composer is not in our system!"))));
-			stage.show();
+			messageDialog();
 		}
+	}
+	
+	private void messageDialog () {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Sorry!");
+		alert.setHeaderText("Sorry!");
+		alert.setContentText("That composer is not in our system!");
+		alert.showAndWait();
 	}
 
 	private Document getRepertoireListDocument() {
-		XMLToDocumentConverter converter = new XMLToDocumentConverter("RepertoireList.xml");
+		XMLToDocumentConverter converter = null;
+		try {
+			converter = new XMLToDocumentConverter("RepertoireList.xml");
+		} catch (RuntimeException e) {
+			new WarningDialog("System error: try again!");
+		}
 		Document convertedDocument = converter.getDocument();
 		return convertedDocument;
 	}
