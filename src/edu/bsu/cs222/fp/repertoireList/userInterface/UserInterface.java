@@ -163,9 +163,14 @@ public class UserInterface extends Application {
 
 	private Document getSearchResults() {
 		String composer = inputField.getText();
-		URLFactory urlMaker = new URLFactory(apiKey);
-		String url = urlMaker.createURLForSearchTerm(composer);
-		DatabaseConnector connection = new DatabaseConnector(url);
+		DatabaseConnector connection = null;
+		try {
+			URLFactory urlMaker = new URLFactory(apiKey);
+			String url = urlMaker.createURLForSearchTerm(composer);
+			connection = new DatabaseConnector(url);
+		} catch (RuntimeException e) {
+			new WarningDialog("Sorry!  Could not connect with music database.  Try again!");
+		}
 		Document searchResults = connection.getListOfCompositions();
 		return searchResults;
 	}
@@ -187,5 +192,4 @@ public class UserInterface extends Application {
 		repertoireTable.layout();
 		repertoireTable.setItems(makeObservableList(getRepertoireListDocument()));
 	}
-
 }

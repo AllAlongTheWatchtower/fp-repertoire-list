@@ -44,9 +44,15 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 	}
 
 	private void updateDocument(Composition selectedRecord) {
-		DocumentUpdater updater = new DocumentUpdater(selectedRecord);
-		Document updatedDocument = updater.getDocument();
-		new XMLWriter(updatedDocument);
+		DocumentUpdater updater;
+		Document updatedDocument;
+		try {
+			updater = new DocumentUpdater(selectedRecord);
+			updatedDocument = updater.getDocument();
+			new XMLWriter(updatedDocument);
+		} catch (Exception e) {
+			new WarningDialog("System error!  Cannot add this piece to your repertoire list.  Try again.");
+		}
 	}
 
 	private void showPopInformingUserThatTheCompositionIsAdded(Composition selectedRecord) {
