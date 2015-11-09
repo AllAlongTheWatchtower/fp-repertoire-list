@@ -200,7 +200,6 @@ public class UserInterface extends Application {
 
 	private void refreshRepertoireTable() {
 		repertoireTable.setItems(null);
-		repertoireTable.layout();
-		repertoireTable.setItems(makeObservableList(getRepertoireListDocument()));
+		setRepertoireListTable();
 	}
 }
