@@ -10,6 +10,7 @@ public class CompositionTest {
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
 	private Composition current = Composition.byComposer(composer).withTitle(title);
+	private Composition other = Composition.byComposer(composer).withTitle(title);
 	
 	@Test
 	public void testComposer() {
@@ -19,5 +20,10 @@ public class CompositionTest {
 	@Test
 	public void testTitle() {
 		assertEquals(title, current.getTitle());		
+	}
+	
+	@Test
+	public void testEqualsFunction() {
+		assertTrue(current.equals(other));
 	}
 }

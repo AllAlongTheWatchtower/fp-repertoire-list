@@ -9,8 +9,6 @@ import javafx.scene.control.TableView;
 public class RepertoireListTable extends Table {
 	private TableView<Composition> repertoireTable = new TableView<Composition>();
 	private ObservableList<Composition> observableRepertoireListOfCompositions;
-
-	
 	
 	public RepertoireListTable(ObservableList<Composition> list){
 		observableRepertoireListOfCompositions = list;
@@ -29,7 +27,6 @@ public class RepertoireListTable extends Table {
 		return observableRepertoireListOfCompositions;
 		
 	}
-	
 	
 	// Creates warning when inserting any column because of it creating varargs
 	// with what is sent though the parameter, yet this is the way the Oracle

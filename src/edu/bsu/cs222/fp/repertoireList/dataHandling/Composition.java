@@ -33,5 +33,9 @@ public final class Composition {
 	
 	public String getTitle() {
 		return this.title;
-	}	
+	}
+	
+	public boolean equals(Composition other){
+		return (composer.equals(other.getComposer())&&title.equals(other.getTitle()));
+	}
 }

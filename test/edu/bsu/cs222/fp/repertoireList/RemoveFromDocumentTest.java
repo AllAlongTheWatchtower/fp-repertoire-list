@@ -1,6 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -13,39 +13,36 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import edu.bsu.cs222.fp.repertoireList.dataHandling.AddToDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 
-public class DocumentUpdaterTest {
+public class RemoveFromDocumentTest {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
-
+	
 	private XMLToDocumentConverter converter;
 	private Document beforeDocument;
 	private int numOfCompositionsBefore;
 	private Composition testComposition;
-	private DocumentUpdater updater;
+	private AddToDocument updater;
 	Document afterDocument;
 	
 	@Before 
 	public void initialize () {
-		converter = new XMLToDocumentConverter("RepertoireList.xml");
+		converter = new XMLToDocumentConverter("sampleRepertoireList.xml");
 		beforeDocument = converter.getDocument();
 		numOfCompositionsBefore = getSongsNode(beforeDocument).getChildNodes().getLength();
 		testComposition = Composition.byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
-		updater = new DocumentUpdater(testComposition);
+		updater = new AddToDocument("sampleRepertoireList.xml");
+		updater.addComposition(testComposition); 
 		afterDocument = updater.getDocument();
 	}
-
-	@Test
-	public void testReturnsDocument() {
-		assertNotNull(afterDocument.getDocumentElement());
-	}
-
-	@Test
-	public void getNewestAddition() {
+	
+	@Test 
+	public void removeNewestAddition() {
+		updater.removeComposition(testComposition);
 		int numOfCompositionsAfter = getSongsNode(afterDocument).getChildNodes().getLength();
-		assertEquals(numOfCompositionsBefore + 1, numOfCompositionsAfter);
+		assertEquals(numOfCompositionsBefore, numOfCompositionsAfter);
 	}
 
 	private Node getSongsNode(Document document) {

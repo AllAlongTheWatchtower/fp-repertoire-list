@@ -2,18 +2,16 @@ package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import org.w3c.dom.Document;
 
+import edu.bsu.cs222.fp.repertoireList.dataHandling.AddToDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.DocumentUpdater;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
 
 public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 	private TableView<Composition> resultsTable;
@@ -28,8 +26,7 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 			public void handle(ActionEvent t) {
 				setSelectedComposition();
 				Composition selectedComposition = getSelectedComposition();
-				updateDocument(selectedComposition);
-				showPopInformingUserThatTheCompositionIsAdded(selectedComposition);
+				addToDocument(selectedComposition);
 			}
 		});
 	}
@@ -43,11 +40,18 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 		this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
-	private void updateDocument(Composition selectedRecord) {
-		DocumentUpdater updater;
+	private void addToDocument(Composition selectedRecord) {
+		AddToDocument updater = null;
 		Document updatedDocument;
 		try {
-			updater = new DocumentUpdater(selectedRecord);
+			updater = new AddToDocument("RepertoireList.xml");
+			updater.addComposition(selectedRecord);
+			 if (updater.compositionAdded()) {
+				 messageDialog(selectedRecord.getTitle() + " has been added to your Repertoire List!");
+			 }
+			 else {
+				 messageDialog(selectedRecord.getTitle() + " is already in your Repertoire List!");
+			 }
 			updatedDocument = updater.getDocument();
 			new XMLWriter(updatedDocument);
 		} catch (Exception e) {
@@ -55,13 +59,14 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 		}
 	}
 
-	private void showPopInformingUserThatTheCompositionIsAdded(Composition selectedRecord) {
-		Stage stage = new Stage();
-		stage.setScene(new Scene(new Group(
-				new Text(25, 25, selectedRecord.getTitle() + " has been added to your Repertoire List!"))));
-		stage.show();
+	private void messageDialog(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Alert!");
+		alert.setHeaderText("Alert!");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
-
+	
 	@Override
 	protected void updateItem(Boolean t, boolean empty) {
 		super.updateItem(t, empty);

@@ -1,5 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.dataHandling;
 
+import java.util.ArrayList;
+
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -7,55 +9,63 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.Text;
 
-public class DocumentUpdater {
+public class RemoveFromDocument {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
 	
-	private final String xmlFile = "RepertoireList.xml";
+	private String xmlFile;
 	private Document repertoireListAsDocument;
-	private Composition compositionToAdd;
-
-	public DocumentUpdater(Composition composition) {	
-        setDocument(xmlFile);
-        this.compositionToAdd = composition;
-        addNewComposition();
+	private boolean compositionDeleted = false;
+	
+	public RemoveFromDocument(String xmlFile) {
+		this.xmlFile = xmlFile;
+        setDocument();
 	}
-    
+
 	public Document getDocument() {
 		return this.repertoireListAsDocument;
 	}
 	
-	private void setDocument(String xmlFile) {
+	public boolean compositionDeleted() {
+		return compositionDeleted;
+	}
+	
+	public void removeComposition(Composition toRemove) {
+		if (isDuplicate(toRemove)) {
+			Node songs = getSongsNode();
+			reviewCompositionForRemoval(songs, toRemove);
+		}
+	}
+	
+	private void reviewCompositionForRemoval(Node songs, Composition toRemove) {
+		for (int i = 0; i < songs.getChildNodes().getLength(); i++) {
+			Node current = songs.getChildNodes().item(i);
+			String composer = current.getFirstChild().getTextContent();
+			String title = current.getLastChild().getTextContent();
+			if (toRemove.getComposer().equals(composer) && toRemove.getTitle().equals(title)) {
+				current.getParentNode().removeChild(current);
+				setDocument();
+			}
+		}
+	}
+
+	private boolean isDuplicate(Composition composition) {
+		Parser parser = new Parser(repertoireListAsDocument);
+		ArrayList<Composition> compositions = parser.getListOfCompositions();
+		for (Composition current : compositions) {
+			if (current.equals(composition)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void setDocument() {
         XMLToDocumentConverter converter = new XMLToDocumentConverter(xmlFile);
         Document convertedDocument = converter.getDocument();
         this.repertoireListAsDocument = convertedDocument;		
 	}
-	
-    private void addNewComposition() {
-    	Node songs = getSongsNode();
-    	Element song = repertoireListAsDocument.createElement("song");
-        songs.appendChild(song);
-        addComposer(song);
-        addTitle(song);
-    }
-    
-    
-    private void addComposer(Element elementAdded) {
-    	Element composer = repertoireListAsDocument.createElement("artist_name");    
-    	Text composerData = repertoireListAsDocument.createTextNode(compositionToAdd.getComposer());
-    	elementAdded.appendChild(composer);
-    	composer.appendChild(composerData);
-    }
-    
-    private void addTitle(Element elementAdded) {
-    	Element title = repertoireListAsDocument.createElement("title");
-    	Text titleData = repertoireListAsDocument.createTextNode(compositionToAdd.getTitle());
-    	elementAdded.appendChild(title);    	
-    	title.appendChild(titleData);
-    }
     
     private Node getSongsNode() {
     	XPathExpression pathway = createXPathExpression(PATH_TO_SONGS_ELEMENT);
