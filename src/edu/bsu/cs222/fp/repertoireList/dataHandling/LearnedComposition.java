@@ -9,7 +9,7 @@ public class LearnedComposition {
 	private String withEnsemble;
 	
 	// This field contains the results of a drop-down box and should only
-	// be set to "solo", "ensemble",  "opera", "orchestral", or "other"
+	// be set to "Solo", "Ensemble",  "Opera", "Orchestral", or "Other"
 	private String ensembleType;
 	
 	public LearnedComposition(Composition composition) {
