@@ -173,7 +173,7 @@ public class UserInterface extends Application {
 	}
 
 	private Document getSearchResults() {
-		String composer = inputField.getText();
+		String composer  = inputField.getText();
 		DatabaseConnector connection = null;
 		try {
 			URLFactory urlMaker = new URLFactory(apiKey);
