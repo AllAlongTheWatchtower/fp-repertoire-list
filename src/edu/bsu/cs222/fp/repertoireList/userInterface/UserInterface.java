@@ -173,7 +173,7 @@ public class UserInterface extends Application {
 	}
 
 	private Document getSearchResults() {
-		String composer = inputField.getText();
+		String composer  = inputField.getText();
 		DatabaseConnector connection = null;
 		try {
 			URLFactory urlMaker = new URLFactory(apiKey);
@@ -200,7 +200,6 @@ public class UserInterface extends Application {
 
 	private void refreshRepertoireTable() {
 		repertoireTable.setItems(null);
-		repertoireTable.layout();
-		repertoireTable.setItems(makeObservableList(getRepertoireListDocument()));
+		setRepertoireListTable();
 	}
 }
