@@ -61,7 +61,7 @@ public class UserInterface extends Application {
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
+	} 
 
 	private void setWindow(TabPane tabPane) {
 		setTabsClosable();

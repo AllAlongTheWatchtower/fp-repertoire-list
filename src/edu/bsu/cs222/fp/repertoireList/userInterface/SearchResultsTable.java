@@ -17,7 +17,7 @@ public class SearchResultsTable extends Table {
 
 	public SearchResultsTable(ObservableList<Composition> list) {
 		observableListOfCompositions = list;
-		setItemsInSearchResultTableView();
+		searchTable = createTable(observableListOfCompositions);
 	}
 
 	public TableView<Composition> getSearchTable() {
@@ -28,7 +28,8 @@ public class SearchResultsTable extends Table {
 	// with what is sent though the parameter, yet this is the way the Oracle
 	// says to insert them (Website: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm).
 	@SuppressWarnings("unchecked")
-	private void setItemsInSearchResultTableView() {
+	private TableView<Composition> createTable(ObservableList<Composition> observableListOfCompositions) {
+		searchTable = new TableView<Composition>();
 		TableColumn<Composition, String> composerColumn = createComposerColumn();
 		TableColumn<Composition, String> titleColumn = createTitleColumn();
 		TableColumn<Composition, Boolean> actionColumn = createActionColumn();
@@ -47,8 +48,8 @@ public class SearchResultsTable extends Table {
 				}
 			}
 		});
+		return searchTable;
 	}
-
 
 	private TableColumn<Composition, Boolean> createActionColumn() {
 		TableColumn<Composition, Boolean> actionColumn = new TableColumn<>("Action");
