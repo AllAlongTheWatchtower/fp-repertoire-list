@@ -32,7 +32,8 @@ public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 				alert.setHeaderText("Are you sure you would like to delete that piece from your Repertoire List?");
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK){
-				    System.out.println("You clicked 'Ok'");
+					setSelectedComposition();
+				    updateDocument(selectedRecord);
 				} 
 			}
 		});
@@ -56,7 +57,7 @@ public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 			updatedDocument = updater.getDocument();
 			new XMLWriter(updatedDocument);
 		} catch (Exception e) {
-			new WarningDialog("System error!  Cannot add this piece to your repertoire list.  Try again.");
+			new WarningDialog("System error!  Try again.");
 		}
 	}
 

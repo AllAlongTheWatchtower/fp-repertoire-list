@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.AddToDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.RemoveFromDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 
 public class RemoveFromDocumentTest {
@@ -24,7 +24,7 @@ public class RemoveFromDocumentTest {
 	private Document beforeDocument;
 	private int numOfCompositionsBefore;
 	private Composition testComposition;
-	private AddToDocument updater;
+	private RemoveFromDocument updater;
 	Document afterDocument;
 	
 	@Before 
@@ -33,8 +33,8 @@ public class RemoveFromDocumentTest {
 		beforeDocument = converter.getDocument();
 		numOfCompositionsBefore = getSongsNode(beforeDocument).getChildNodes().getLength();
 		testComposition = Composition.byComposer("Francois Couperin").withTitle("Les Baricades Mysterieuses");
-		updater = new AddToDocument("sampleRepertoireList.xml");
-		updater.addComposition(testComposition); 
+		updater = new RemoveFromDocument("sampleRepertoireList.xml");
+		updater.removeComposition(testComposition); 
 		afterDocument = updater.getDocument();
 	}
 	

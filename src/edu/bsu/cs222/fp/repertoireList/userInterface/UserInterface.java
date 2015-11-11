@@ -37,6 +37,7 @@ public class UserInterface extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 	private final String apiKey = "NDVFILMAVOOY8ITWS";
 	private Tab searchTab = new Tab("Search");
 	private Tab resultsTab = new Tab("Search Results");
