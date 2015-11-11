@@ -1,18 +1,23 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
+
 
 public class RepertoireListTable extends Table {
 	private TableView<Composition> repertoireTable = new TableView<Composition>();
 	private ObservableList<Composition> observableRepertoireListOfCompositions;
 	
+	public TableCell<Composition, Boolean> createButtonClass(){		
+		return new RemovePieceButtonCell(repertoireTable);		
+	}
+	
+	
 	public RepertoireListTable(ObservableList<Composition> list){
 		observableRepertoireListOfCompositions = list;
-		setItemsInRepertoireTableView();
+		repertoireTable = createTable(observableRepertoireListOfCompositions);
 	}
 	
 	public TableView<Composition> getRepertoireTable(){
@@ -26,29 +31,5 @@ public class RepertoireListTable extends Table {
 	public ObservableList<Composition> getObservableRepertoireListOfCompositions(){
 		return observableRepertoireListOfCompositions;
 		
-	}
-	
-	// Creates warning when inserting any column because of it creating varargs
-	// with what is sent though the parameter, yet this is the way the Oracle
-	// says to insert them (Website: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm).
-	@SuppressWarnings("unchecked")
-	public void setItemsInRepertoireTableView() {
-		TableColumn<Composition, String> composerColumn = createComposerColumn();
-		TableColumn<Composition, String> titleColumn = createTitleColumn();
-		repertoireTable.setItems(observableRepertoireListOfCompositions);
-		repertoireTable.getColumns().addAll(composerColumn, titleColumn);
-		repertoireTable.getColumns().addListener(new ListChangeListener<Object>() {
-			public boolean suspended;
-
-			@Override
-			public void onChanged(Change<?> change) {
-				change.next();
-				if (change.wasReplaced() && !suspended) {
-					this.suspended = true;
-					repertoireTable.getColumns().setAll(composerColumn, titleColumn);
-					this.suspended = false;
-				}
-			}
-		});
 	}
 }

@@ -34,7 +34,7 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 	public Composition getSelectedComposition() {
 		return selectedRecord;
 	}
-
+  
 	private void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
 		this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
