@@ -47,10 +47,10 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 			updater = new AddToDocument("RepertoireList.xml");
 			updater.addComposition(selectedRecord);
 			 if (updater.compositionAdded()) {
-				 messageDialog(selectedRecord.getTitle() + " has been added to your Repertoire List!");
+				 messageDialog("\""+selectedRecord.getTitle() + "\" has been added to your Repertoire List!");
 			 }
 			 else {
-				 messageDialog(selectedRecord.getTitle() + " is already in your Repertoire List!");
+				 messageDialog("\""+ selectedRecord.getTitle() + "\" is already in your Repertoire List!");
 			 }
 			updatedDocument = updater.getDocument();
 			new XMLWriter(updatedDocument);
@@ -61,9 +61,8 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 
 	private void messageDialog(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Alert!");
-		alert.setHeaderText("Alert!");
-		alert.setContentText(message);
+		alert.setTitle("Information");
+		alert.setHeaderText(message);
 		alert.showAndWait();
 	}
 	

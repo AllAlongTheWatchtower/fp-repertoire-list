@@ -198,6 +198,7 @@ public class UserInterface extends Application {
 			}
 		});
 	}
+	
 
 	private void refreshRepertoireTable() {
 		repertoireTable.setItems(null);
