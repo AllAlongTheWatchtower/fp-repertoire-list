@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataHandling;
+package edu.bsu.cs222.fp.repertoireList.dataTypes;
 
 public class LearnedComposition {
 

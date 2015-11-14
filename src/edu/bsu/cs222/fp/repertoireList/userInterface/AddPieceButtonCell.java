@@ -3,8 +3,8 @@ package edu.bsu.cs222.fp.repertoireList.userInterface;
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.AddToDocument;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -53,7 +53,8 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 				 messageDialog("\""+ selectedRecord.getTitle() + "\" is already in your Repertoire List!");
 			 }
 			updatedDocument = updater.getDocument();
-			new XMLWriter(updatedDocument);
+			XMLWriter writer = new XMLWriter("RepertoireListData/RepertoireList.xml");
+			writer.writeDocumentToXml(updatedDocument);
 		} catch (Exception e) {
 			new WarningDialog("System error!  Cannot add this piece to your repertoire list.  Try again.");
 		}

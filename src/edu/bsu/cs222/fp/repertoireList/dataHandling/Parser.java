@@ -1,6 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.dataHandling;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -12,28 +13,33 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+
 public class Parser {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
 	
 	private Document searchResults;
 	private NodeList compositionsNodeList;
-	private ArrayList<Composition> compositionsList = new ArrayList<Composition>();
+	private List<Composition> compositionsList = new ArrayList<Composition>();
+	private Repertoire repertoire;
 	
 	public Parser(Document searchResults) {
 		this.searchResults = searchResults;
 		this.compositionsNodeList = getNodeListOfCompositions();
 		this.compositionsList = createListOfCompositions();
+		repertoire = new Repertoire(compositionsList);
 	}
     
-	public ArrayList<Composition> getListOfCompositions() {
-		return compositionsList;
+	public Repertoire getRepertoire() {
+		return repertoire;
 	}
 	
 	public Document getSearchResults() {
 		return searchResults;
 	}
 	
-	private ArrayList<Composition> createListOfCompositions() {
+	private List<Composition> createListOfCompositions() {
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
     		addComposerAtIndex(i);
     	}

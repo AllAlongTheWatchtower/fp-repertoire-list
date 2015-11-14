@@ -1,6 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;

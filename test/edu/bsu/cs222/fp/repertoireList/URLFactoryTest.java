@@ -1,15 +1,13 @@
 package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 
 public class URLFactoryTest {
 	
 	private String apiKey = "NDVFILMAVOOY8ITWS";
-			
+	
 	@Test
 	public void testURLFactory() {
 		String targetURL = "http://developer.echonest.com/api/v4/song/search?api_key=NDVFILMAVOOY8ITWS&artist=forqueray&format=xml&results=100";

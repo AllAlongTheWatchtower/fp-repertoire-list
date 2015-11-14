@@ -1,11 +1,12 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.application.Application;
@@ -71,18 +72,18 @@ public class UserInterface extends Application {
 		setSearchVBox();
 		setActionForButtons(tabPane);
 	}
-
+	
 	private ObservableList<Composition> makeObservableList(Document results) {
 		Parser parser = new Parser(results);
-		ArrayList<Composition> arrayListOfCompositions = parser.getListOfCompositions();
-		informUserIfThereAreNoSearchResults(arrayListOfCompositions);
+		List<Composition> listOfCompositions = parser.getRepertoire().getRepertoire();
+		informUserIfThereAreNoSearchResults(listOfCompositions);
 		ObservableList<Composition> observableListOfCompositions = FXCollections
-				.observableArrayList(arrayListOfCompositions);
+				.observableArrayList(listOfCompositions);
 		return observableListOfCompositions;
 	}
 
-	private void informUserIfThereAreNoSearchResults(ArrayList<Composition> arrayListOfCompositions) {
-		if (arrayListOfCompositions.isEmpty()) {
+	private void informUserIfThereAreNoSearchResults(List<Composition> listOfCompositions) {
+		if (listOfCompositions.isEmpty()) {
 			messageDialog();
 		}
 	}

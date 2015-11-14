@@ -1,6 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.dataHandling;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -10,6 +10,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 
 public class RemoveFromDocument {
     private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
@@ -51,7 +53,7 @@ public class RemoveFromDocument {
 
     private boolean isDuplicate(Composition composition) {
         Parser parser = new Parser(repertoireListAsDocument);
-        ArrayList<Composition> compositions = parser.getListOfCompositions();
+        List<Composition> compositions = parser.getRepertoire().getRepertoire();
         for (Composition current : compositions) {
             if (current.equals(composition)) {
                 return true;

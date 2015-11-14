@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RemoveFromDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -55,7 +55,8 @@ public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 			updater = new RemoveFromDocument("RepertoireList.xml");
 			updater.removeComposition(selectedRecord);
 			updatedDocument = updater.getDocument();
-			new XMLWriter(updatedDocument);
+			XMLWriter writer = new XMLWriter("RepertoireListData/RepertoireList.xml");
+			writer.writeDocumentToXml(updatedDocument);
 		} catch (Exception e) {
 			new WarningDialog("System error!  Try again.");
 		}

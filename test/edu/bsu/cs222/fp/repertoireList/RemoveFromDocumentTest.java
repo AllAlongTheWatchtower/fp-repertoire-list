@@ -13,9 +13,9 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RemoveFromDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 
 public class RemoveFromDocumentTest {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";

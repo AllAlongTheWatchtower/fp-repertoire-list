@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.LearnedComposition;
+
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.LearnedComposition;
 
 public class LearnedCompositionTest {
 

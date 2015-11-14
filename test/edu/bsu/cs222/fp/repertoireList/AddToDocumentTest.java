@@ -14,8 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.AddToDocument;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 
 public class AddToDocumentTest {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
@@ -37,7 +37,7 @@ public class AddToDocumentTest {
 		updater.addComposition(testComposition); 
 		afterDocument = updater.getDocument();
 	}
-
+	
 	@Test 
 	public void refuseDuplicate() {
 		updater.addComposition(testComposition);

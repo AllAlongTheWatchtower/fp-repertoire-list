@@ -1,7 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Composition;
-
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
