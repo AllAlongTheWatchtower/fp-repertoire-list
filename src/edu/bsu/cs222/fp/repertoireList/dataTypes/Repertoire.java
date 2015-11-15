@@ -17,6 +17,25 @@ public class Repertoire implements Iterable<Composition> {
 	public int getLength() {
 		return repertoireList.size();
 	}
+	
+	public void addComposition(Composition newComposition) {
+		if (!isDuplicate(newComposition)) {
+			repertoireList.add(newComposition);
+		}
+	}
+	
+	public void removeComposition(Composition newComposition) {
+		repertoireList.remove(newComposition);
+	}
+	
+	public boolean isDuplicate(Composition newComposition) {
+		for (Composition current : repertoireList) {
+			if (newComposition.equals(current)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public Iterator<Composition> iterator() {
