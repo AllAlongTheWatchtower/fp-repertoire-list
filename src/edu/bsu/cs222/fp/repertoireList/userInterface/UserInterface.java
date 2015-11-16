@@ -52,6 +52,7 @@ public class UserInterface extends Application {
 			"Data retrieved using The Echo Nest API\nWebsite: http://the.echonest.com/\nA special thanks to The Echo Nest!");
 	private TextField inputField = new TextField("Search Field");
 	private Button searchButton = new Button("Search");
+	private Button saveButton = new Button("Save List");
 	private TableView<Composition> repertoireTable;
 
 	@Override
@@ -114,17 +115,19 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		RepertoireListTable r = new RepertoireListTable(makeObservableList(getRepertoireListDocument()));
+		RepertoireListTable table = new RepertoireListTable(makeObservableList(getRepertoireListDocument()));
 		repertoireTable = new TableView<Composition>();
-		repertoireTable = r.getRepertoireTable();
+		repertoireTable = table.getRepertoireTable();
 		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 	}
 
 	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
+		vBox.getChildren().add(saveButton);
 		return vBox;
 	}
+	
 
 	private void setSearchVBox() {
 		VBox searchVBox = new VBox();
@@ -139,6 +142,7 @@ public class UserInterface extends Application {
 	private void setActionForButtons(TabPane tabPane) {
 		setSearchButtonAction(tabPane);
 		setTheEnterKeyAction(tabPane);
+		setSaveButtonAction(tabPane);
 		setTheRepertoireListButton(tabPane);
 	}
 
@@ -147,6 +151,16 @@ public class UserInterface extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				pressGo(tabPane);
+			}
+		});
+	}
+	
+	private void setSaveButtonAction(TabPane tabPane) {
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				System.out.println("save!");
+				SaveButton saveButton = new SaveButton();
 			}
 		});
 	}
