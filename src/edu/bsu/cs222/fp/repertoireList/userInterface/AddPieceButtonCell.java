@@ -19,7 +19,7 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 
 	Button cellButton = new Button("Add to List");
 
-	AddPieceButtonCell(TableView<Composition> resultsTable) {
+	public AddPieceButtonCell(TableView<Composition> resultsTable) {
 		this.resultsTable = resultsTable;
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

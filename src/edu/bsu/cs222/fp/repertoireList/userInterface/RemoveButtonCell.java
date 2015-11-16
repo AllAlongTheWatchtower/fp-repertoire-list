@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RemoveFromDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition.Builder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -16,13 +18,33 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 
-public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
+public class RemoveButtonCell extends TableCell<Composition, Boolean> {
 	private TableView<Composition> resultsTable;
 	private Composition selectedRecord;
 	private Button cellButton = new Button("Remove from List");
+	private Repertoire repertoireObject;
 	
-	RemovePieceButtonCell(TableView<Composition> resultsTable) {
-		this.resultsTable = resultsTable;
+		public static Builder inTable(TableView<Composition> resultsTable){
+				return new Builder(resultsTable);
+			}
+		
+		public static final class Builder {
+			private TableView<Composition> resultsTable;
+			private Repertoire  repertoireObject;
+			public Builder(TableView<Composition> resultsTable) {
+				this.resultsTable = resultsTable;
+			}
+			
+			public TableCell<Composition, Boolean> withRepertoire(Repertoire repertoireObject) {
+				this.repertoireObject = repertoireObject;
+				return new RemoveButtonCell(this);
+			}
+		}	
+	
+	
+	public RemoveButtonCell(Builder builder) {
+		this.resultsTable = builder.resultsTable;
+		this.repertoireObject = builder.repertoireObject;
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
@@ -32,7 +54,7 @@ public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK){
 					setSelectedComposition();
-				    updateDocument(selectedRecord);
+				    removePiece(selectedRecord);
 				} 
 			}
 		});
@@ -47,15 +69,9 @@ public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 		this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
-	private void updateDocument(Composition selectedRecord) {
-		RemoveFromDocument updater;
-		Document updatedDocument;
+	private void removePiece(Composition selectedRecord) {
 		try {
-			updater = new RemoveFromDocument("RepertoireList.xml");
-			updater.removeComposition(selectedRecord);
-			updatedDocument = updater.getDocument();
-			XMLWriter writer = new XMLWriter("RepertoireListData/RepertoireList.xml");
-			writer.writeDocumentToXml(updatedDocument);
+			repertoireObject.removeComposition(selectedRecord);
 		} catch (Exception e) {
 			new WarningDialog("System error!  Try again.");
 		}

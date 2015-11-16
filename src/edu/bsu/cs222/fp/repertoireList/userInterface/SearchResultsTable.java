@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 
-
 public class SearchResultsTable extends Table {
 	private ObservableList<Composition> observableListOfCompositions;
 	private TableView<Composition> searchTable = new TableView<Composition>();
@@ -18,12 +17,9 @@ public class SearchResultsTable extends Table {
 	public TableView<Composition> getSearchTable() {
 		return searchTable;
 	}
-	
-	public TableCell<Composition, Boolean> createButtonClass(){
-		
+
+	public TableCell<Composition, Boolean> createButtonClass() {
 		return new AddPieceButtonCell(searchTable);
-		
 	}
 
-	
 }

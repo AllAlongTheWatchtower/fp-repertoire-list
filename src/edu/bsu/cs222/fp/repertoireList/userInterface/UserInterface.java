@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
 import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.application.Application;
@@ -54,6 +55,7 @@ public class UserInterface extends Application {
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
 	private TableView<Composition> repertoireTable;
+	private Repertoire repertoireObject; 
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -115,7 +117,9 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		RepertoireListTable table = new RepertoireListTable(makeObservableList(getRepertoireListDocument()));
+		Parser parser = new Parser(getRepertoireListDocument());
+		repertoireObject = parser.getRepertoireObject();
+		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
 		listTab.setContent(createNewVBoxWithTable(repertoireTable));
@@ -213,7 +217,6 @@ public class UserInterface extends Application {
 			}
 		});
 	}
-	
 
 	private void refreshRepertoireTable() {
 		repertoireTable.setItems(null);
