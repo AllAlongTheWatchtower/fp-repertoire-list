@@ -52,7 +52,7 @@ public class AddToDocument {
 
     private boolean isDuplicate(Composition composition) {
         Parser parser = new Parser(repertoireListAsDocument);
-        List<Composition> compositions = parser.getRepertoire().getRepertoire();
+        List<Composition> compositions = parser.getRepertoireObject().getRepertoireList();
         for (Composition current : compositions) {
             if (current.equals(composition)) {
                 return true;

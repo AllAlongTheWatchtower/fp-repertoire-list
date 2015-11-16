@@ -31,7 +31,7 @@ public class Parser {
 		repertoire = new Repertoire(compositionsList);
 	}
     
-	public Repertoire getRepertoire() {
+	public Repertoire getRepertoireObject() {
 		return repertoire;
 	}
 	

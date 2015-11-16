@@ -46,7 +46,7 @@ public class ParserTest {
 	
 	@Test
 	public void testArrayListComposer() {
-		List<Composition> listOfCompositions = parser.getRepertoire().getRepertoire();
+		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
 		Composition first = listOfCompositions.get(1);
 		String composer = first.getComposer();
 		assertTrue(composer.equals("Antoine Forqueray"));
@@ -54,7 +54,7 @@ public class ParserTest {
 	
 	@Test
 	public void testArrayListTitle() {
-		List<Composition> listOfCompositions = parser.getRepertoire().getRepertoire();
+		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
 		Composition first = listOfCompositions.get(1);
 		String title = first.getTitle();
 		assertTrue(title.equals("Pieces de viole: Suite No. 1 in D Minor: VI. La Couperin: Noblement et marque"));
@@ -62,7 +62,7 @@ public class ParserTest {
 	
 	@Test
 	public void testLengthOfArrayList() {
-		List<Composition> listOfCompositions = parser.getRepertoire().getRepertoire();
+		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
 		assertEquals(87, listOfCompositions.size());
 	}
 }

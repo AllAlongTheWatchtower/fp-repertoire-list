@@ -20,7 +20,7 @@ public class RepertoireTest {
 		XMLToDocumentConverter converter = new XMLToDocumentConverter("sampleRepertoireList.xml");
 		Document document = converter.getDocument();
 		Parser parser = new Parser(document);
-		repertoire = parser.getRepertoire();
+		repertoire = parser.getRepertoireObject();
 	}
 	
 	@Test

@@ -10,7 +10,7 @@ public class Repertoire implements Iterable<Composition> {
 		this.repertoireList = repertoire;
 	}
 	
-	public List<Composition> getRepertoire() {
+	public List<Composition> getRepertoireList() {
 		return repertoireList;
 	}
 

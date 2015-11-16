@@ -75,7 +75,7 @@ public class UserInterface extends Application {
 	
 	private ObservableList<Composition> makeObservableList(Document results) {
 		Parser parser = new Parser(results);
-		List<Composition> listOfCompositions = parser.getRepertoire().getRepertoire();
+		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
 		informUserIfThereAreNoSearchResults(listOfCompositions);
 		ObservableList<Composition> observableListOfCompositions = FXCollections
 				.observableArrayList(listOfCompositions);

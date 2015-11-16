@@ -19,9 +19,8 @@ import javafx.scene.control.Alert.AlertType;
 public class RemovePieceButtonCell extends TableCell<Composition, Boolean> {
 	private TableView<Composition> resultsTable;
 	private Composition selectedRecord;
-
-	Button cellButton = new Button("Remove from List");
-
+	private Button cellButton = new Button("Remove from List");
+	
 	RemovePieceButtonCell(TableView<Composition> resultsTable) {
 		this.resultsTable = resultsTable;
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
