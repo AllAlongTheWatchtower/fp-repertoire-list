@@ -4,11 +4,14 @@ import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 
-public class AddPieceButtonCell extends EditRepertoireButtonCell {// edit																		// them
+public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
+
 	public Button cellButton = new Button("Add");
 	private TableView<Composition> resultsTable;
 	public Composition selectedRecord;
@@ -46,8 +49,8 @@ public class AddPieceButtonCell extends EditRepertoireButtonCell {// edit							
 
 	private void addToDocument() {
 		try {
-			repertoireObject.addComposition(selectedRecord);
 			if (repertoireObject.isDuplicate(selectedRecord)) {
+				repertoireObject.addComposition(selectedRecord);
 				messageDialog("\"" + selectedRecord.getTitle() + "\" has been added to your Repertoire List!");
 			} else {
 				messageDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
@@ -63,5 +66,23 @@ public class AddPieceButtonCell extends EditRepertoireButtonCell {// edit							
 		return (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
+	public Composition getSelectedComposition() {// USE?
+		return selectedRecord;
+	}
+
+	public void messageDialog(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText(message);
+		alert.showAndWait();
+	}
+
+	@Override
+	protected void updateItem(Boolean t, boolean empty) {
+		super.updateItem(t, empty);
+		if (!empty) {
+			setGraphic(cellButton);
+		}
+	}
 
 }

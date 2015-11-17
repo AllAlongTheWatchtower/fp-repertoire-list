@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 
 public class SearchResultsTable extends Table {
 	public TableView<Composition> resultsTable;
-	public Button cellButton = new Button("Remove from List");
 	public Repertoire repertoireObject;
 	private ObservableList<Composition> observableListOfCompositions;
 	private TableView<Composition> searchTable = new TableView<Composition>();

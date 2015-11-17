@@ -13,10 +13,6 @@ public class RepertoireListTable extends Table {
 	private TableView<Composition> repertoireTable = new TableView<Composition>();
 	private ObservableList<Composition> observableRepertoireListOfCompositions;
 	private Repertoire repertoireObject;
-	
-	public TableCell<Composition, Boolean> editRepertoireButton() {
-		return RemoveButtonCell.inTable(repertoireTable).withRepertoire(repertoireObject);
-	}
 
 	public RepertoireListTable(Repertoire repertoireObject) {
 		this.repertoireObject = repertoireObject;
@@ -39,4 +35,7 @@ public class RepertoireListTable extends Table {
 		return observableRepertoireListOfCompositions;
 	}
 	
+	public TableCell<Composition, Boolean> editRepertoireButton() {
+		return RemoveButtonCell.inTable(repertoireTable).withRepertoire(repertoireObject);
+	}
 }

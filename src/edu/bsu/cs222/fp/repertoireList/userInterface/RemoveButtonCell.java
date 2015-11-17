@@ -13,7 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 
-public class  RemoveButtonCell extends EditRepertoireButtonCell {
+public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 	public Button cellButton = new Button("Remove from List");
 	private TableView<Composition> resultsTable;
 	public Composition selectedRecord;
