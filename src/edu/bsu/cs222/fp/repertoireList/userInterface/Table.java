@@ -13,7 +13,7 @@ import javafx.util.Callback;
 
 public abstract class Table {
 
-	public abstract TableCell<Composition, Boolean> createButtonClass();
+	public abstract TableCell<Composition, Boolean> editRepertoireButton();
 
 	public TableColumn<Composition, String> createComposerColumn() {
 		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
@@ -31,8 +31,8 @@ public abstract class Table {
 
 	// Creates warning when inserting any column because of it creating varargs
 	// with what is sent though the parameter, yet this is the way the Oracle
-	// says to insert them (Website:
-	// http://docs.oracle.com/javafx/2/ui_controls/table-view.htm).
+	// says to insert them.
+	// http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
 	@SuppressWarnings("unchecked")
 	public TableView<Composition> createTable(ObservableList<Composition> observableListOfCompositions) {
 		TableView<Composition> table = new TableView<Composition>();
@@ -79,7 +79,7 @@ public abstract class Table {
 		actionColumn.setCellFactory(new Callback<TableColumn<Composition, Boolean>, TableCell<Composition, Boolean>>() {
 			@Override
 			public TableCell<Composition, Boolean> call(TableColumn<Composition, Boolean> p) {
-				return createButtonClass();
+				return editRepertoireButton();
 			}
 		});
 	}

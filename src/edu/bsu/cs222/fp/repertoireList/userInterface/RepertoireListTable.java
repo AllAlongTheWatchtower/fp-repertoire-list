@@ -14,7 +14,7 @@ public class RepertoireListTable extends Table {
 	private ObservableList<Composition> observableRepertoireListOfCompositions;
 	private Repertoire repertoireObject;
 	
-	public TableCell<Composition, Boolean> createButtonClass() {
+	public TableCell<Composition, Boolean> editRepertoireButton() {
 		return RemoveButtonCell.inTable(repertoireTable).withRepertoire(repertoireObject);
 	}
 
@@ -35,12 +35,8 @@ public class RepertoireListTable extends Table {
 		return repertoireTable;
 	}
 
-	public void addItemToRepertoireList(Composition selectedRecord) {
-		observableRepertoireListOfCompositions.add(selectedRecord);
-	}
-
 	public ObservableList<Composition> getObservableRepertoireListOfCompositions() {
 		return observableRepertoireListOfCompositions;
-
 	}
+	
 }

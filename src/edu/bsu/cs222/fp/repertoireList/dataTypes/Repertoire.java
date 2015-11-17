@@ -2,14 +2,15 @@ package edu.bsu.cs222.fp.repertoireList.dataTypes;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
-public class Repertoire implements Iterable<Composition> {
+public class Repertoire extends Observable implements Iterable<Composition> {
 	private List<Composition> repertoireList;
-	
+
 	public Repertoire(List<Composition> repertoire) {
 		this.repertoireList = repertoire;
 	}
-	
+
 	public List<Composition> getRepertoireList() {
 		return repertoireList;
 	}
@@ -17,17 +18,21 @@ public class Repertoire implements Iterable<Composition> {
 	public int getLength() {
 		return repertoireList.size();
 	}
-	
+
 	public void addComposition(Composition newComposition) {
 		if (!isDuplicate(newComposition)) {
 			repertoireList.add(newComposition);
+			setChanged();
+			notifyObservers();
 		}
 	}
-	
+
 	public void removeComposition(Composition newComposition) {
 		repertoireList.remove(newComposition);
+		setChanged();
+		notifyObservers();
 	}
-	
+
 	public boolean isDuplicate(Composition newComposition) {
 		for (Composition current : repertoireList) {
 			if (newComposition.equals(current)) {

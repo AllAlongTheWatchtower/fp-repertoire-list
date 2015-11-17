@@ -1,6 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import java.util.List;
+import java.util.Observable;
 
 import org.w3c.dom.Document;
 
@@ -123,7 +124,14 @@ public class UserInterface extends Application {
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
 		listTab.setContent(createNewVBoxWithTable(repertoireTable));
+		setRepertoireObserver();
 	}
+	
+	 private void setRepertoireObserver() {
+	        repertoireObject.addObserver((Observable obj, Object arg) -> {
+	            refreshRepertoireTable();
+	        });
+	    }
 
 	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
@@ -188,8 +196,8 @@ public class UserInterface extends Application {
 	private void setSearchListTable() {
 		new TableView<Composition>();
 		ObservableList<Composition> observableListOfCompositions = makeObservableList(getSearchResults());
-		SearchResultsTable srt = new SearchResultsTable(observableListOfCompositions);
-		resultsTab.setContent(createNewVBoxWithTable(srt.getSearchTable()));
+		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchResults(observableListOfCompositions).withReferenceToRepertoire(repertoireObject);
+		resultsTab.setContent(createNewVBoxWithTable(searchResultsTable.getSearchTable()));
 	}
 
 	private Document getSearchResults() {
@@ -208,7 +216,6 @@ public class UserInterface extends Application {
 
 	private void setTheRepertoireListButton(TabPane tabPane) {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-
 			@Override
 			public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab arg2) {
 				if (arg2 == listTab) {
@@ -219,7 +226,10 @@ public class UserInterface extends Application {
 	}
 
 	private void refreshRepertoireTable() {
-		repertoireTable.setItems(null);
-		setRepertoireListTable();
-	}
+        repertoireTable.setItems(null);
+        RepertoireListTable table = new RepertoireListTable(repertoireObject);
+        repertoireTable = new TableView<Composition>();
+        repertoireTable = table.getRepertoireTable();
+        listTab.setContent(createNewVBoxWithTable(repertoireTable));
+    }
 }
