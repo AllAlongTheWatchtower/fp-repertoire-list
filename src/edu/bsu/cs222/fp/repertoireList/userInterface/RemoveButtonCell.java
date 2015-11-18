@@ -44,7 +44,7 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 			public void handle(ActionEvent t) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Remove from List");
-				alert.setHeaderText("Are you sure you would like to delete that piece from your Repertoire List?");
+				alert.setHeaderText("Are you sure you would like to remove that piece from your Repertoire List?");
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK){
 					setSelectedComposition();
@@ -65,10 +65,6 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 	public Composition setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
 		return (Composition) resultsTable.getItems().get(selectdIndex);
-	}
-	
-	public Composition getSelectedComposition() {//USE?
-		return selectedRecord;
 	}
 
 	public void messageDialog(String message) {

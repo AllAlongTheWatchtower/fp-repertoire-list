@@ -66,10 +66,6 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 		return (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
-	public Composition getSelectedComposition() {// USE?
-		return selectedRecord;
-	}
-
 	public void messageDialog(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
