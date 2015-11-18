@@ -65,7 +65,7 @@ public class UserInterface extends Application {
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		askUserIfTheyWouldLikeToSave(primaryStage);
+		askUserIfTheyWouldLikeToSaveUponExist(primaryStage);
 
 	}
 
@@ -200,9 +200,9 @@ public class UserInterface extends Application {
 		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
 	}
 
-	private void askUserIfTheyWouldLikeToSave(Stage primaryStage) {
+	private void askUserIfTheyWouldLikeToSaveUponExist(Stage primaryStage) {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
+			@Override 
 			public void handle(WindowEvent we) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				ButtonType yesButton = new ButtonType("Yes");
