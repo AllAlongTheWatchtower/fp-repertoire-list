@@ -5,8 +5,8 @@ import java.util.Observable;
 
 import org.w3c.dom.Document;
 
-import com.sun.javafx.scene.paint.GradientUtils.Parser;
-
+import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.SearchDataParser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
@@ -42,7 +42,6 @@ public class UserInterface extends Application {
 		launch(args);
 	}
 
-	private final String apiKey = "NDVFILMAVOOY8ITWS";
 	private Tab searchTab = new Tab("Search");
 	private Tab resultsTab = new Tab("Search Results");
 	private Tab listTab = new Tab("Repertoire List");
@@ -58,6 +57,7 @@ public class UserInterface extends Application {
 	private Button saveButton = new Button("Save List");
 	private TableView<Composition> repertoireTable;
 	private Repertoire repertoireObject;
+	private VBox tableVBox = new VBox();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -78,29 +78,6 @@ public class UserInterface extends Application {
 		setActionForButtons(tabPane);
 	}
 
-	private ObservableList<Composition> makeObservableList(Document results) {
-		Parser parser = new Parser(results);
-		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
-		informUserIfThereAreNoSearchResults(listOfCompositions);
-		ObservableList<Composition> observableListOfCompositions = FXCollections
-				.observableArrayList(listOfCompositions);
-		return observableListOfCompositions;
-	}
-
-	private void informUserIfThereAreNoSearchResults(List<Composition> listOfCompositions) {
-		if (listOfCompositions.isEmpty()) {
-			messageDialog();
-		}
-	}
-
-	private void messageDialog() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Sorry!");
-		alert.setHeaderText("Sorry!");
-		alert.setContentText("That composer is not in our system!");
-		alert.showAndWait();
-	}
-
 	private Document getRepertoireListDocument() {
 		XMLToDocumentConverter converter = null;
 		try {
@@ -119,7 +96,7 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		Parser parser = new Parser(getRepertoireListDocument());
+		RepertoireDataParser parser = new RepertoireDataParser(getRepertoireListDocument());
 		repertoireObject = parser.getRepertoireObject();
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
@@ -135,10 +112,10 @@ public class UserInterface extends Application {
 	}
 
 	private VBox createNewVBoxWithTable(TableView<Composition> table) {
-		VBox vBox = new VBox();
-		vBox.getChildren().add(table);
-		vBox.getChildren().add(saveButton);
-		return vBox;
+		tableVBox = new VBox();
+		tableVBox.getChildren().add(table);
+		tableVBox.getChildren().add(saveButton);
+		return tableVBox;
 	}
 
 	private void setSearchVBox() {
@@ -195,24 +172,9 @@ public class UserInterface extends Application {
 
 	private void setSearchListTable() {
 		new TableView<Composition>();
-		ObservableList<Composition> observableListOfCompositions = makeObservableList(getSearchResults());
-		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchResults(observableListOfCompositions)
+		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchedComposer(inputField.getText())
 				.withReferenceToRepertoire(repertoireObject);
 		resultsTab.setContent(createNewVBoxWithTable(searchResultsTable.getSearchTable()));
-	}
-
-	private Document getSearchResults() {
-		String composer = inputField.getText();
-		DatabaseConnector connection = null;
-		try {
-			URLFactory urlMaker = new URLFactory(apiKey);
-			String url = urlMaker.createURLForSearchTerm(composer);
-			connection = new DatabaseConnector(url);
-		} catch (RuntimeException e) {
-			new WarningDialog("Sorry!  Could not connect with music database.  Try again!");
-		}
-		Document searchResults = connection.getListOfCompositions();
-		return searchResults;
 	}
 
 	private void setTheRepertoireListButton(TabPane tabPane) {
