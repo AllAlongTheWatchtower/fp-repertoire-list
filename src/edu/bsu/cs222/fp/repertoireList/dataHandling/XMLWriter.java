@@ -12,19 +12,15 @@ import org.w3c.dom.Document;
 
 public class XMLWriter {
 
-	private final String xmlFile;
+	private final String xmlFile = "RepertoireListData/RepertoireList.xml";
 	private Document repertoireListAsDocument;
-	
-	public XMLWriter(String xmlFile) {
-		this.xmlFile = xmlFile;
-	}
 
-	public void writeDocumentToXml(Document repertoireList) {
+	public XMLWriter(Document repertoireList) {
 		this.repertoireListAsDocument = repertoireList;
 		try {
 			writeChangesToXmlFile();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException();
 		}
 	}
 
