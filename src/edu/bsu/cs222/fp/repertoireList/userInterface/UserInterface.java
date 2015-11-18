@@ -1,6 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
 import java.util.Observable;
+import java.util.Optional;
 
 import org.w3c.dom.Document;
 
@@ -15,7 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -28,6 +32,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class UserInterface extends Application {
 	public static void main(String[] args) {
@@ -60,6 +65,8 @@ public class UserInterface extends Application {
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		askUserIfTheyWouldLikeToSave(primaryStage);
+
 	}
 
 	private void setWindow(TabPane tabPane) {
@@ -68,17 +75,6 @@ public class UserInterface extends Application {
 		setRepertoireListTable();
 		setSearchVBox();
 		setActionForButtons(tabPane);
-	}
-
-	private Document getRepertoireListDocument() {
-		XMLToDocumentConverter converter = null;
-		try {
-			converter = new XMLToDocumentConverter("RepertoireList.xml");
-		} catch (RuntimeException e) {
-			new WarningDialog("System error: try again!");
-		}
-		Document convertedDocument = converter.getDocument();
-		return convertedDocument;
 	}
 
 	private void setTabsClosable() {
@@ -93,8 +89,19 @@ public class UserInterface extends Application {
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
-		listTab.setContent(createNewVBoxWithTable(repertoireTable));
+		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
 		setRepertoireObserver();
+	}
+
+	private Document getRepertoireListDocument() {
+		XMLToDocumentConverter converter = null;
+		try {
+			converter = new XMLToDocumentConverter("RepertoireList.xml");
+		} catch (RuntimeException e) {
+			new WarningDialog("System error: try again!");
+		}
+		Document convertedDocument = converter.getDocument();
+		return convertedDocument;
 	}
 
 	private void setRepertoireObserver() {
@@ -103,7 +110,13 @@ public class UserInterface extends Application {
 		});
 	}
 
-	private VBox createNewVBoxWithTable(TableView<Composition> table) {
+	private VBox createNewVBoxWithSearchTable(TableView<Composition> table) {
+		tableVBox = new VBox();
+		tableVBox.getChildren().add(table);
+		return tableVBox;
+	}
+
+	private VBox createNewVBoxWithRepertoireTable(TableView<Composition> table) {
 		tableVBox = new VBox();
 		tableVBox.getChildren().add(table);
 		tableVBox.getChildren().add(saveButton);
@@ -136,15 +149,6 @@ public class UserInterface extends Application {
 		});
 	}
 
-	private void setSaveButtonAction(TabPane tabPane) {
-		saveButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				new SaveButton(repertoireObject);
-			}
-		});
-	}
-
 	private void setTheEnterKeyAction(TabPane tabPane) {
 		inputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -165,7 +169,16 @@ public class UserInterface extends Application {
 		new TableView<Composition>();
 		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchedComposer(inputField.getText())
 				.withReferenceToRepertoire(repertoireObject);
-		resultsTab.setContent(createNewVBoxWithTable(searchResultsTable.getSearchTable()));
+		resultsTab.setContent(createNewVBoxWithSearchTable(searchResultsTable.getSearchTable()));
+	}
+
+	private void setSaveButtonAction(TabPane tabPane) {
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				new SaveButton(repertoireObject);
+			}
+		});
 	}
 
 	private void setTheRepertoireListButton(TabPane tabPane) {
@@ -184,6 +197,23 @@ public class UserInterface extends Application {
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
-		listTab.setContent(createNewVBoxWithTable(repertoireTable));
+		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
+	}
+
+	private void askUserIfTheyWouldLikeToSave(Stage primaryStage) {
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				ButtonType yesButton = new ButtonType("Yes");
+				alert.setTitle("Repertoire List");
+				alert.setHeaderText("Would you like to save your Repertoire List?");
+				alert.getButtonTypes().setAll(yesButton, new ButtonType("No"));
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == yesButton) {
+					new SaveButton(repertoireObject);
+				}
+			}
+		});
 	}
 }

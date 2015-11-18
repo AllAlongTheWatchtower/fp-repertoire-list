@@ -13,7 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 
-public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
+public class  RemoveCompositionButtonCell extends TableCell<Composition, Boolean> {
 	public Button cellButton = new Button("Remove");
 	private TableView<Composition> resultsTable;
 	public Composition selectedRecord;
@@ -33,11 +33,11 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 
 		public TableCell<Composition, Boolean> withRepertoire(Repertoire repertoireObject) {
 			this.repertoireObject = repertoireObject;
-			return new RemoveButtonCell(this);
+			return new RemoveCompositionButtonCell(this);
 		}
 	}
 	
-	public RemoveButtonCell(Builder builder) {
+	public RemoveCompositionButtonCell(Builder builder) {
 		this.resultsTable = builder.resultsTable;
 		this.repertoireObject = builder.repertoireObject;
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {

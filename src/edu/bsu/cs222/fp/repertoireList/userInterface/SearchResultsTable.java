@@ -90,7 +90,7 @@ public class SearchResultsTable extends Table {
 	}
 
 	public TableCell<Composition, Boolean> editRepertoireButton() {
-		return AddPieceButtonCell.inTable(searchTable).withRepertoire(repertoireObject);
+		return AddCompositionButtonCell.inTable(searchTable).withRepertoire(repertoireObject);
 	}
 
 }

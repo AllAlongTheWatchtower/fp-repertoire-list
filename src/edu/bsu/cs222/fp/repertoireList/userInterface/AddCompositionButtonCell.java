@@ -10,7 +10,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 
-public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
+public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 
 	public Button cellButton = new Button("Add");
 	private TableView<Composition> resultsTable;
@@ -31,11 +31,11 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 
 		public TableCell<Composition, Boolean> withRepertoire(Repertoire repertoireObject) {
 			this.repertoireObject = repertoireObject;
-			return new AddPieceButtonCell(this);
+			return new AddCompositionButtonCell(this);
 		}
 	}
 
-	public AddPieceButtonCell(Builder builder) {
+	public AddCompositionButtonCell(Builder builder) {
 		this.resultsTable = builder.resultsTable;
 		this.repertoireObject = builder.repertoireObject;
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
