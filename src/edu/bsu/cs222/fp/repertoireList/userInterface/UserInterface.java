@@ -5,9 +5,7 @@ import java.util.Observable;
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireToDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
 import javafx.application.Application;
@@ -142,9 +140,7 @@ public class UserInterface extends Application {
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				RepertoireToDocument converter = new RepertoireToDocument(repertoireObject);
-				Document repertoireAsDocument = converter.getDocument();
-				new XMLWriter(repertoireAsDocument);
+				new SaveButton(repertoireObject);
 			}
 		});
 	}

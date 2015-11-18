@@ -7,21 +7,36 @@ import org.w3c.dom.Document;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireToDocument;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 
 public class SaveButton {
+	private Repertoire repertoireObject;
 	
-	public Button cellButton = new Button("Save");
-
 	public SaveButton (Repertoire repertoireObject) {
-		cellButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				RepertoireToDocument converter = new RepertoireToDocument(repertoireObject);
-				Document repertoireAsDocument = converter.getDocument();
-			}
-		});
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Save List");
+		alert.setHeaderText("Are you sure you would like to save the changes to your Repertoire List?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			this.repertoireObject = repertoireObject;
+			saveChanges();
+			affirmationDialog();
+		} 
+	}
+	
+	public void saveChanges() {
+		RepertoireToDocument converter = new RepertoireToDocument(repertoireObject);
+		Document repertoireAsDocument = converter.getDocument();
+		new XMLWriter(repertoireAsDocument);
+	}
+	
+	public void affirmationDialog() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Alert!");
+		alert.setHeaderText("Your changes have been saved.");
+		alert.showAndWait();
+	
 	}
 }
