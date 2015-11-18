@@ -10,20 +10,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 
 public class XMLToDocumentConverterTest {
 	private XMLToDocumentConverter converter;
 	private Document document;
-	private Parser parser;
+	private RepertoireDataParser parser;
 	
 	@Before 
 	public void initialize() {
 		converter = new XMLToDocumentConverter("sample.xml");
 		document = converter.getDocument();
-		parser = new Parser(document);
+		parser = new RepertoireDataParser(document);
 	}
 	
 	@Test(expected = RuntimeException.class) 

@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireToDocument;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
+import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
 
@@ -19,7 +19,7 @@ public class RepertoireToDocumentTest {
 	public void initialize() {
 		XMLToDocumentConverter converter = new XMLToDocumentConverter("sampleRepertoireList.xml");
 		document = converter.getDocument();
-		Parser parser = new Parser(document);
+		RepertoireDataParser parser = new RepertoireDataParser(document);
 		testRep = parser.getRepertoireObject();
 	}
 
