@@ -5,7 +5,8 @@ import java.util.Observable;
 
 import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.Parser;
+import com.sun.javafx.scene.paint.GradientUtils.Parser;
+
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
@@ -18,12 +19,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -31,16 +36,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 
 public class UserInterface extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	private final String apiKey = "NDVFILMAVOOY8ITWS";
 	private Tab searchTab = new Tab("Search");
 	private Tab resultsTab = new Tab("Search Results");
@@ -56,7 +57,7 @@ public class UserInterface extends Application {
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
 	private TableView<Composition> repertoireTable;
-	private Repertoire repertoireObject; 
+	private Repertoire repertoireObject;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -67,7 +68,7 @@ public class UserInterface extends Application {
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	} 
+	}
 
 	private void setWindow(TabPane tabPane) {
 		setTabsClosable();
@@ -76,7 +77,7 @@ public class UserInterface extends Application {
 		setSearchVBox();
 		setActionForButtons(tabPane);
 	}
-	
+
 	private ObservableList<Composition> makeObservableList(Document results) {
 		Parser parser = new Parser(results);
 		List<Composition> listOfCompositions = parser.getRepertoireObject().getRepertoireList();
@@ -91,8 +92,8 @@ public class UserInterface extends Application {
 			messageDialog();
 		}
 	}
-	
-	private void messageDialog () {
+
+	private void messageDialog() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Sorry!");
 		alert.setHeaderText("Sorry!");
@@ -126,12 +127,12 @@ public class UserInterface extends Application {
 		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 		setRepertoireObserver();
 	}
-	
-	 private void setRepertoireObserver() {
-	        repertoireObject.addObserver((Observable obj, Object arg) -> {
-	            refreshRepertoireTable();
-	        });
-	    }
+
+	private void setRepertoireObserver() {
+		repertoireObject.addObserver((Observable obj, Object arg) -> {
+			refreshRepertoireTable();
+		});
+	}
 
 	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		VBox vBox = new VBox();
@@ -139,7 +140,6 @@ public class UserInterface extends Application {
 		vBox.getChildren().add(saveButton);
 		return vBox;
 	}
-	
 
 	private void setSearchVBox() {
 		VBox searchVBox = new VBox();
@@ -166,7 +166,7 @@ public class UserInterface extends Application {
 			}
 		});
 	}
-	
+
 	private void setSaveButtonAction(TabPane tabPane) {
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -196,12 +196,13 @@ public class UserInterface extends Application {
 	private void setSearchListTable() {
 		new TableView<Composition>();
 		ObservableList<Composition> observableListOfCompositions = makeObservableList(getSearchResults());
-		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchResults(observableListOfCompositions).withReferenceToRepertoire(repertoireObject);
+		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchResults(observableListOfCompositions)
+				.withReferenceToRepertoire(repertoireObject);
 		resultsTab.setContent(createNewVBoxWithTable(searchResultsTable.getSearchTable()));
 	}
 
 	private Document getSearchResults() {
-		String composer  = inputField.getText();
+		String composer = inputField.getText();
 		DatabaseConnector connection = null;
 		try {
 			URLFactory urlMaker = new URLFactory(apiKey);
@@ -226,10 +227,10 @@ public class UserInterface extends Application {
 	}
 
 	private void refreshRepertoireTable() {
-        repertoireTable.setItems(null);
-        RepertoireListTable table = new RepertoireListTable(repertoireObject);
-        repertoireTable = new TableView<Composition>();
-        repertoireTable = table.getRepertoireTable();
-        listTab.setContent(createNewVBoxWithTable(repertoireTable));
-    }
+		repertoireTable.setItems(null);
+		RepertoireListTable table = new RepertoireListTable(repertoireObject);
+		repertoireTable = new TableView<Composition>();
+		repertoireTable = table.getRepertoireTable();
+		listTab.setContent(createNewVBoxWithTable(repertoireTable));
+	}
 }
