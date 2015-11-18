@@ -36,6 +36,7 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 			return new RemoveButtonCell(this);
 		}
 	}
+	
 	public RemoveButtonCell(Builder builder) {
 		this.resultsTable = builder.resultsTable;
 		this.repertoireObject = builder.repertoireObject;
@@ -48,23 +49,15 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK){
 					setSelectedComposition();
-				    removePiece(selectedRecord);
+				    repertoireObject.removeComposition(selectedRecord);
 				} 
 			}
 		});
 	}
 
-	private void removePiece(Composition selectedRecord) {
-		try {
-			repertoireObject.removeComposition(selectedRecord);
-		} catch (Exception e) {
-			new WarningDialog("System error!  Try again.");
-		}
-	}
-	
-	public Composition setSelectedComposition() {
+	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
-		return (Composition) resultsTable.getItems().get(selectdIndex);
+		this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
 	public void messageDialog(String message) {
@@ -81,5 +74,4 @@ public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
 			setGraphic(cellButton);
 		}
 	}
-
 }

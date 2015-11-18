@@ -48,22 +48,17 @@ public class AddPieceButtonCell extends TableCell<Composition, Boolean> {
 	}
 
 	private void addToDocument() {
-		try {
-			if (repertoireObject.isDuplicate(selectedRecord)) {
-				repertoireObject.addComposition(selectedRecord);
-				messageDialog("\"" + selectedRecord.getTitle() + "\" has been added to your Repertoire List!");
-			} else {
-				messageDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
-			}
-		} catch (Exception e) {
-			new WarningDialog("System error!  Cannot add this piece to your repertoire list.  Try again.");
+		if (repertoireObject.isDuplicate(selectedRecord)) {
+			messageDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
+		} else {
+			repertoireObject.addComposition(selectedRecord);
+			messageDialog("\"" + selectedRecord.getTitle() + "\" has been added to your Repertoire List!");
 		}
-
 	}
 
-	public Composition setSelectedComposition() {
+	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
-		return (Composition) resultsTable.getItems().get(selectdIndex);
+		this.selectedRecord = (Composition) resultsTable.getItems().get(selectdIndex);
 	}
 
 	public void messageDialog(String message) {
