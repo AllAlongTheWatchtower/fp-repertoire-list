@@ -14,7 +14,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 
 public class  RemoveButtonCell extends TableCell<Composition, Boolean> {
-	public Button cellButton = new Button("Remove from List");
+	public Button cellButton = new Button("Remove");
 	private TableView<Composition> resultsTable;
 	public Composition selectedRecord;
 	public Repertoire repertoireObject;

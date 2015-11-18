@@ -1,28 +1,20 @@
 package edu.bsu.cs222.fp.repertoireList.userInterface;
 
-import java.util.List;
 import java.util.Observable;
 
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.SearchDataParser;
 import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
-import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
-import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
