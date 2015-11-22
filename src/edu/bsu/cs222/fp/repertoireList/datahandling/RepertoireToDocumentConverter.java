@@ -1,5 +1,11 @@
-package edu.bsu.cs222.fp.repertoireList.dataHandling;
+package edu.bsu.cs222.fp.repertoireList.datahandling;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -11,17 +17,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
-public class RepertoireToDocument {
+public class RepertoireToDocumentConverter {
     private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
     
 	private Repertoire repertoire;
 	private Document repertoireAsDocument;
 	
-	public RepertoireToDocument(Repertoire repertoire) {
+	public RepertoireToDocumentConverter(Repertoire repertoire) {
 		this.repertoire = repertoire;
 		convertDocument();
 	}
@@ -31,11 +38,23 @@ public class RepertoireToDocument {
 	}
 	
 	private void convertDocument() {
-		XMLToDocumentConverter getXml = new XMLToDocumentConverter("RepertoireList.xml");
-		this.repertoireAsDocument = getXml.getDocument();
+		try {
+			this.repertoireAsDocument = readXmlDocumentFromFile("RepertoireList.xml");
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 		Node songs = getSongsNode(repertoireAsDocument);
 		songs = getEmptySongsNode(songs);
 		songs = constructSongsNode(songs);
+	}
+	
+	private Document readXmlDocumentFromFile(String inputFile) throws ParserConfigurationException, SAXException, IOException {
+		InputStream sampleFileInputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(inputFile);
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document sampleXML = documentBuilder.parse(sampleFileInputStream);
+		return sampleXML;
 	}
 	
 	private Node constructSongsNode(Node songs) {

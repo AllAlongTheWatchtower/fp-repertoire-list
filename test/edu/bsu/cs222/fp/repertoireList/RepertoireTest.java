@@ -4,12 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireTest {
 	private Repertoire repertoire;
@@ -17,9 +15,7 @@ public class RepertoireTest {
 	
 	@Before
 	public void intialize() {
-		XMLToDocumentConverter converter = new XMLToDocumentConverter("sampleRepertoireList.xml");
-		Document document = converter.getDocument();
-		RepertoireDataParser parser = new RepertoireDataParser(document);
+		RepertoireDataParser parser = new RepertoireDataParser("sampleRepertoireList.xml");
 		repertoire = parser.getRepertoireObject();
 	}
 	
@@ -28,7 +24,7 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertEquals(lengthBefore + 1, lengthAfter);
+		assertTrue(lengthBefore + 1==lengthAfter);
 	}
 	
 	@Test
@@ -37,7 +33,7 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertEquals(lengthBefore, lengthAfter);
+		assertTrue(lengthBefore==lengthAfter);
 	}
 	
 	@Test
@@ -46,6 +42,6 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.removeComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertEquals(lengthBefore, lengthAfter + 1);
+		assertTrue(lengthBefore -1==lengthAfter);
 	}
 }

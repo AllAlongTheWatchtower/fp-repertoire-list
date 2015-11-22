@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataHandling;
+package edu.bsu.cs222.fp.repertoireList.datahandling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +13,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 
 public abstract class Parser {
 	private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
 	public Document searchResults;
 	public NodeList compositionsNodeList;
 	public List<Composition> compositionsList = new ArrayList<Composition>();
-
-	
 	
 	public List<Composition> createListOfCompositions() {
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {

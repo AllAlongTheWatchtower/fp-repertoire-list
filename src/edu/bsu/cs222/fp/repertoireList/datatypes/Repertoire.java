@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataTypes;
+package edu.bsu.cs222.fp.repertoireList.datatypes;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,14 +34,13 @@ public class Repertoire extends Observable implements Iterable<Composition> {
 	}
 
 	public boolean isDuplicate(Composition newComposition) {
-		for (Composition current : repertoireList) {
-			if (newComposition.equals(current)) {
-				return true;
-			}
+		if (repertoireList.contains(newComposition)) {
+			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
-
+	
 	@Override
 	public Iterator<Composition> iterator() {
 		return repertoireList.iterator();

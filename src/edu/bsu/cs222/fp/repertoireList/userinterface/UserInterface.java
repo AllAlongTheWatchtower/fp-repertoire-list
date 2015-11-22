@@ -1,14 +1,11 @@
-package edu.bsu.cs222.fp.repertoireList.userInterface;
+package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import java.util.Observable;
 import java.util.Optional;
 
-import org.w3c.dom.Document;
-
-import edu.bsu.cs222.fp.repertoireList.dataHandling.RepertoireDataParser;
-import edu.bsu.cs222.fp.repertoireList.dataHandling.XMLToDocumentConverter;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -84,7 +81,12 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		RepertoireDataParser parser = new RepertoireDataParser(getRepertoireListDocument());
+		RepertoireDataParser parser = null;
+		try {
+			parser = new RepertoireDataParser("RepertoireList.xml");
+		} catch (RuntimeException e) {
+			new WarningDialog("System error: try again!");
+		}
 		repertoireObject = parser.getRepertoireObject();
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
@@ -92,18 +94,7 @@ public class UserInterface extends Application {
 		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
 		setRepertoireObserver();
 	}
-
-	private Document getRepertoireListDocument() {
-		XMLToDocumentConverter converter = null;
-		try {
-			converter = new XMLToDocumentConverter("RepertoireList.xml");
-		} catch (RuntimeException e) {
-			new WarningDialog("System error: try again!");
-		}
-		Document convertedDocument = converter.getDocument();
-		return convertedDocument;
-	}
-
+	
 	private void setRepertoireObserver() {
 		repertoireObject.addObserver((Observable obj, Object arg) -> {
 			refreshRepertoireTable();

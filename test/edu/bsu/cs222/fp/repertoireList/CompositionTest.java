@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 
 public class CompositionTest {
 	

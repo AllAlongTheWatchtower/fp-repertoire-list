@@ -1,12 +1,12 @@
-package edu.bsu.cs222.fp.repertoireList.userInterface;
+package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import java.util.List;
 
 import org.w3c.dom.Document;
 
-import edu.bsu.cs222.fp.repertoireList.dataHandling.SearchDataParser;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datahandling.SearchDataParser;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.collections.FXCollections;

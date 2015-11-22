@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataTypes;
+package edu.bsu.cs222.fp.repertoireList.datatypes;
 
 public class LearnedComposition {
 
@@ -35,20 +35,29 @@ public class LearnedComposition {
 	public void setEnsembleType(String ensembleType) {
 		this.ensembleType = ensembleType;
 	}
+	
 	public boolean wasPerformed() {
-		return wasPerformed;
+		return this.wasPerformed;
 	}
-
-	public void setWasPerformed(boolean wasPerformed) {
-		this.wasPerformed = wasPerformed;
+	
+	public void setWasPerformed() {
+		this.wasPerformed = true;
+	}
+	
+	public void setWasNotPerformed() {
+		this.wasPerformed = false;
 	}
 
 	public boolean wasMemorized() {
 		return wasMemorized;
 	}
 
-	public void setWasMemorized(boolean wasMemorized) {
-		this.wasMemorized = wasMemorized;
+	public void setWasMemorized() {
+		this.wasMemorized = true;
+	}
+	
+	public void setWasNotMemorized() {
+		this.wasMemorized = false;
 	}
 
 	public int yearLearned() {

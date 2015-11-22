@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataTypes;
+package edu.bsu.cs222.fp.repertoireList.datatypes;
 
 public final class Composition {
 	public static Builder byComposer(String composer){
@@ -34,8 +34,11 @@ public final class Composition {
 	public String getTitle() {
 		return this.title;
 	}
-	
-	public boolean equals(Composition other){
-		return (composer.equals(other.getComposer())&&title.equals(other.getTitle()));
+
+	@Override
+	public boolean equals(Object other){
+		return (other instanceof Composition && 
+				composer.equals(((Composition) other).getComposer()) &&
+				title.equals(((Composition) other).getTitle()));
 	}
 }

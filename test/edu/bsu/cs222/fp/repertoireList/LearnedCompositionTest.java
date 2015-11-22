@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.LearnedComposition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 
 public class LearnedCompositionTest {
 
@@ -22,9 +22,9 @@ public class LearnedCompositionTest {
 	
 	@Before
 	public void initialize() {
-		currentPlus.setWasPerformed(wasPerformed);
+		currentPlus.setWasPerformed();
 		currentPlus.setEnsemble(ensemble);
-		currentPlus.setWasMemorized(wasMemorized);
+		currentPlus.setWasNotMemorized();
 		currentPlus.setYearLearned(year);
 		currentPlus.setEnsembleType(ensembleType);
 	}

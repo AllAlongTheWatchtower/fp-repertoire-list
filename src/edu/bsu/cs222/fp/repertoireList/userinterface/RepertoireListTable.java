@@ -1,9 +1,9 @@
-package edu.bsu.cs222.fp.repertoireList.userInterface;
+package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import java.util.List;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;

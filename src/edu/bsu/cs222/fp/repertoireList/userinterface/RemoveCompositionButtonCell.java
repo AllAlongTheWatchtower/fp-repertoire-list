@@ -1,9 +1,9 @@
-package edu.bsu.cs222.fp.repertoireList.userInterface;
+package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import java.util.Optional;
 
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.dataTypes.Repertoire;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;

@@ -1,4 +1,4 @@
-package edu.bsu.cs222.fp.repertoireList.dataHandling;
+package edu.bsu.cs222.fp.repertoireList.datahandling;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,19 +10,29 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-public class XMLToDocumentConverter {
-	private Document convertedXML;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
+
+public class RepertoireDataParser extends Parser {
+
+	private Repertoire repertoire;
 	
-	public XMLToDocumentConverter(String inputFile) {
+	public RepertoireDataParser(String xmlFile) {
 		try {
-			convertedXML = readXMLDocumentFromFile(inputFile);
+			this.searchResults = readXMLDocumentFromFile(xmlFile);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException();
 		}
+		this.compositionsNodeList = getNodeListOfCompositions();
+		this.compositionsList = createListOfCompositions();
+		repertoire = new Repertoire(compositionsList);
+	}
+    
+	public Repertoire getRepertoireObject() {
+		return repertoire;
 	}
 	
-	public Document getDocument() {
-		return convertedXML;
+	public Document getSearchResults() {
+		return searchResults;
 	}
 	
 	private Document readXMLDocumentFromFile(String inputFile) throws ParserConfigurationException, SAXException, IOException {
