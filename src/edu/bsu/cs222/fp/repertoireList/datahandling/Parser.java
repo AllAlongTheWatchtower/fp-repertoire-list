@@ -21,26 +21,6 @@ public abstract class Parser {
 	public NodeList compositionsNodeList;
 	public List<Composition> compositionsList = new ArrayList<Composition>();
 	
-	public List<Composition> createListOfCompositions() {
-    	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
-    		addComposerAtIndex(i);
-    	}
-    	return compositionsList;
-    }
-	
-	private void addComposerAtIndex(int i) {
-		Node currentNode = compositionsNodeList.item(i).getLastChild();
-		Composition current = createComposition(currentNode);
-		compositionsList.add(current);
-	}
-    
-	private Composition createComposition(Node currentNode) {			
-		String composer = currentNode.getPreviousSibling().getTextContent();
-		String title = currentNode.getTextContent();
-		Composition composition = Composition.byComposer(composer).withTitle(title);
-		return composition;
-	}
-	
 	public NodeList getNodeListOfCompositions() {
 		Node compositions = getSongsNode();
 		NodeList compositionsList = compositions.getChildNodes();

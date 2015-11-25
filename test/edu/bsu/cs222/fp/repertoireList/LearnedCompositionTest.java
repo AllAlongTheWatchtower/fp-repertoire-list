@@ -1,6 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +27,11 @@ public class LearnedCompositionTest {
 		currentPlus.setWasNotMemorized();
 		currentPlus.setYearLearned(year);
 		currentPlus.setEnsembleType(ensembleType);
+	}
+	
+	@Test 
+	public void findDuplicate() {
+		assertTrue(current.equals(current));
 	}
 	
 	@Test

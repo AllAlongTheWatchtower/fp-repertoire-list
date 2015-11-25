@@ -7,11 +7,13 @@ import org.junit.Test;
 
 import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireTest {
 	private Repertoire repertoire;
-	private Composition testComposition = Composition.byComposer("Amadeus Mozart").withTitle("Symphony No. 40");
+	private Composition current = Composition.byComposer("Amadeus Mozart").withTitle("Symphony No. 40");
+	private LearnedComposition testComposition = new LearnedComposition(current);
 	
 	@Before
 	public void intialize() {
@@ -24,16 +26,22 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertTrue(lengthBefore + 1==lengthAfter);
+		assertTrue(lengthBefore+1 == lengthAfter);
+	}
+	
+	@Test 
+	public void testDuplicateFunction() {
+		repertoire.addComposition(testComposition);
+		assertTrue(repertoire.isDuplicate(testComposition));
 	}
 	
 	@Test
-	public void testAvoidDuplicate() {
+	public void testTryToAddDuplicate() {
 		repertoire.addComposition(testComposition);
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertTrue(lengthBefore==lengthAfter);
+		assertTrue(lengthBefore == lengthAfter);
 	}
 	
 	@Test
@@ -42,6 +50,6 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.removeComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertTrue(lengthBefore -1==lengthAfter);
+		assertTrue(lengthBefore-1 == lengthAfter);
 	}
 }
