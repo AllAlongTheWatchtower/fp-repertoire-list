@@ -57,26 +57,36 @@ public class LearnedComposition {
 	}
 
 	public String getEnsembleType() {
-		switch (ensembleType) {
-			case SOLO:			return "solo";
-			case ENSEMBLE:		return "ensemble";
-			case CHAMBER:		return "chamber";
-			case ORCHESTRA:		return "orchestra";
-			case OPERA:			return "opera";
-			case OTHER:			return "other";
-			default:			return null;
+		if (this.ensembleTypeSet) {
+			switch (this.ensembleType) {
+				case SOLO:			return "solo";
+				case ENSEMBLE:		return "ensemble";
+				case CHAMBER:		return "chamber";
+				case ORCHESTRA:		return "orchestra";
+				case OPERA:			return "opera";
+				case OTHER:			return "other";
+				default:			return null;
+			}
+		} else {
+			return null;
 		}
 	}
 	
 	public void setEnsembleType(String type) {
-		switch (type) {
-			case "solo":		this.ensembleType = EnsembleType.SOLO;
-			case "ensemble":	this.ensembleType = EnsembleType.ENSEMBLE;
-			case "chamber":		this.ensembleType = EnsembleType.CHAMBER;
-			case "orchestra":	this.ensembleType = EnsembleType.ORCHESTRA;
-			case "opera":		this.ensembleType = EnsembleType.OPERA;
-			case "other":		this.ensembleType = EnsembleType.OTHER;
+		if (type.equals("other")) {
+			this.ensembleType = EnsembleType.OTHER;
+		} else if (type.equals("solo")) {
+			this.ensembleType = EnsembleType.SOLO;
+		} else if (type.equals("ensemble")) {
+			this.ensembleType = EnsembleType.ENSEMBLE;
+		} else if (type.equals("chamber")) {
+			this.ensembleType = EnsembleType.CHAMBER;
+		} else if (type.equals("orchestra")) {
+			this.ensembleType = EnsembleType.ORCHESTRA; 
+		} else if (type.equals("opera")) {
+			this.ensembleType = EnsembleType.OPERA;
 		}
+		
 		this.ensembleTypeSet = true;
 	}
 	
