@@ -12,11 +12,8 @@ public class LearnedComposition {
 	private boolean memorizedSet;
 	private boolean ensembleSet;
 	private boolean ensembleTypeSet;
-	
-	
-	// This field contains the results of a drop-down box and should only
-	// be set to "Solo", "Ensemble",  "Opera", "Orchestral", or "Other"
-	private String ensembleType;
+	private enum EnsembleType {SOLO, ENSEMBLE, OPERA, CHAMBER, ORCHESTRA, OTHER}
+	private EnsembleType ensembleType;
 	
 	public LearnedComposition(Composition composition) {
 		this.composition = composition;
@@ -60,11 +57,26 @@ public class LearnedComposition {
 	}
 
 	public String getEnsembleType() {
-		return ensembleType;
+		switch (ensembleType) {
+			case SOLO:			return "solo";
+			case ENSEMBLE:		return "ensemble";
+			case CHAMBER:		return "chamber";
+			case ORCHESTRA:		return "orchestra";
+			case OPERA:			return "opera";
+			case OTHER:			return "other";
+			default:			return null;
+		}
 	}
 	
-	public void setEnsembleType(String ensembleType) {
-		this.ensembleType = ensembleType;
+	public void setEnsembleType(String type) {
+		switch (type) {
+			case "solo":		this.ensembleType = EnsembleType.SOLO;
+			case "ensemble":	this.ensembleType = EnsembleType.ENSEMBLE;
+			case "chamber":		this.ensembleType = EnsembleType.CHAMBER;
+			case "orchestra":	this.ensembleType = EnsembleType.ORCHESTRA;
+			case "opera":		this.ensembleType = EnsembleType.OPERA;
+			case "other":		this.ensembleType = EnsembleType.OTHER;
+		}
 		this.ensembleTypeSet = true;
 	}
 	
