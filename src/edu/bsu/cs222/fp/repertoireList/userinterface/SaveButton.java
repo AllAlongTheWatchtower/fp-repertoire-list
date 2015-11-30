@@ -10,11 +10,11 @@ import javafx.scene.control.Alert.AlertType;
 
 public class SaveButton {
 	private Repertoire repertoireObject;
-	
+
 	public SaveButton(Repertoire repertoireObject) {
 		this.repertoireObject = repertoireObject;
 		saveChanges();
-		affirmationDialog();
+		new InformationDialog("Your changes have been saved.");
 	}
 
 	public void saveChanges() {
@@ -22,17 +22,10 @@ public class SaveButton {
 		try {
 			converter = new RepertoireToDocumentConverter(repertoireObject);
 		} catch (RuntimeException e) {
-			new WarningDialog ("System error!  Please try again.");
+			new WarningDialog("System error!  Please try again.");
 		}
 		Document repertoireAsDocument = converter.getDocument();
 		new XMLWriter(repertoireAsDocument);
-	}
+	} 
 
-	public void affirmationDialog() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Alert!");
-		alert.setHeaderText("Your changes have been saved.");
-		alert.showAndWait();
-
-	}
 }

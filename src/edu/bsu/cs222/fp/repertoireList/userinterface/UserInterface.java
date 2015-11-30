@@ -152,8 +152,14 @@ public class UserInterface extends Application {
 	}
 
 	private void pressGo(TabPane tabPane) {
-		tabPane.getSelectionModel().select(1);
-		setSearchListTable();
+		if(!inputField.getText().equals("")){
+			tabPane.getSelectionModel().select(1);
+		    setSearchListTable();
+		}
+		else{
+			new InformationDialog("Sorry! Our system is not picking that you entered anything. Please try agian.");
+		}
+		
 	}
 
 	private void setSearchListTable() {

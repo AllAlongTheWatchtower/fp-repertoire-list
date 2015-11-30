@@ -36,6 +36,6 @@ public class RepertoireListTable extends Table {
 	}
 	
 	public TableCell<Composition, Boolean> editRepertoireButton() {
-		return RemoveCompositionButtonCell.inTable(repertoireTable).withRepertoire(repertoireObject);
+		return new RemoveCompositionButtonCell(repertoireObject);
 	}
 }

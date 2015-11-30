@@ -73,16 +73,9 @@ public class SearchResultsTable extends Table {
 
 	private void informUserIfThereAreNoSearchResults(List<Composition> listOfCompositions) {
 		if (listOfCompositions.isEmpty()) {
-			messageDialog();
-		}
-	}
+			new InformationDialog("Sorry! That composer is not in our system!");
 
-	private void messageDialog() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Sorry!");
-		alert.setHeaderText("Sorry!");
-		alert.setContentText("That composer is not in our system!");
-		alert.showAndWait();
+		}
 	}
 
 	public TableView<Composition> getSearchTable() {
@@ -90,7 +83,7 @@ public class SearchResultsTable extends Table {
 	}
 
 	public TableCell<Composition, Boolean> editRepertoireButton() {
-		return AddCompositionButtonCell.inTable(searchTable).withRepertoire(repertoireObject);
+		return new AddCompositionButtonCell(repertoireObject);
 	}
 
 }
