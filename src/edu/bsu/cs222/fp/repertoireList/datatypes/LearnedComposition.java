@@ -7,13 +7,41 @@ public class LearnedComposition {
 	private boolean wasMemorized;
 	private int yearLearned;
 	private String withEnsemble;
-	
-	// This field contains the results of a drop-down box and should only
-	// be set to "Solo", "Ensemble",  "Opera", "Orchestral", or "Other"
-	private String ensembleType;
+	private boolean yearSet;
+	private boolean performedSet;
+	private boolean memorizedSet;
+	private boolean ensembleSet;
+	private boolean ensembleTypeSet;
+	private enum EnsembleType {SOLO, ENSEMBLE, OPERA, CHAMBER, ORCHESTRA, OTHER}
+	private EnsembleType ensembleType;
 	
 	public LearnedComposition(Composition composition) {
 		this.composition = composition;
+		this.yearSet = false;
+		this.performedSet = false;
+		this.memorizedSet = false;
+		this.ensembleSet = false;
+		this.ensembleTypeSet = false;
+	}
+	
+	public boolean yearSet() {
+		return yearSet;
+	}
+	
+	public boolean performedSet() {
+		return performedSet;
+	}
+	
+	public boolean memorizedSet() {
+		return memorizedSet;
+	}
+	
+	public boolean ensembleSet() {
+		return ensembleSet;
+	}
+	
+	public boolean ensembleTypeSet() {
+		return ensembleTypeSet;
 	}
 	
 	public Composition getComposition() {
@@ -29,11 +57,37 @@ public class LearnedComposition {
 	}
 
 	public String getEnsembleType() {
-		return ensembleType;
+		if (this.ensembleTypeSet) {
+			switch (this.ensembleType) {
+				case SOLO:			return "solo";
+				case ENSEMBLE:		return "ensemble";
+				case CHAMBER:		return "chamber";
+				case ORCHESTRA:		return "orchestra";
+				case OPERA:			return "opera";
+				case OTHER:			return "other";
+				default:			return null;
+			}
+		} else {
+			return null;
+		}
 	}
 	
-	public void setEnsembleType(String ensembleType) {
-		this.ensembleType = ensembleType;
+	public void setEnsembleType(String type) {
+		if (type.equals("other")) {
+			this.ensembleType = EnsembleType.OTHER;
+		} else if (type.equals("solo")) {
+			this.ensembleType = EnsembleType.SOLO;
+		} else if (type.equals("ensemble")) {
+			this.ensembleType = EnsembleType.ENSEMBLE;
+		} else if (type.equals("chamber")) {
+			this.ensembleType = EnsembleType.CHAMBER;
+		} else if (type.equals("orchestra")) {
+			this.ensembleType = EnsembleType.ORCHESTRA; 
+		} else if (type.equals("opera")) {
+			this.ensembleType = EnsembleType.OPERA;
+		}
+		
+		this.ensembleTypeSet = true;
 	}
 	
 	public boolean wasPerformed() {
@@ -42,10 +96,12 @@ public class LearnedComposition {
 	
 	public void setWasPerformed() {
 		this.wasPerformed = true;
+		this.performedSet = true;
 	}
 	
 	public void setWasNotPerformed() {
 		this.wasPerformed = false;
+		this.performedSet = true;
 	}
 
 	public boolean wasMemorized() {
@@ -54,10 +110,12 @@ public class LearnedComposition {
 
 	public void setWasMemorized() {
 		this.wasMemorized = true;
+		this.memorizedSet = true;
 	}
 	
 	public void setWasNotMemorized() {
 		this.wasMemorized = false;
+		this.memorizedSet = true;
 	}
 
 	public int yearLearned() {
@@ -66,6 +124,7 @@ public class LearnedComposition {
 
 	public void setYearLearned(int yearLearned) {
 		this.yearLearned = yearLearned;
+		this.yearSet = true;
 	}
 
 	public String getEnsemble() {
@@ -74,5 +133,12 @@ public class LearnedComposition {
 
 	public void setEnsemble(String withEnsemble) {
 		this.withEnsemble = withEnsemble;
+		this.ensembleSet = true;
+	}
+	
+	@Override
+	public boolean equals(Object other){
+		return (other instanceof LearnedComposition && 
+				this.getComposition().equals(((LearnedComposition) other).getComposition()));
 	}
 }

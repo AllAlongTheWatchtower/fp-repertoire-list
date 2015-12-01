@@ -19,7 +19,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
-import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireToDocumentConverter {
@@ -58,7 +58,7 @@ public class RepertoireToDocumentConverter {
 	}
 	
 	private Node constructSongsNode(Node songs) {
-		for (Composition piece : repertoire) {
+		for (LearnedComposition piece : repertoire) {
 	        CreateElement elementFactory = new CreateElement(piece);
 	        Element song = elementFactory.getSong();
 	        songs.appendChild(song);
@@ -100,31 +100,88 @@ public class RepertoireToDocumentConverter {
     
     private class CreateElement {
     	private Element song;
+    	private LearnedComposition current;
     	
-    	private CreateElement(Composition current) {
+    	private CreateElement(LearnedComposition current) {
+    		this.current = current;
 	        song = repertoireAsDocument.createElement("song");
-			String composer = current.getComposer();
-			String title = current.getTitle();
-			addComposer(composer);
-			addTitle(title);
+			addComposer();
+			addTitle();
+			addNotes();
     	}
     	
     	private Element getSong() {
     		return song;
     	}
     	
-        private void addComposer(String artist) {
+        private void addComposer() {
+			String artist = current.getComposer();
             Element composer = repertoireAsDocument.createElement("artist_name");   
             Text composerData = repertoireAsDocument.createTextNode(artist);
             song.appendChild(composer);
             composer.appendChild(composerData);
         }
        
-        private void addTitle(String piece) {
+        private void addTitle() {
+			String piece = current.getTitle();
             Element title = repertoireAsDocument.createElement("title");
             Text titleData = repertoireAsDocument.createTextNode(piece);
             song.appendChild(title);       
             title.appendChild(titleData);
         }
+        
+        private void addNotes() {
+        	Element notes = repertoireAsDocument.createElement("notes");
+			addPerformed(notes);
+			addMemorized(notes);
+			addYear(notes);
+			addEnsemble(notes);
+			addEnsembleType(notes);   
+			song.appendChild(notes);
+        }
+
+		private void addPerformed(Element notes) {
+			if (current.performedSet()) {
+				boolean performed = current.wasPerformed();
+				if (performed) {
+					notes.setAttribute("performed", "true");
+				} else {
+					notes.setAttribute("performed", "false");
+				}
+			}
+        }
+        
+        private void addMemorized(Element notes) {
+        	if (current.memorizedSet()) {
+        		boolean memorized = current.wasMemorized();
+        		if (memorized) {
+        			notes.setAttribute("memorized", "true");
+        		} else {
+        			notes.setAttribute("memorized", "false");
+        		}
+        	}
+        }
+        
+        private void addYear(Element notes) {
+        	if (current.yearSet()) {		
+             	int year = current.yearLearned();
+             	String yearString = String.valueOf(year);
+             	notes.setAttribute("year", yearString);
+        	}
+        }
+        
+        private void addEnsemble(Element notes) {
+        	if (current.ensembleSet()) {
+        		String ensemble = current.getEnsemble();
+        		notes.setAttribute("ensemble", ensemble);
+        	}
+        }
+        
+        private void addEnsembleType(Element notes) {
+        	if (current.ensembleTypeSet()) {
+        		String ensembleType = current.getEnsembleType();
+        		notes.setAttribute("ensembleType", ensembleType);
+        	}
+		}
     }
 }

@@ -1,6 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class LearnedCompositionTest {
 	private String ensemble = "Ball State University Orchestra";
 	private int year = 2014;
 	private boolean wasMemorized = false;
-	private String ensembleType = "orchestral";
+	private String ensembleType = "solo";
 	
 	@Before
 	public void initialize() {
@@ -29,43 +29,48 @@ public class LearnedCompositionTest {
 		currentPlus.setEnsembleType(ensembleType);
 	}
 	
+	@Test 
+	public void findDuplicate() {
+		assertTrue(current.equals(current));
+	}
+	
 	@Test
-	public void testGetEnsembleType() {
+	public void testRetrieveEnsembleType() {
 		assertEquals(currentPlus.getEnsembleType(), ensembleType);
 	}
 	
 	@Test 
-	public void testGetYear() {
+	public void testRetrieveYear() {
 		assertEquals(currentPlus.yearLearned(), year);
 	}
 	
 	@Test 
-	public void testWasMemorized() {
+	public void testRetrieveWasMemorized() {
 		assertEquals(currentPlus.wasMemorized(), wasMemorized);
 	}
 	
 	@Test 
-	public void testWasPerformed() {
+	public void testRetrieveWasPerformed() {
 		assertEquals(currentPlus.wasPerformed(), wasPerformed);
 	}
 	
 	@Test
-	public void retrieveEnsemble() {
+	public void testRetrieveEnsemble() {
 		assertEquals(currentPlus.getEnsemble(), ensemble);
 	}
 	
 	@Test
-	public void testComposition() {
+	public void testRetrieveComposition() {
 		assertEquals(current, currentPlus.getComposition());
 	}
 
 	@Test
-	public void testComposer() {
+	public void testRetrieveComposer() {
 		assertEquals(composer, current.getComposer());
 	}
 	
 	@Test
-	public void testTitle() {
+	public void testRetrieveTitle() {
 		assertEquals(title, current.getTitle());		
 	}
 }
