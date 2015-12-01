@@ -22,10 +22,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -47,26 +49,32 @@ public class UserInterface extends Application {
 	private Label legalText = new Label(
 			"Data retrieved using The Echo Nest API\nWebsite: http://the.echonest.com/\nA special thanks to The Echo Nest!");
 	private TextField inputField = new TextField("Search Field");
+	private Button newCompositionButton = new Button("New Composition");
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
+	
 	private TableView<Composition> repertoireTable;
 	private Repertoire repertoireObject;
 	private VBox tableVBox = new VBox();
+	private ToolBar toolBar = new ToolBar(); 
+	private BorderPane borderPane = new BorderPane();
 
 	@Override
 	public void start(Stage primaryStage) {
+		toolBar.getItems().addAll(newCompositionButton, saveButton);	
 		TabPane tabPane = new TabPane();
 		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
-		setWindow(tabPane);
-		Scene scene = new Scene(tabPane, 680, 530);
+		borderPane.setTop(toolBar);
+		borderPane.setCenter(tabPane);
+		Scene scene = new Scene(borderPane,680, 530);
+		setTabPane(tabPane);
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		askUserIfTheyWouldLikeToSaveUponExist(primaryStage);
-
 	}
 
-	private void setWindow(TabPane tabPane) {
+	private void setTabPane(TabPane tabPane) {
 		setTabsClosable();
 		welcomeText.setFont(new Font("Arial", 20));
 		setRepertoireListTable();
@@ -110,7 +118,6 @@ public class UserInterface extends Application {
 	private VBox createNewVBoxWithRepertoireTable(TableView<Composition> table) {
 		tableVBox = new VBox();
 		tableVBox.getChildren().add(table);
-		tableVBox.getChildren().add(saveButton);
 		return tableVBox;
 	}
 
@@ -127,10 +134,20 @@ public class UserInterface extends Application {
 	private void setActionForButtons(TabPane tabPane) {
 		setSearchButtonAction(tabPane);
 		setTheEnterKeyAction(tabPane);
+		setNewCompositionButton(tabPane);
 		setSaveButtonAction(tabPane);
 		setTheRepertoireListButton(tabPane);
 	}
 
+	private void setNewCompositionButton(TabPane tabPane) {
+		newCompositionButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				new NewCompositionButton();
+			}
+		});
+	}//
+	
 	private void setSearchButtonAction(TabPane tabPane) {
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

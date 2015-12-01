@@ -11,10 +11,8 @@ import edu.bsu.cs222.fp.repertoireList.network.DatabaseConnector;
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 
 public class SearchResultsTable extends Table {
 	public TableView<Composition> resultsTable;
@@ -74,7 +72,6 @@ public class SearchResultsTable extends Table {
 	private void informUserIfThereAreNoSearchResults(List<Composition> listOfCompositions) {
 		if (listOfCompositions.isEmpty()) {
 			new InformationDialog("Sorry! That composer is not in our system!");
-
 		}
 	}
 

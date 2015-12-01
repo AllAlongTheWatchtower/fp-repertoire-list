@@ -4,11 +4,8 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 
 public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 
@@ -32,7 +29,7 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
 		} else {
 			repertoireObject.addComposition(selectedRecord);
-			new InformationDialog("\"" + selectedRecord.getTitle() + "\" has been added to your Repertoire List!");
+			new TheAddNotesPopup (selectedRecord);
 		}
 	}
 
@@ -40,7 +37,6 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 		int selectdIndex = getTableRow().getIndex();
 		this.selectedRecord = (Composition) getTableView().getItems().get(selectdIndex);
 	}
-
 
 	@Override
 	protected void updateItem(Boolean t, boolean empty) {

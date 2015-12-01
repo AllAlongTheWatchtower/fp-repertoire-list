@@ -18,6 +18,7 @@ public class RepertoireListTable extends Table {
 		this.repertoireObject = repertoireObject;
 		observableRepertoireListOfCompositions = createObservableList(repertoireObject);
 		repertoireTable = createTable(observableRepertoireListOfCompositions);
+		repertoireTable.getColumns().add(createNotesColumn());
 	}
 
 	private ObservableList<Composition> createObservableList(Repertoire repertoireObject) {
@@ -34,7 +35,7 @@ public class RepertoireListTable extends Table {
 	public ObservableList<Composition> getObservableRepertoireListOfCompositions() {
 		return observableRepertoireListOfCompositions;
 	}
-	
+
 	public TableCell<Composition, Boolean> editRepertoireButton() {
 		return new RemoveCompositionButtonCell(repertoireObject);
 	}

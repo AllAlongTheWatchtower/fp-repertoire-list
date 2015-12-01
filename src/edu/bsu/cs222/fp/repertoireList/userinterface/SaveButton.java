@@ -5,8 +5,6 @@ import org.w3c.dom.Document;
 import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireToDocumentConverter;
 import edu.bsu.cs222.fp.repertoireList.datahandling.XMLWriter;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class SaveButton {
 	private Repertoire repertoireObject;
