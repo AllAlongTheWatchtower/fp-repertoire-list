@@ -1,6 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +11,7 @@ import javafx.scene.control.TableCell;
 public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 
 	public Button cellButton = new Button("Add");
-	public Composition selectedRecord;
+	public LearnedComposition selectedRecord;
 	public Repertoire repertoireObject;
 
 	public AddCompositionButtonCell(Repertoire repertoireObject) {
@@ -29,13 +30,14 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
 		} else {
 			repertoireObject.addComposition(selectedRecord);
-			new TheAddNotesPopup (selectedRecord);
+			new TheAddNotesPopup (selectedRecord.getComposition());
 		}
 	}
 
 	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
-		this.selectedRecord = (Composition) getTableView().getItems().get(selectdIndex);
+		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
+		this.selectedRecord = new LearnedComposition(selected);
 	}
 
 	@Override

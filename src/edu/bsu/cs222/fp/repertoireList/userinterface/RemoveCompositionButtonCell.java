@@ -3,6 +3,7 @@ package edu.bsu.cs222.fp.repertoireList.userinterface;
 import java.util.Optional;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +15,7 @@ import javafx.scene.control.TableCell;
 
 public class  RemoveCompositionButtonCell extends TableCell<Composition, Boolean> {
 	public Button cellButton = new Button("Remove");
-	public Composition selectedRecord;
+	public LearnedComposition selectedRecord;
 
 	public RemoveCompositionButtonCell(Repertoire repertoireObject) {
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -34,7 +35,8 @@ public class  RemoveCompositionButtonCell extends TableCell<Composition, Boolean
 
 	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
-		this.selectedRecord = (Composition) getTableView().getItems().get(selectdIndex);
+		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
+		this.selectedRecord = new LearnedComposition(selected);
 	}
 
 	@Override
