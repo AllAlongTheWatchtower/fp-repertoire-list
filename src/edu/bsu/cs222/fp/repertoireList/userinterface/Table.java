@@ -56,7 +56,7 @@ public abstract class Table {
 		return table;
 	}
 	public TableColumn<Composition, Boolean> createNotesColumn() {
-		TableColumn<Composition, Boolean> notesColumn = new TableColumn<>("Notes");
+		TableColumn<Composition, Boolean> notesColumn = new TableColumn<>();
 		notesColumn.setSortable(false);
 		createNotesButtonBooleanProperty(notesColumn);
 		createButtonClass(notesColumn);
@@ -65,7 +65,7 @@ public abstract class Table {
 	
 
 	private TableColumn<Composition, Boolean> createActionColumn() {
-		TableColumn<Composition, Boolean> actionColumn = new TableColumn<>("Action");
+		TableColumn<Composition, Boolean> actionColumn = new TableColumn<>();
 		actionColumn.setSortable(false);
 		createButtonBooleanProperty(actionColumn);
 		createButtonClass(actionColumn);

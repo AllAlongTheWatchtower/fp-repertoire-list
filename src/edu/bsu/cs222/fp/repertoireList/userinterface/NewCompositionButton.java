@@ -14,8 +14,14 @@ public class NewCompositionButton extends NotesPopup {
 		title = new Label("Title:");
 		createFilledStage();
 	}
-	public void addStuff() {
+	@Override
+	public void addItemsToVbox() {
 		vBox.getChildren().addAll(directionText, composer,composerInput, title,titleInput, yearLearnedLabel, inputYear, ensembleLabel,
-				inputEnsemble, memorizedCheckBox, performedCheckBox, searchButton);
+				inputEnsemble, memorizedCheckBox, performedCheckBox, addButton);
+	}
+	@Override
+	public void performBeforeClosing() {
+		// TODO Auto-generated method stub
+		
 	}
 }

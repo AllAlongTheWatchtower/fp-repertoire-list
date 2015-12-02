@@ -1,20 +1,24 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public abstract class NotesPopup  {
+public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 	
 	public Composition selectedRecord;
-	public Button searchButton = new Button("Add");
+	public Button addButton = new Button("Add");
+	public Button cancelButton = new Button("Cancel");
 	public Label directionText = new Label("Please enter your notes");
 	public Label composer;
 	public Label title;
@@ -25,20 +29,39 @@ public abstract class NotesPopup  {
 	public TextField inputYear = new TextField();
 	public TextField inputEnsemble = new TextField(); 
 	public VBox vBox = new VBox();
-   //memorizedCheckBox.setSelected(true);
-	public abstract void addStuff();
+	public abstract void addItemsToVbox();
+	public abstract void performBeforeClosing();
 	
-	
-	public void createFilledStage() {		
-		
+	public void createFilledStage() {
+		vBox = new VBox();
 		Stage stage = new Stage();
 		directionText.setFont(new Font("Arial", 20));
 		vBox.setSpacing(15);
-		addStuff();
+		addItemsToVbox();
 		vBox.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(vBox);
 		stage.setScene(scene);
 		stage.setTitle("Notes");
 		stage.show();
+		setAddButtonAction(stage);
+		setCancelButtonAction(stage);
+	}
+	private void setAddButtonAction(Stage stage) {
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				performBeforeClosing();
+				stage.close();
+			}
+		});
+	}
+	
+	private void setCancelButtonAction(Stage stage) {
+		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				stage.close();
+			}
+		});
 	}
 }

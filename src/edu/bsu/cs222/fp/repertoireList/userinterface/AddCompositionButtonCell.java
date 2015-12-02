@@ -6,9 +6,10 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 
-public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
+public class AddCompositionButtonCell extends NotesPopup {
 
 	public Button cellButton = new Button("Add");
 	public LearnedComposition selectedRecord;
@@ -16,6 +17,7 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 
 	public AddCompositionButtonCell(Repertoire repertoireObject) {
 		this.repertoireObject = repertoireObject;
+		
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
@@ -29,8 +31,10 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 		if (repertoireObject.isDuplicate(selectedRecord)) {
 			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
 		} else {
-			repertoireObject.addComposition(selectedRecord);
-			new TheAddNotesPopup (selectedRecord.getComposition());
+			composer = new Label("Composer: " + selectedRecord.getComposer());
+			title = new Label("Title: " + selectedRecord.getTitle());
+			createFilledStage();
+			
 		}
 	}
 
@@ -39,6 +43,12 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
 		this.selectedRecord = new LearnedComposition(selected);
 	}
+	
+	@Override
+	public void addItemsToVbox(){
+		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
+				inputEnsemble, memorizedCheckBox, performedCheckBox, cancelButton, addButton);
+	}
 
 	@Override
 	protected void updateItem(Boolean t, boolean empty) {
@@ -46,6 +56,12 @@ public class AddCompositionButtonCell extends TableCell<Composition, Boolean> {
 		if (!empty) {
 			setGraphic(cellButton);
 		}
+	}
+
+	@Override
+	public void performBeforeClosing() {
+		repertoireObject.addComposition(selectedRecord);
+		
 	}
 
 }
