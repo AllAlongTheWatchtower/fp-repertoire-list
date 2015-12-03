@@ -20,7 +20,6 @@ import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireToDocumentConverter {
@@ -101,11 +100,11 @@ public class RepertoireToDocumentConverter {
     
     private class CreateElement {
     	private Element song;
-    	private LearnedComposition current;
+    	private Composition current;
     	
     	private CreateElement(Composition current) {
-    		if (current instanceof LearnedComposition) {
-    			this.current = (LearnedComposition) current;
+    		if (current instanceof Composition) {
+    			this.current = (Composition) current;
     			song = repertoireAsDocument.createElement("song");
     			addComposer();
     			addTitle();

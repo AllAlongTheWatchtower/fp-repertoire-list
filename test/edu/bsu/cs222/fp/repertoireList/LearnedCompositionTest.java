@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 
 public class LearnedCompositionTest {
 
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
-	private LearnedComposition current = LearnedComposition.byComposer(composer).withTitle(title);
+	private Composition current = Composition.byComposer(composer).withTitle(title);
 	private boolean wasPerformed = true;
 	private String ensemble = "Ball State University Orchestra";
 	private int year = 2014;

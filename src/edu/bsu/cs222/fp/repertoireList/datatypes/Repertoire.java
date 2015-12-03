@@ -19,7 +19,7 @@ public class Repertoire extends Observable implements Iterable<Composition> {
 		return repertoireList.size();
 	}
 
-	public void addComposition(LearnedComposition newComposition) {
+	public void addComposition(Composition newComposition) {
 		if (!isDuplicate(newComposition)) {
 			repertoireList.add(newComposition);
 			setChanged();
@@ -32,13 +32,13 @@ public class Repertoire extends Observable implements Iterable<Composition> {
 		}
 	}
 
-	public void removeComposition(LearnedComposition newComposition) {
+	public void removeComposition(Composition newComposition) {
 		repertoireList.remove(newComposition);
 		setChanged();
 		notifyObservers();
 	}
 
-	public boolean isDuplicate(LearnedComposition newComposition) {
+	public boolean isDuplicate(Composition newComposition) {
 		if (repertoireList.contains(newComposition)) {
 			return true;
 		} else {

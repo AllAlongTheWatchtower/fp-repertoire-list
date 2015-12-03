@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireDataParser extends Parser {
@@ -66,7 +65,7 @@ public class RepertoireDataParser extends Parser {
     
 	private class LearnedCompositionCreator {
 		private NodeList compositionData;
-		private LearnedComposition current;
+		private Composition current;
 		
 		private LearnedCompositionCreator(Node currentNode) {
 			this.compositionData = currentNode.getChildNodes();
@@ -74,7 +73,7 @@ public class RepertoireDataParser extends Parser {
 			addAdditionalData();
 		}
 		
-		private LearnedComposition getLearnedComposition() {
+		private Composition getLearnedComposition() {
 			return current;
 		}
 
@@ -133,10 +132,10 @@ public class RepertoireDataParser extends Parser {
 		}
 	}
 	
-	private LearnedComposition createLearnedComposition(NodeList compositionData) {
+	private Composition createLearnedComposition(NodeList compositionData) {
 		String composer = compositionData.item(0).getTextContent();
 		String title = compositionData.item(1).getTextContent();
-		LearnedComposition composition = LearnedComposition.byComposer(composer).withTitle(title);
+		Composition composition = Composition.byComposer(composer).withTitle(title);
 		return composition;
 	}
 }

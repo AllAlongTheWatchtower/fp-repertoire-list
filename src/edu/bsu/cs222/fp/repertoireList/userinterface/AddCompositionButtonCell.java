@@ -1,7 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
-import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,7 +10,7 @@ import javafx.scene.control.Label;
 public class AddCompositionButtonCell extends NotesPopup {
 
 	public Button cellButton = new Button("Add");
-	public LearnedComposition selectedRecord;
+	public Composition selectedRecord;
 	public Repertoire repertoireObject;
 
 	public AddCompositionButtonCell(Repertoire repertoireObject) {
@@ -40,7 +39,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
 		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
-		this.selectedRecord = LearnedComposition.byComposer(selected.getComposer()).withTitle(selected.getTitle());
+		this.selectedRecord = Composition.byComposer(selected.getComposer()).withTitle(selected.getTitle());
 	}
 	
 	@Override
