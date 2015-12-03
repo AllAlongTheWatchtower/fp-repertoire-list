@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
+import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
@@ -58,7 +59,7 @@ public class RepertoireToDocumentConverter {
 	}
 	
 	private Node constructSongsNode(Node songs) {
-		for (LearnedComposition piece : repertoire) {
+		for (Composition piece : repertoire) {
 	        CreateElement elementFactory = new CreateElement(piece);
 	        Element song = elementFactory.getSong();
 	        songs.appendChild(song);
@@ -102,12 +103,14 @@ public class RepertoireToDocumentConverter {
     	private Element song;
     	private LearnedComposition current;
     	
-    	private CreateElement(LearnedComposition current) {
-    		this.current = current;
-	        song = repertoireAsDocument.createElement("song");
-			addComposer();
-			addTitle();
-			addNotes();
+    	private CreateElement(Composition current) {
+    		if (current instanceof LearnedComposition) {
+    			this.current = (LearnedComposition) current;
+    			song = repertoireAsDocument.createElement("song");
+    			addComposer();
+    			addTitle();
+    			addNotes();
+    		}
     	}
     	
     	private Element getSong() {

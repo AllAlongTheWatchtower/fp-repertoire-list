@@ -11,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 
 public class  RemoveCompositionButtonCell extends NotesButtonCell {
 	public Button cellButton = new Button("Remove");
@@ -36,7 +35,7 @@ public class  RemoveCompositionButtonCell extends NotesButtonCell {
 	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
 		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
-		this.selectedRecord = new LearnedComposition(selected);
+		this.selectedRecord = LearnedComposition.byComposer(selected.getComposer()).withTitle(selected.getTitle());
 	}
 
 	@Override

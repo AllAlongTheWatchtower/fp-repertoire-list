@@ -22,7 +22,7 @@ public class RepertoireListTable extends Table {
 	}
 
 	private ObservableList<Composition> createObservableList(Repertoire repertoireObject) {
-		List<Composition> listOfCompositions = repertoireObject.getSimpleRepertoireList();
+		List<Composition> listOfCompositions = repertoireObject.getRepertoireList();
 		ObservableList<Composition> observableListOfCompositions = FXCollections
 				.observableArrayList(listOfCompositions);
 		return observableListOfCompositions;

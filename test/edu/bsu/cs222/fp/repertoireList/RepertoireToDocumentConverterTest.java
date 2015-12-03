@@ -2,17 +2,6 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;

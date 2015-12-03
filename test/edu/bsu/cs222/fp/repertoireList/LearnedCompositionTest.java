@@ -5,15 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 
 public class LearnedCompositionTest {
 
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
-	private Composition current = Composition.byComposer(composer).withTitle(title);
-	private LearnedComposition currentPlus = new LearnedComposition(current);
+	private LearnedComposition current = LearnedComposition.byComposer(composer).withTitle(title);
 	private boolean wasPerformed = true;
 	private String ensemble = "Ball State University Orchestra";
 	private int year = 2014;
@@ -22,11 +20,11 @@ public class LearnedCompositionTest {
 	
 	@Before
 	public void initialize() {
-		currentPlus.setWasPerformed();
-		currentPlus.setEnsemble(ensemble);
-		currentPlus.setWasNotMemorized();
-		currentPlus.setYearLearned(year);
-		currentPlus.setEnsembleType(ensembleType);
+		current.setWasPerformed();
+		current.setEnsemble(ensemble);
+		current.setWasNotMemorized();
+		current.setYearLearned(year);
+		current.setEnsembleType(ensembleType);
 	}
 	
 	@Test 
@@ -36,32 +34,27 @@ public class LearnedCompositionTest {
 	
 	@Test
 	public void testRetrieveEnsembleType() {
-		assertEquals(currentPlus.getEnsembleType(), ensembleType);
+		assertEquals(current.getEnsembleType(), ensembleType);
 	}
 	
 	@Test 
 	public void testRetrieveYear() {
-		assertEquals(currentPlus.yearLearned(), year);
+		assertEquals(current.yearLearned(), year);
 	}
 	
 	@Test 
 	public void testRetrieveWasMemorized() {
-		assertEquals(currentPlus.wasMemorized(), wasMemorized);
+		assertEquals(current.wasMemorized(), wasMemorized);
 	}
 	
 	@Test 
 	public void testRetrieveWasPerformed() {
-		assertEquals(currentPlus.wasPerformed(), wasPerformed);
+		assertEquals(current.wasPerformed(), wasPerformed);
 	}
 	
 	@Test
 	public void testRetrieveEnsemble() {
-		assertEquals(currentPlus.getEnsemble(), ensemble);
-	}
-	
-	@Test
-	public void testRetrieveComposition() {
-		assertEquals(current, currentPlus.getComposition());
+		assertEquals(current.getEnsemble(), ensemble);
 	}
 
 	@Test

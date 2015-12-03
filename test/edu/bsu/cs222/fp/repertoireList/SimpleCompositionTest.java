@@ -3,14 +3,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.SimpleComposition;
 
-public class CompositionTest {
+public class SimpleCompositionTest {
 	
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
-	private Composition current = Composition.byComposer(composer).withTitle(title);
-	private Composition other = Composition.byComposer(composer).withTitle(title);
+	private SimpleComposition current = SimpleComposition.byComposer(composer).withTitle(title);
+	private SimpleComposition other = SimpleComposition.byComposer(composer).withTitle(title);
 	
 	@Test
 	public void testComposer() {

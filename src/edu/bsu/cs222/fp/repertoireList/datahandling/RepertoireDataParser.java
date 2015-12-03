@@ -21,7 +21,7 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 public class RepertoireDataParser extends Parser {
 
 	private Repertoire repertoire;
-	public List<LearnedComposition> learnedCompositionsList = new ArrayList<LearnedComposition>();
+	public List<Composition> learnedCompositionsList = new ArrayList<Composition>();
 	
 	public RepertoireDataParser(String xmlFile) {
 		try {
@@ -51,7 +51,7 @@ public class RepertoireDataParser extends Parser {
 		return sampleXML;
 	}
 	
-	public List<LearnedComposition> createListOfLearnedCompositions() {
+	public List<Composition> createListOfLearnedCompositions() {
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
     		addCompositionAtIndex(i);
     	}
@@ -70,8 +70,7 @@ public class RepertoireDataParser extends Parser {
 		
 		private LearnedCompositionCreator(Node currentNode) {
 			this.compositionData = currentNode.getChildNodes();
-			Composition composition = createComposition(compositionData);
-			this.current = new LearnedComposition(composition);
+			this.current = createLearnedComposition(compositionData);
 			addAdditionalData();
 		}
 		
@@ -134,10 +133,10 @@ public class RepertoireDataParser extends Parser {
 		}
 	}
 	
-	private Composition createComposition(NodeList compositionData) {
+	private LearnedComposition createLearnedComposition(NodeList compositionData) {
 		String composer = compositionData.item(0).getTextContent();
 		String title = compositionData.item(1).getTextContent();
-		Composition composition = Composition.byComposer(composer).withTitle(title);
+		LearnedComposition composition = LearnedComposition.byComposer(composer).withTitle(title);
 		return composition;
 	}
 }

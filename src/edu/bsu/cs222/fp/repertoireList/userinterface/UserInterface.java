@@ -91,7 +91,7 @@ public class UserInterface extends Application {
 	private void setRepertoireListTable() {
 		RepertoireDataParser parser = null;
 		try {
-			parser = new RepertoireDataParser("sampleRepertoireList.xml");
+			parser = new RepertoireDataParser("RepertoireList.xml");
 		} catch (RuntimeException e) {
 			new WarningDialog("System error: try again!");
 		}

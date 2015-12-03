@@ -1,8 +1,27 @@
 package edu.bsu.cs222.fp.repertoireList.datatypes;
 
-public class LearnedComposition {
+public class LearnedComposition implements Composition {
 
-	private Composition composition;
+	public static Builder byComposer(String composer){
+		return new Builder(composer);
+	}
+
+	public static final class Builder {
+		private String composer;
+		private String titleToAdd;
+
+		public Builder(String composer) {
+			this.composer = composer;
+		}
+	
+		public LearnedComposition withTitle(String titleToAdd) {
+			this.titleToAdd = titleToAdd;
+			return new LearnedComposition(this);
+		}
+	}	
+
+	private String composer;
+	private String title;
 	private boolean wasPerformed;
 	private boolean wasMemorized;
 	private int yearLearned;
@@ -15,8 +34,9 @@ public class LearnedComposition {
 	private enum EnsembleType {SOLO, ENSEMBLE, OPERA, CHAMBER, ORCHESTRA, OTHER}
 	private EnsembleType ensembleType;
 	
-	public LearnedComposition(Composition composition) {
-		this.composition = composition;
+	public LearnedComposition(Builder builder) {
+		this.composer = builder.composer;
+		this.title = builder.titleToAdd;
 		this.yearSet = false;
 		this.performedSet = false;
 		this.memorizedSet = false;
@@ -44,16 +64,12 @@ public class LearnedComposition {
 		return ensembleTypeSet;
 	}
 	
-	public Composition getComposition() {
-		return composition;
-	}
-	
 	public String getComposer() {
-		return composition.getComposer();
+		return composer;
 	}
 	
 	public String getTitle() {
-		return composition.getTitle();
+		return title;
 	}
 
 	public String getEnsembleType() {
@@ -139,6 +155,7 @@ public class LearnedComposition {
 	@Override
 	public boolean equals(Object other){
 		return (other instanceof LearnedComposition && 
-				this.getComposition().equals(((LearnedComposition) other).getComposition()));
+			composer.equals(((LearnedComposition) other).getComposer()) &&
+			title.equals(((LearnedComposition) other).getTitle()));
 	}
 }

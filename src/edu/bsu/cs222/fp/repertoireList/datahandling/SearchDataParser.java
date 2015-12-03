@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
+import edu.bsu.cs222.fp.repertoireList.datatypes.SimpleComposition;
 
 public class SearchDataParser extends Parser {
 
@@ -39,7 +40,7 @@ public class SearchDataParser extends Parser {
 	private Composition createComposition(Node currentNode) {			
 		String composer = currentNode.getPreviousSibling().getTextContent();
 		String title = currentNode.getTextContent();
-		Composition composition = Composition.byComposer(composer).withTitle(title);
+		Composition composition = SimpleComposition.byComposer(composer).withTitle(title);
 		return composition;
 	}
 }

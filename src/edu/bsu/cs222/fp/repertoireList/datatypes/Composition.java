@@ -1,44 +1,7 @@
 package edu.bsu.cs222.fp.repertoireList.datatypes;
 
-public final class Composition {
-	public static Builder byComposer(String composer){
-			return new Builder(composer);
-		}
+public interface Composition {	
 	
-	public static final class Builder {
-		private String composer;
-		private String titleToAdd;
-
-		public Builder(String composer) {
-			this.composer = composer;
-		}
-		
-		public Composition withTitle(String titleToAdd) {
-			this.titleToAdd = titleToAdd;
-			return new Composition(this);
-		}
-	}	
-	
-	private final String composer;
-	private final String title;
-
-	public Composition(Builder builder) {
-		this.composer = builder.composer;
-		this.title = builder.titleToAdd;
-	}
-	
-	public String getComposer() {
-		return this.composer;
-	}
-	
-	public String getTitle() {
-		return this.title;
-	}
-
-	@Override
-	public boolean equals(Object other){
-		return (other instanceof Composition && 
-				composer.equals(((Composition) other).getComposer()) &&
-				title.equals(((Composition) other).getTitle()));
-	}
+	public String getComposer();
+	public String getTitle();
 }

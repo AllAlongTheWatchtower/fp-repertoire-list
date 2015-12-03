@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 
 public class AddCompositionButtonCell extends NotesPopup {
 
@@ -41,7 +40,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 	public void setSelectedComposition() {
 		int selectdIndex = getTableRow().getIndex();
 		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
-		this.selectedRecord = new LearnedComposition(selected);
+		this.selectedRecord = LearnedComposition.byComposer(selected.getComposer()).withTitle(selected.getTitle());
 	}
 	
 	@Override

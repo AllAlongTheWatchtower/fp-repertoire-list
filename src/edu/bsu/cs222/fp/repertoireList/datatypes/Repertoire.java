@@ -1,32 +1,17 @@
 package edu.bsu.cs222.fp.repertoireList.datatypes;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-public class Repertoire extends Observable implements Iterable<LearnedComposition> {
-	private List<LearnedComposition> repertoireList;
-	private List<Composition> simpleRepertoireList;
+public class Repertoire extends Observable implements Iterable<Composition> {
+	private List<Composition> repertoireList;
 
-	public Repertoire(List<LearnedComposition> repertoire) {
+	public Repertoire(List<Composition> repertoire) {
 		this.repertoireList = repertoire;
-		this.simpleRepertoireList = simplifyList(repertoire);
 	}
 	
-	public List<Composition> simplifyList(List<LearnedComposition> repertoire ) {
-		List<Composition> simplifiedList = new ArrayList<Composition>();
-		for (LearnedComposition c : repertoire) {
-			simplifiedList.add(c.getComposition());
-		}
-		return simplifiedList;
-	}
-	
-	public List<Composition> getSimpleRepertoireList() {
-		return simpleRepertoireList;
-	}
-	
-	public List<LearnedComposition> getRepertoireList() {
+	public List<Composition> getRepertoireList() {
 		return repertoireList;
 	}
 
@@ -62,7 +47,7 @@ public class Repertoire extends Observable implements Iterable<LearnedCompositio
 	}
 	
 	@Override
-	public Iterator<LearnedComposition> iterator() {
+	public Iterator<Composition> iterator() {
 		return repertoireList.iterator();
 	}
 }

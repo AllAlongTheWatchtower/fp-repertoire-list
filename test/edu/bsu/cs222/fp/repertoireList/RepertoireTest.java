@@ -6,14 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
-import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.LearnedComposition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class RepertoireTest {
 	private Repertoire repertoire;
-	private Composition current = Composition.byComposer("Amadeus Mozart").withTitle("Symphony No. 40");
-	private LearnedComposition testComposition = new LearnedComposition(current);
+	private LearnedComposition testComposition = LearnedComposition.byComposer("Amadeus Mozart").withTitle("Symphony No. 40");
 	
 	@Before
 	public void intialize() {
