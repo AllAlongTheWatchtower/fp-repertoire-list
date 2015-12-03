@@ -20,11 +20,18 @@ public class AddCompositionButtonCell extends NotesPopup {
 			@Override
 			public void handle(ActionEvent t) {
 				setSelectedComposition();
+				addNotes();
 				addToDocument();
 			}
 		});
 	}
 
+	private void addNotes() {
+		if (inputYear.getText() != "") {
+			selectedRecord.setYearLearned(inputYear.getText());
+		}
+	}
+	
 	private void addToDocument() {
 		if (repertoireObject.isDuplicate(selectedRecord)) {
 			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
@@ -32,7 +39,6 @@ public class AddCompositionButtonCell extends NotesPopup {
 			composer = new Label("Composer: " + selectedRecord.getComposer());
 			title = new Label("Title: " + selectedRecord.getTitle());
 			createFilledStage();
-			
 		}
 	}
 
@@ -58,8 +64,6 @@ public class AddCompositionButtonCell extends NotesPopup {
 
 	@Override
 	public void performBeforeClosing() {
-		repertoireObject.addComposition(selectedRecord);
-		
+		repertoireObject.addComposition(selectedRecord);	
 	}
-
 }

@@ -46,6 +46,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 		setAddButtonAction(stage);
 		setCancelButtonAction(stage);
 	}
+	
 	private void setAddButtonAction(Stage stage) {
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

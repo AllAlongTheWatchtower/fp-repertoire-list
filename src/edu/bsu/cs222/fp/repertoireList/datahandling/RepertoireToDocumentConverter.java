@@ -166,9 +166,8 @@ public class RepertoireToDocumentConverter {
         
         private void addYear(Element notes) {
         	if (current.yearSet()) {		
-             	int year = current.yearLearned();
-             	String yearString = String.valueOf(year);
-             	notes.setAttribute("year", yearString);
+             	String year = current.yearLearned();
+             	notes.setAttribute("year", year);
         	}
         }
         

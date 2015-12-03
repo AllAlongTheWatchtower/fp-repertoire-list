@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 
-public class LearnedCompositionTest {
+public class CompositionTest {
 
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
 	private Composition current = Composition.byComposer(composer).withTitle(title);
 	private boolean wasPerformed = true;
 	private String ensemble = "Ball State University Orchestra";
-	private int year = 2014;
+	private String year = "2014";
 	private boolean wasMemorized = false;
 	private String ensembleType = "solo";
 	

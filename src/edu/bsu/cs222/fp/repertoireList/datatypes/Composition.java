@@ -24,7 +24,7 @@ public class Composition {
 	private String title;
 	private boolean wasPerformed;
 	private boolean wasMemorized;
-	private int yearLearned;
+	private String yearLearned;
 	private String withEnsemble;
 	private boolean yearSet;
 	private boolean performedSet;
@@ -134,11 +134,11 @@ public class Composition {
 		this.memorizedSet = true;
 	}
 
-	public int yearLearned() {
+	public String yearLearned() {
 		return yearLearned;
 	}
 
-	public void setYearLearned(int yearLearned) {
+	public void setYearLearned(String yearLearned) {
 		this.yearLearned = yearLearned;
 		this.yearSet = true;
 	}

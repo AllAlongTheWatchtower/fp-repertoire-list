@@ -111,8 +111,7 @@ public class RepertoireDataParser extends Parser {
 		
 		private void addYear(Node notes) {
 			if (notes.getAttributes().getNamedItem("year") != null) {
-				String yearString = notes.getAttributes().getNamedItem("year").getNodeValue();
-				int year = Integer.parseInt(yearString);
+				String year = notes.getAttributes().getNamedItem("year").getNodeValue();
 				current.setYearLearned(year);
 			}
 		}
