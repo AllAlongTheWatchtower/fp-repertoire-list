@@ -20,16 +20,9 @@ public class AddCompositionButtonCell extends NotesPopup {
 			@Override
 			public void handle(ActionEvent t) {
 				setSelectedComposition();
-				addNotes();
 				addToDocument();
 			}
 		});
-	}
-
-	private void addNotes() {
-		if (inputYear.getText() != "") {
-			selectedRecord.setYearLearned(inputYear.getText());
-		}
 	}
 	
 	private void addToDocument() {
@@ -64,6 +57,38 @@ public class AddCompositionButtonCell extends NotesPopup {
 
 	@Override
 	public void performBeforeClosing() {
+		addNotes();
 		repertoireObject.addComposition(selectedRecord);	
+	}
+	
+	private void addNotes() {
+		addYear();
+		addEnsemble();
+		addMemorized();
+		addPerformed();
+	}
+	
+	private void addYear() {
+		if (!inputYear.getText().equals("")) {
+			selectedRecord.setYearLearned(inputYear.getText());
+		}
+	}
+	
+	private void addEnsemble() {
+		if (!inputEnsemble.getText().equals("")) {
+			selectedRecord.setEnsemble(inputEnsemble.getText());
+		}
+	}
+	
+	private void addMemorized() {
+		if (memorizedCheckBox.isSelected()) {
+			selectedRecord.setWasMemorized();
+		}
+	}
+	
+	private void addPerformed() {
+		if (performedCheckBox.isSelected()) {
+			selectedRecord.setWasPerformed();
+		}
 	}
 }
