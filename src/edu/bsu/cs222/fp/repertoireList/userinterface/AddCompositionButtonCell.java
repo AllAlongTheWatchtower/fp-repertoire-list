@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 public class AddCompositionButtonCell extends NotesPopup {
 
 	public Button cellButton = new Button("Add");
-	public Composition selectedRecord;
 	public Repertoire repertoireObject;
 
 	public AddCompositionButtonCell(Repertoire repertoireObject) {
@@ -44,7 +43,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 	@Override
 	public void addItemsToVbox(){
 		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
-				inputEnsemble, memorizedCheckBox, performedCheckBox, cancelButton, addButton);
+				ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
 	}
 
 	@Override
@@ -57,38 +56,8 @@ public class AddCompositionButtonCell extends NotesPopup {
 
 	@Override
 	public void performBeforeClosing() {
-		addNotes();
-		repertoireObject.addComposition(selectedRecord);	
+		repertoireObject.addComposition(selectedRecord);
 	}
 	
-	private void addNotes() {
-		addYear();
-		addEnsemble();
-		addMemorized();
-		addPerformed();
-	}
 	
-	private void addYear() {
-		if (!inputYear.getText().equals("")) {
-			selectedRecord.setYearLearned(inputYear.getText());
-		}
-	}
-	
-	private void addEnsemble() {
-		if (!inputEnsemble.getText().equals("")) {
-			selectedRecord.setEnsemble(inputEnsemble.getText());
-		}
-	}
-	
-	private void addMemorized() {
-		if (memorizedCheckBox.isSelected()) {
-			selectedRecord.setWasMemorized();
-		}
-	}
-	
-	private void addPerformed() {
-		if (performedCheckBox.isSelected()) {
-			selectedRecord.setWasPerformed();
-		}
-	}
 }

@@ -52,6 +52,7 @@ public class UserInterface extends Application {
 	private Button newCompositionButton = new Button("New Composition");
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
+	private Button writeToDocumentButton = new Button("Write To Document");
 	
 	private TableView<Composition> repertoireTable;
 	private Repertoire repertoireObject;
@@ -61,7 +62,7 @@ public class UserInterface extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		toolBar.getItems().addAll(newCompositionButton, saveButton);	
+		toolBar.getItems().addAll(saveButton, writeToDocumentButton, newCompositionButton);	
 		TabPane tabPane = new TabPane();
 		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
 		borderPane.setTop(toolBar);
@@ -135,18 +136,10 @@ public class UserInterface extends Application {
 		setSearchButtonAction(tabPane);
 		setTheEnterKeyAction(tabPane);
 		setNewCompositionButton(tabPane);
+		setWriteToDocumentButton(tabPane);
 		setSaveButtonAction(tabPane);
 		setTheRepertoireListButton(tabPane);
 	}
-
-	private void setNewCompositionButton(TabPane tabPane) {
-		newCompositionButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				new NewCompositionButton();
-			}
-		});
-	}//
 	
 	private void setSearchButtonAction(TabPane tabPane) {
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -167,6 +160,28 @@ public class UserInterface extends Application {
 			}
 		});
 	}
+	
+	
+	private void setWriteToDocumentButton(TabPane tabPane) {
+		writeToDocumentButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+			}
+		});
+	}
+	
+	
+	
+	private void setNewCompositionButton(TabPane tabPane) {
+		newCompositionButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				new NewCompositionButton(repertoireObject);
+			}
+		});
+	}
+
 
 	private void pressGo(TabPane tabPane) {
 		if(!inputField.getText().equals("")){
