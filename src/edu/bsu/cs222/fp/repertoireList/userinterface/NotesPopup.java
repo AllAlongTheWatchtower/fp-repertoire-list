@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
@@ -27,12 +28,13 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 	public CheckBox memorizedCheckBox = new CheckBox("Memorized");
 	public CheckBox performedCheckBox = new CheckBox("Performed");
 	public TextField inputYear = new TextField();
-	public TextField inputEnsemble = new TextField(); 
+	public ComboBox<String> ensembleComboBox = new ComboBox<String>(); 
 	public VBox vBox = new VBox();
 	public abstract void addItemsToVbox();
 	public abstract void performBeforeClosing();
 	
 	public void createFilledStage() {
+		ensembleComboBox.getItems().addAll("solo","ensemble","chamber", "orchestra", "opera","other");
 		vBox = new VBox();
 		Stage stage = new Stage();
 		directionText.setFont(new Font("Arial", 20));
@@ -52,6 +54,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 			@Override
 			public void handle(ActionEvent arg0) {
 				performBeforeClosing();
+				addNotesToComposition();				
 				stage.close();
 			}
 		});
@@ -61,8 +64,40 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				
 				stage.close();
 			}
 		});
+	}
+	
+	public void addNotesToComposition() {
+		addYear();
+		addEnsemble();
+		addMemorized();
+		addPerformed();
+	}
+	
+	private void addYear() {
+		//if (!inputYear.getText().equals("")) {
+			selectedRecord.setYearLearned(inputYear.getText());
+		//}
+	}
+	
+	private void addEnsemble() {
+		//if (!ensembleComboBox.getValue().equals("")) {
+			selectedRecord.setEnsemble(ensembleComboBox.getValue());
+		//}
+	}
+	
+	private void addMemorized() {
+		if (memorizedCheckBox.isSelected()) {
+			selectedRecord.setWasMemorized();
+		}
+	}
+	
+	private void addPerformed() {
+		if (performedCheckBox.isSelected()) {
+			selectedRecord.setWasPerformed();
+		}
 	}
 }
