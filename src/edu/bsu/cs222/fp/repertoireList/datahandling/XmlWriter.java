@@ -10,12 +10,16 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
-public class XMLWriter {
+public class XmlWriter {
 
-	private final String xmlFile = "RepertoireListData/RepertoireList.xml";
+	private final String xmlFile;
 	private Document repertoireListAsDocument;
 
-	public XMLWriter(Document repertoireList) {
+	public XmlWriter(String xmlFile) {
+		this.xmlFile = xmlFile;
+	}
+			
+	public void writeDocument(Document repertoireList) {
 		this.repertoireListAsDocument = repertoireList;
 		try {
 			writeChangesToXmlFile();

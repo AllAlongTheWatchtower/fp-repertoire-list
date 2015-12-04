@@ -85,7 +85,8 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 	
 	private void addEnsemble() {
 		//if (!ensembleComboBox.getValue().equals("")) {
-			selectedRecord.setEnsemble(ensembleComboBox.getValue());
+			selectedRecord.setEnsembleType(ensembleComboBox.getValue());
+			System.out.println(selectedRecord.getEnsembleType());
 		//}
 	}
 	

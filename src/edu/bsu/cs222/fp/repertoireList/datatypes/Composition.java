@@ -83,9 +83,8 @@ public class Composition {
 				case OTHER:			return "other";
 				default:			return null;
 			}
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	public void setEnsembleType(String type) {

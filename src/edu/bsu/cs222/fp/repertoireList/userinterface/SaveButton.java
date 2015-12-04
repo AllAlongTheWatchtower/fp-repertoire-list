@@ -3,7 +3,7 @@ package edu.bsu.cs222.fp.repertoireList.userinterface;
 import org.w3c.dom.Document;
 
 import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireToDocumentConverter;
-import edu.bsu.cs222.fp.repertoireList.datahandling.XMLWriter;
+import edu.bsu.cs222.fp.repertoireList.datahandling.XmlWriter;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class SaveButton {
@@ -23,7 +23,8 @@ public class SaveButton {
 			new WarningDialog("System error!  Please try again.");
 		}
 		Document repertoireAsDocument = converter.getDocument();
-		new XMLWriter(repertoireAsDocument);
+		XmlWriter writer = new XmlWriter("RepertoireListData/RepertoireList.xml");
+		writer.writeDocument(repertoireAsDocument);
 	} 
 
 }
