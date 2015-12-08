@@ -7,15 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class  NotesButtonCell extends NotesPopup {
+public class NotesButtonCell extends NotesPopup {
 	public Button cellButton = new Button("Notes");
 
 	public NotesButtonCell() {
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
-				setSelectedComposition(); 
-				prepopulatePopup();
+				setSelectedComposition();
+				prepopulatePopup(); 
 				createFilledStage();
 
 			}
@@ -23,11 +23,11 @@ public class  NotesButtonCell extends NotesPopup {
 			private void prepopulatePopup() {
 				composer = new Label("Composer: " + selectedRecord.getComposer());
 				title = new Label("Title: " + selectedRecord.getTitle());
-				//System.out.println(selectedRecord.getEnsembleType());
 				ensembleComboBox.getSelectionModel().select(selectedRecord.getEnsembleType());
 				performedCheckBox.setSelected(selectedRecord.wasPerformed());
 				memorizedCheckBox.setSelected(selectedRecord.wasMemorized());
 				inputYear = new TextField(selectedRecord.yearLearned());
+				inputEnsemble = new TextField(selectedRecord.getEnsemble());
 			}
 		});
 	}
@@ -47,14 +47,14 @@ public class  NotesButtonCell extends NotesPopup {
 
 	@Override
 	public void addItemsToVbox() {
-		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
-				ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
-		
+		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel, inputEnsemble,
+				ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
+
 	}
 
 	@Override
-	public void performBeforeClosing() {
-		//Add to composition
-		
+	public void performBeforeAdding() {
+		// Add to composition?
+
 	}
 }

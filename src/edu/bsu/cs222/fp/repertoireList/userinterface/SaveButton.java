@@ -23,8 +23,12 @@ public class SaveButton {
 			new WarningDialog("System error!  Please try again.");
 		}
 		Document repertoireAsDocument = converter.getDocument();
-		XmlWriter writer = new XmlWriter("RepertoireListData/RepertoireList.xml");
-		writer.writeDocument(repertoireAsDocument);
+		XmlWriter writer;
+		try {
+			writer = new XmlWriter("RepertoireListData/RepertoireList.xml");
+			writer.writeDocument(repertoireAsDocument);
+		} catch (RuntimeException e) {
+			new WarningDialog("Could not save list.  Try again!");
+		}
 	} 
-
 }

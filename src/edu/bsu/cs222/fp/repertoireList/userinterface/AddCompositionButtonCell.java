@@ -14,7 +14,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 
 	public AddCompositionButtonCell(Repertoire repertoireObject) {
 		this.repertoireObject = repertoireObject;
-		
+
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
@@ -23,7 +23,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 			}
 		});
 	}
-	
+
 	private void addToDocument() {
 		if (repertoireObject.isDuplicate(selectedRecord)) {
 			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
@@ -39,11 +39,11 @@ public class AddCompositionButtonCell extends NotesPopup {
 		Composition selected = (Composition) getTableView().getItems().get(selectdIndex);
 		this.selectedRecord = Composition.byComposer(selected.getComposer()).withTitle(selected.getTitle());
 	}
-	
+
 	@Override
-	public void addItemsToVbox(){
-		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
-				ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
+	public void addItemsToVbox() {
+		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel, inputEnsemble,
+				ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
 	}
 
 	@Override
@@ -55,9 +55,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 	}
 
 	@Override
-	public void performBeforeClosing() {
+	public void performBeforeAdding() {
 		repertoireObject.addComposition(selectedRecord);
 	}
-	
-	
 }
