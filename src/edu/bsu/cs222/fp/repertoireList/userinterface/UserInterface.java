@@ -135,10 +135,10 @@ public class UserInterface extends Application {
 
 	private void setActionForButtons(TabPane tabPane) {
 		setSearchButtonAction(tabPane);
-		setTheEnterKeyAction(tabPane);
-		setNewCompositionButton(tabPane);
+		setTheEnterKeyAction(tabPane);	
 		setWriteToDocumentButton(tabPane);
-		setSaveButtonAction(tabPane);
+		setNewCompositionButton(tabPane);
+		setSaveButtonAction(tabPane);	
 		setTheRepertoireListButton(tabPane);
 	}
 	
@@ -150,6 +150,25 @@ public class UserInterface extends Application {
 			}
 		});
 	}
+	
+	private void pressGo(TabPane tabPane) {
+		if(!inputField.getText().equals("")){
+			tabPane.getSelectionModel().select(1);
+		    setSearchListTable();
+		}
+		else{
+			new InformationDialog("Sorry! Our system is not picking that you entered anything. Please try agian.");
+		}
+		
+	}
+
+	private void setSearchListTable() {
+		new TableView<Composition>();
+		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchedComposer(inputField.getText())
+				.withReferenceToRepertoire(repertoireObject);
+		resultsTab.setContent(createNewVBoxWithSearchTable(searchResultsTable.getSearchTable()));
+	}
+
 
 	private void setTheEnterKeyAction(TabPane tabPane) {
 		inputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -183,25 +202,6 @@ public class UserInterface extends Application {
 		});
 	}
 
-
-	private void pressGo(TabPane tabPane) {
-		if(!inputField.getText().equals("")){
-			tabPane.getSelectionModel().select(1);
-		    setSearchListTable();
-		}
-		else{
-			new InformationDialog("Sorry! Our system is not picking that you entered anything. Please try agian.");
-		}
-		
-	}
-
-	private void setSearchListTable() {
-		new TableView<Composition>();
-		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchedComposer(inputField.getText())
-				.withReferenceToRepertoire(repertoireObject);
-		resultsTab.setContent(createNewVBoxWithSearchTable(searchResultsTable.getSearchTable()));
-	}
-
 	private void setSaveButtonAction(TabPane tabPane) {
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -219,7 +219,7 @@ public class UserInterface extends Application {
 					refreshRepertoireTable();
 				}
 			}
-		});
+		}); 
 	}
 
 	private void refreshRepertoireTable() {

@@ -30,15 +30,21 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 	public CheckBox memorizedCheckBox = new CheckBox("Memorized");
 	public CheckBox performedCheckBox = new CheckBox("Performed");
 	public TextField inputYear = new TextField();
-	public ComboBox<String> ensembleComboBox = new ComboBox<String>();
+	public ComboBox<String> ensembleComboBox = createComboBox();
 	public VBox vBox = new VBox();
 
 	public abstract void addItemsToVbox();
 
-	public abstract void performBeforeAdding();
- 
-	public void createFilledStage() {
+	private ComboBox<String> createComboBox() {
+		ComboBox<String> ensembleComboBox = new ComboBox<String>();
 		ensembleComboBox.getItems().addAll("solo", "ensemble", "chamber", "orchestra", "opera", "other");
+		return ensembleComboBox;
+
+	}
+
+	public abstract void performBeforeAdding();
+
+	public void createFilledStage() {
 		vBox = new VBox();
 		Stage stage = new Stage();
 		directionText.setFont(new Font("Arial", 20));
@@ -77,17 +83,17 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 			selectedRecord.setYearLearned(inputYear.getText());
 		}
 	}
-	
+
 	private void addEnsemble() {
-		if (!inputEnsemble.getText().equals("")) {
+	///	if (!inputEnsemble.getText().equals("")) {
 			selectedRecord.setEnsemble(inputEnsemble.getText());
-		}
+	//	}
 	}
 
-	private void addEnsembleType() {		
-		if (ensembleComboBox.getValue() != null ) {
+	private void addEnsembleType() {
+	//	if (ensembleComboBox.getValue() != null) {
 			selectedRecord.setEnsembleType(ensembleComboBox.getValue());
-		}
+		//}
 	}
 
 	private void addMemorized() {

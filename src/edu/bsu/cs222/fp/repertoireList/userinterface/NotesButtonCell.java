@@ -17,7 +17,6 @@ public class NotesButtonCell extends NotesPopup {
 				setSelectedComposition();
 				prepopulatePopup(); 
 				createFilledStage();
-
 			}
 
 			private void prepopulatePopup() {

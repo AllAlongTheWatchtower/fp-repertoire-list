@@ -9,14 +9,16 @@ import javafx.scene.control.TextField;
 public class NewCompositionButton extends NotesPopup {
 	private TextField composerInput = new TextField();
 	private TextField titleInput = new TextField();
-	private Repertoire repertoireObject;
+	//private Repertoire repertoireObject;
 
 	public NewCompositionButton(Repertoire repertoireObject) {
-		this.repertoireObject = repertoireObject;
+		//this.repertoireObject = repertoireObject;
 		composer = new Label("Composer:");
 		title = new Label("Title:");
 		selectedRecord = Composition.byComposer(composerInput.getText()).withTitle(titleInput.getText());
 		createFilledStage();
+		selectedRecord = Composition.byComposer(composerInput.getText()).withTitle(titleInput.getText());
+		repertoireObject.addComposition(selectedRecord);
 	}
 
 	@Override
@@ -28,8 +30,7 @@ public class NewCompositionButton extends NotesPopup {
 
 	@Override 
 	public void performBeforeAdding() {
-		selectedRecord = Composition.byComposer(composerInput.getText()).withTitle(titleInput.getText());
-		repertoireObject.addComposition(selectedRecord);
+		
 
 	}
 }
