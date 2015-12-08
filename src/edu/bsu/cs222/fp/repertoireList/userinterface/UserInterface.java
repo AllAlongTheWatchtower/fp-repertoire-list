@@ -48,7 +48,7 @@ public class UserInterface extends Application {
 	private Label logoLabel = new Label();
 	private Label legalText = new Label(
 			"Data retrieved using The Echo Nest API\nWebsite: http://the.echonest.com/\nA special thanks to The Echo Nest!");
-	private TextField inputField = new TextField("Search Field");
+	private TextField inputField = new TextField();
 	private Button newCompositionButton = new Button("New Composition");
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
@@ -126,6 +126,7 @@ public class UserInterface extends Application {
 		VBox searchVBox = new VBox();
 		searchVBox.setSpacing(15);
 		logoLabel.setGraphic(new ImageView(logo));
+		inputField.setPromptText("Search Field");
 		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel,
 				legalText);
 		searchVBox.setAlignment(Pos.CENTER);
