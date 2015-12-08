@@ -10,8 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 
-public class  RemoveCompositionButtonCell extends NotesButtonCell {
+public class  RemoveCompositionButtonCell extends TableCell<Composition, Boolean> {
 	public Button cellButton = new Button("Remove");
 	public Composition selectedRecord;
 

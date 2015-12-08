@@ -26,8 +26,12 @@ public class NotesButtonCell extends NotesPopup {
 				ensembleComboBox.getSelectionModel().select(selectedRecord.getEnsembleType());
 				performedCheckBox.setSelected(selectedRecord.wasPerformed());
 				memorizedCheckBox.setSelected(selectedRecord.wasMemorized());
-				inputYear = new TextField(selectedRecord.yearLearned());
-				inputEnsemble = new TextField(selectedRecord.getEnsemble());
+				if (selectedRecord.yearSet()) {
+					inputYear = new TextField(selectedRecord.yearLearned());
+				}
+				if (selectedRecord.ensembleSet()) {
+					inputEnsemble = new TextField(selectedRecord.getEnsemble());
+				}
 			}
 		});
 	}
@@ -54,7 +58,6 @@ public class NotesButtonCell extends NotesPopup {
 
 	@Override
 	public void performBeforeAdding() {
-		// Add to composition?
 
 	}
 }
