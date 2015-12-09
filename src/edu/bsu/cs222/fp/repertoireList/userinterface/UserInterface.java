@@ -52,22 +52,20 @@ public class UserInterface extends Application {
 	private Button newCompositionButton = new Button("New Composition");
 	private Button searchButton = new Button("Search");
 	private Button saveButton = new Button("Save List");
-	private Button writeToDocumentButton = new Button("Write To Document");
-	
 	private TableView<Composition> repertoireTable;
 	private Repertoire repertoireObject;
 	private VBox tableVBox = new VBox();
-	private ToolBar toolBar = new ToolBar(); 
+	private ToolBar toolBar = new ToolBar();
 	private BorderPane borderPane = new BorderPane();
 
 	@Override
 	public void start(Stage primaryStage) {
-		toolBar.getItems().addAll(saveButton, writeToDocumentButton, newCompositionButton);	
+		toolBar.getItems().addAll(saveButton, newCompositionButton);
 		TabPane tabPane = new TabPane();
 		tabPane.getTabs().addAll(searchTab, resultsTab, listTab);
 		borderPane.setTop(toolBar);
 		borderPane.setCenter(tabPane);
-		Scene scene = new Scene(borderPane,680, 530);
+		Scene scene = new Scene(borderPane, 680, 530);
 		setTabPane(tabPane);
 		primaryStage.setTitle("Repertoire List Creator");
 		primaryStage.setScene(scene);
@@ -103,7 +101,7 @@ public class UserInterface extends Application {
 		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
 		setRepertoireObserver();
 	}
-	
+
 	private void setRepertoireObserver() {
 		repertoireObject.addObserver((Observable obj, Object arg) -> {
 			refreshRepertoireTable();
@@ -135,13 +133,12 @@ public class UserInterface extends Application {
 
 	private void setActionForButtons(TabPane tabPane) {
 		setSearchButtonAction(tabPane);
-		setTheEnterKeyAction(tabPane);	
-		setWriteToDocumentButton(tabPane);
+		setTheEnterKeyAction(tabPane);
 		setNewCompositionButton(tabPane);
-		setSaveButtonAction(tabPane);	
+		setSaveButtonAction(tabPane);
 		setTheRepertoireListButton(tabPane);
 	}
-	
+
 	private void setSearchButtonAction(TabPane tabPane) {
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -150,16 +147,15 @@ public class UserInterface extends Application {
 			}
 		});
 	}
-	
+
 	private void pressGo(TabPane tabPane) {
-		if(!inputField.getText().equals("")){
+		if (!inputField.getText().equals("")) {
 			tabPane.getSelectionModel().select(1);
-		    setSearchListTable();
-		}
-		else{
+			setSearchListTable();
+		} else {
 			new InformationDialog("Sorry! Our system is not picking that you entered anything. Please try agian.");
 		}
-		
+
 	}
 
 	private void setSearchListTable() {
@@ -168,7 +164,6 @@ public class UserInterface extends Application {
 				.withReferenceToRepertoire(repertoireObject);
 		resultsTab.setContent(createNewVBoxWithSearchTable(searchResultsTable.getSearchTable()));
 	}
-
 
 	private void setTheEnterKeyAction(TabPane tabPane) {
 		inputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -180,19 +175,7 @@ public class UserInterface extends Application {
 			}
 		});
 	}
-	
-	
-	private void setWriteToDocumentButton(TabPane tabPane) {
-		writeToDocumentButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-			}
-		});
-	}
-	
-	
-	
+
 	private void setNewCompositionButton(TabPane tabPane) {
 		newCompositionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -219,7 +202,7 @@ public class UserInterface extends Application {
 					refreshRepertoireTable();
 				}
 			}
-		}); 
+		});
 	}
 
 	private void refreshRepertoireTable() {
@@ -232,7 +215,7 @@ public class UserInterface extends Application {
 
 	private void askUserIfTheyWouldLikeToSaveUponExist(Stage primaryStage) {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override 
+			@Override
 			public void handle(WindowEvent we) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				ButtonType yesButton = new ButtonType("Yes");

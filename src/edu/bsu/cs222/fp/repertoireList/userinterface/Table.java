@@ -14,6 +14,7 @@ import javafx.util.Callback;
 public abstract class Table {
 
 	public abstract TableCell<Composition, Boolean> editRepertoireButton();
+
 	public TableColumn<Composition, String> createComposerColumn() {
 		TableColumn<Composition, String> composerColumn = new TableColumn<>("Composer");
 		composerColumn.setCellValueFactory(new PropertyValueFactory<Composition, String>("composer"));
@@ -55,6 +56,7 @@ public abstract class Table {
 		});
 		return table;
 	}
+
 	public TableColumn<Composition, Boolean> createNotesColumn() {
 		TableColumn<Composition, Boolean> notesColumn = new TableColumn<>();
 		notesColumn.setSortable(false);
@@ -62,7 +64,6 @@ public abstract class Table {
 		createButtonClass(notesColumn);
 		return notesColumn;
 	}
-	
 
 	private TableColumn<Composition, Boolean> createActionColumn() {
 		TableColumn<Composition, Boolean> actionColumn = new TableColumn<>();
@@ -71,7 +72,7 @@ public abstract class Table {
 		createButtonClass(actionColumn);
 		return actionColumn;
 	}
-	
+
 	private void createNotesButtonBooleanProperty(TableColumn<Composition, Boolean> actionColumn) {
 		actionColumn.setCellFactory(new Callback<TableColumn<Composition, Boolean>, TableCell<Composition, Boolean>>() {
 			@Override

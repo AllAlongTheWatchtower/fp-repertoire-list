@@ -43,8 +43,9 @@ public class AddCompositionButtonCell extends NotesPopup {
 
 	@Override
 	public void addItemsToVbox() {
-		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel, inputEnsemble,
-				ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
+		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
+				inputEnsemble, ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton,
+				cancelButton);
 	}
 
 	@Override
@@ -53,10 +54,5 @@ public class AddCompositionButtonCell extends NotesPopup {
 		if (!empty) {
 			setGraphic(cellButton);
 		}
-	}
-
-	@Override
-	public void performBeforeAdding() {
-		
 	}
 }

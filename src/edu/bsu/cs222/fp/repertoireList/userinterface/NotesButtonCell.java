@@ -15,7 +15,7 @@ public class NotesButtonCell extends NotesPopup {
 			@Override
 			public void handle(ActionEvent t) {
 				setSelectedComposition();
-				prepopulatePopup(); 
+				prepopulatePopup();
 				createFilledStage();
 			}
 
@@ -50,13 +50,9 @@ public class NotesButtonCell extends NotesPopup {
 
 	@Override
 	public void addItemsToVbox() {
-		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel, inputEnsemble,
-				ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton, cancelButton);
-
-	}
-
-	@Override
-	public void performBeforeAdding() {
+		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
+				inputEnsemble, ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton,
+				cancelButton);
 
 	}
 }

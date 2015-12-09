@@ -30,5 +30,5 @@ public class SaveButton {
 		} catch (RuntimeException e) {
 			new WarningDialog("Could not save list.  Try again!");
 		}
-	} 
+	}
 }

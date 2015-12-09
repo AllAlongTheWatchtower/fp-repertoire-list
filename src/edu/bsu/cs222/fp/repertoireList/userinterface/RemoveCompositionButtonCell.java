@@ -12,22 +12,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 
-public class  RemoveCompositionButtonCell extends TableCell<Composition, Boolean> {
+public class RemoveCompositionButtonCell extends TableCell<Composition, Boolean> {
 	public Button cellButton = new Button("Remove");
 	public Composition selectedRecord;
 
 	public RemoveCompositionButtonCell(Repertoire repertoireObject) {
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent t) {				
+			public void handle(ActionEvent t) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Remove from List");
 				alert.setHeaderText("Are you sure you would like to remove that piece from your Repertoire List?");
 				Optional<ButtonType> result = alert.showAndWait();
-				if (result.get() == ButtonType.OK){
+				if (result.get() == ButtonType.OK) {
 					setSelectedComposition();
-				    repertoireObject.removeComposition(selectedRecord);
-				} 
+					repertoireObject.removeComposition(selectedRecord);
+				}
 			}
 		});
 	}
