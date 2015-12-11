@@ -5,10 +5,10 @@ import org.junit.Test;
 import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 
 public class URLFactoryTest {
-	
 	private String apiKey = "NDVFILMAVOOY8ITWS";
 	private String urlStart = "http://developer.echonest.com/api/v4/song/search?api_key=";
 	private String urlEnd = "&format=xml&results=100";
+	
 	@Test
 	public void testURLFactory() {
 		String targetURL = urlStart + apiKey + "&artist=forqueray" + urlEnd;

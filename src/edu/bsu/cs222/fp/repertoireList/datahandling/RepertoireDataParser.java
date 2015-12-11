@@ -20,7 +20,7 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 public class RepertoireDataParser extends Parser {
 
 	private Repertoire repertoire;
-	public List<Composition> learnedCompositionsList = new ArrayList<Composition>();
+	private List<Composition> learnedCompositionsList = new ArrayList<Composition>();
 
 	public RepertoireDataParser(InputStream fileInputStream) {
 		try {
@@ -49,7 +49,7 @@ public class RepertoireDataParser extends Parser {
 		return sampleXML;
 	}
 
-	public List<Composition> createListOfLearnedCompositions() {
+	private List<Composition> createListOfLearnedCompositions() {
 		for (int i = 0; i < compositionsNodeList.getLength(); i++) {
 			addCompositionAtIndex(i);
 		}

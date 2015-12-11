@@ -25,7 +25,7 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 public class RepertoireToDocumentConverter {
     private static final String PATH_TO_SONGS_ELEMENT = "response/songs";
     
-	private Repertoire repertoire;
+	private final Repertoire repertoire;
 	private Document repertoireAsDocument;
 	
 	public RepertoireToDocumentConverter(Repertoire repertoire) {

@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;                       
 
 public class URLFactory {
-	private String apiKey;
+	private final String apiKey;
 	
 	public URLFactory(String apiKey) {
 		this.apiKey = apiKey;

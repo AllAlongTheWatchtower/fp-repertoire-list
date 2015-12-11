@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 
 public class Repertoire extends Observable implements Iterable<Composition> {
-	private List<Composition> repertoireList;
+	private final List<Composition> repertoireList;
 
 	public Repertoire(List<Composition> repertoire) {
 		this.repertoireList = repertoire;

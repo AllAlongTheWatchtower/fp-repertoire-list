@@ -23,7 +23,7 @@ public class SearchDataParser extends Parser {
 		return searchResults;
 	}
 	
-	public List<Composition> createListOfCompositions() {
+	private List<Composition> createListOfCompositions() {
     	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
     		addComposerAtIndex(i);
     	}

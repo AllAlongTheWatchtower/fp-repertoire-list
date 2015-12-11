@@ -15,8 +15,8 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class SearchDataParserTest {
-	Document document;
-	Repertoire repertoire;
+	private Document document;
+	private Repertoire repertoire;
 
 	@Before
 	public void initialize() {

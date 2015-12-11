@@ -13,11 +13,12 @@ import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
 import edu.bsu.cs222.fp.repertoireList.datahandling.XmlWriter;
 
 public class XmlWriterTest {
-	Document productCodeDocument;
-
+	private Document productCodeDocument;
+	private InputStream fileInputStream;
+	
 	@Before
 	public void initialize() {
-		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
+		fileInputStream = Thread.currentThread().getContextClassLoader()
 				.getResourceAsStream("sampleRepertoireList.xml");
 		RepertoireDataParser productParser = new RepertoireDataParser(fileInputStream);
 		productCodeDocument = productParser.getSearchResults();

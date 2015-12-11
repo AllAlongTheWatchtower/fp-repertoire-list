@@ -8,7 +8,6 @@ import org.junit.Test;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 
 public class CompositionTest {
-
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
 	private Composition current = Composition.byComposer(composer).withTitle(title);

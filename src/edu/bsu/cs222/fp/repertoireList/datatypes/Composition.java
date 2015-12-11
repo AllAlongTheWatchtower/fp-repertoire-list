@@ -20,8 +20,8 @@ public class Composition {
 		}
 	}	
 
-	private String composer;
-	private String title;
+	private final String composer;
+	private final String title;
 	private boolean wasPerformed;
 	private boolean wasMemorized;
 	private String yearLearned;
