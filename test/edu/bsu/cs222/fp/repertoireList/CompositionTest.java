@@ -12,6 +12,7 @@ public class CompositionTest {
 	private String composer = "Antoine Foqueray";
 	private String title = "Jupiter";
 	private Composition current = Composition.byComposer(composer).withTitle(title);
+	private Composition current2 = Composition.byComposer(composer).withTitle(title);
 	private boolean wasPerformed = true;
 	private String ensemble = "Ball State University Orchestra";
 	private String year = "2014";
@@ -28,8 +29,13 @@ public class CompositionTest {
 	}
 	
 	@Test 
-	public void findDuplicate() {
-		assertTrue(current.equals(current));
+	public void testFindDuplicate() {
+		assertTrue(current.equals(current2));
+	}
+	
+	@Test
+	public void testSameHashCode() {
+		assertTrue(current.hashCode() == current.hashCode());
 	}
 	
 	@Test

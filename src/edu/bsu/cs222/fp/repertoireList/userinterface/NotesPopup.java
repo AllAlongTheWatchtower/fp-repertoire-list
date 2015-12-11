@@ -20,7 +20,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 	public Composition selectedRecord;
 	public Button addButton = new Button("Add");
 	public Button cancelButton = new Button("Cancel");
-	public Label directionText = new Label("Please enter your notes");
+	public Label directionText = new Label("Please Enter Your Notes:");
 	public Label composer;
 	public Label title;
 	public Label yearLearnedLabel = new Label("The year you learned the composition:");
@@ -35,9 +35,12 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 
 	public abstract void addItemsToVbox();
 
+	public abstract void performOperationBeforeClosing();
+
 	private ComboBox<String> createComboBox() {
 		ComboBox<String> ensembleComboBox = new ComboBox<String>();
 		ensembleComboBox.getItems().addAll("solo", "ensemble", "chamber", "orchestra", "opera", "other");
+		ensembleComboBox.getSelectionModel().select("other");
 		return ensembleComboBox;
 	}
 
@@ -60,7 +63,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				addNotesToComposition();
+				performOperationBeforeClosing();
 				stage.close();
 			}
 		});

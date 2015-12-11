@@ -2,6 +2,8 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -13,10 +15,13 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 public class RepertoireToDocumentConverterTest {
 	private Repertoire testRep;
 	private Document document;
-	
+
 	@Before
 	public void initialize() {
-		RepertoireDataParser parser = new RepertoireDataParser("sampleRepertoireList.xml");
+		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("sampleRepertoireList.xml");
+
+		RepertoireDataParser parser = new RepertoireDataParser(fileInputStream);
 		document = parser.getSearchResults();
 		testRep = parser.getRepertoireObject();
 	}

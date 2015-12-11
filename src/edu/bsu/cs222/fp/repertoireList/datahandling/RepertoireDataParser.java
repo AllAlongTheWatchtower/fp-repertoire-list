@@ -21,10 +21,10 @@ public class RepertoireDataParser extends Parser {
 
 	private Repertoire repertoire;
 	public List<Composition> learnedCompositionsList = new ArrayList<Composition>();
-	
-	public RepertoireDataParser(String xmlFile) {
+
+	public RepertoireDataParser(InputStream fileInputStream) {
 		try {
-			this.searchResults = readXMLDocumentFromFile(xmlFile);
+			this.searchResults = readXMLDocumentFromFile(fileInputStream);
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
@@ -32,47 +32,46 @@ public class RepertoireDataParser extends Parser {
 		this.learnedCompositionsList = createListOfLearnedCompositions();
 		repertoire = new Repertoire(learnedCompositionsList);
 	}
-    
+
 	public Repertoire getRepertoireObject() {
 		return repertoire;
 	}
-	
+
 	public Document getSearchResults() {
 		return searchResults;
 	}
-	
-	private Document readXMLDocumentFromFile(String inputFile) throws ParserConfigurationException, SAXException, IOException {
-		InputStream sampleFileInputStream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(inputFile);
+
+	private Document readXMLDocumentFromFile(InputStream fileInputStream)
+			throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document sampleXML = documentBuilder.parse(sampleFileInputStream);
+		Document sampleXML = documentBuilder.parse(fileInputStream);
 		return sampleXML;
 	}
-	
+
 	public List<Composition> createListOfLearnedCompositions() {
-    	for(int i = 0; i < compositionsNodeList.getLength(); i++) {
-    		addCompositionAtIndex(i);
-    	}
-    	return learnedCompositionsList;
-    }
-	
+		for (int i = 0; i < compositionsNodeList.getLength(); i++) {
+			addCompositionAtIndex(i);
+		}
+		return learnedCompositionsList;
+	}
+
 	private void addCompositionAtIndex(int i) {
 		Node currentNode = compositionsNodeList.item(i);
 		LearnedCompositionCreator current = new LearnedCompositionCreator(currentNode);
 		learnedCompositionsList.add(current.getLearnedComposition());
 	}
-    
+
 	private class LearnedCompositionCreator {
 		private NodeList compositionData;
 		private Composition current;
-		
+
 		private LearnedCompositionCreator(Node currentNode) {
 			this.compositionData = currentNode.getChildNodes();
 			this.current = createLearnedComposition(compositionData);
 			addAdditionalData();
 		}
-		
+
 		private Composition getLearnedComposition() {
 			return current;
 		}
@@ -95,9 +94,9 @@ public class RepertoireDataParser extends Parser {
 					current.setWasNotPerformed();
 				}
 			}
-			
+
 		}
-		
+
 		private void addMemorized(Node notes) {
 			if (notes.getAttributes().getNamedItem("memorized") != null) {
 				String memorized = notes.getAttributes().getNamedItem("memorized").getNodeValue();
@@ -108,7 +107,7 @@ public class RepertoireDataParser extends Parser {
 				}
 			}
 		}
-		
+
 		private void addYear(Node notes) {
 			if (notes.getAttributes().getNamedItem("year") != null) {
 				String year = notes.getAttributes().getNamedItem("year").getNodeValue();
@@ -118,11 +117,11 @@ public class RepertoireDataParser extends Parser {
 
 		private void addEnsemble(Node notes) {
 			if (notes.getAttributes().getNamedItem("ensemble") != null) {
-				String ensemble = notes.getAttributes().getNamedItem("ensemble").getNodeValue();		
+				String ensemble = notes.getAttributes().getNamedItem("ensemble").getNodeValue();
 				current.setEnsemble(ensemble);
 			}
 		}
-		
+
 		private void addEnsembleType(Node notes) {
 			if (notes.getAttributes().getNamedItem("ensembleType") != null) {
 				String ensembleType = notes.getAttributes().getNamedItem("ensembleType").getNodeValue();
@@ -130,7 +129,7 @@ public class RepertoireDataParser extends Parser {
 			}
 		}
 	}
-	
+
 	private Composition createLearnedComposition(NodeList compositionData) {
 		String composer = compositionData.item(0).getTextContent();
 		String title = compositionData.item(1).getTextContent();

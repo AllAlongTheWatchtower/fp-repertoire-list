@@ -2,6 +2,8 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +17,9 @@ public class RepertoireTest {
 	
 	@Before
 	public void intialize() {
-		RepertoireDataParser parser = new RepertoireDataParser("sampleRepertoireList.xml");
+		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("sampleRepertoireList.xml");
+		RepertoireDataParser parser = new RepertoireDataParser(fileInputStream);
 		repertoire = parser.getRepertoireObject();
 	}
 	

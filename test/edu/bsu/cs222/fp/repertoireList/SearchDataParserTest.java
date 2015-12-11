@@ -2,6 +2,7 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.junit.Before;
@@ -13,17 +14,20 @@ import edu.bsu.cs222.fp.repertoireList.datahandling.SearchDataParser;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
-public class SearchDataParserTest {	
+public class SearchDataParserTest {
 	Document document;
 	Repertoire repertoire;
-	
+
 	@Before
 	public void initialize() {
-		RepertoireDataParser parser = new RepertoireDataParser("sampleRepertoireList.xml");
+		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("sampleRepertoireList.xml");
+
+		RepertoireDataParser parser = new RepertoireDataParser(fileInputStream);
 		document = parser.getSearchResults();
 		repertoire = parser.getRepertoireObject();
 	}
-	
+
 	@Test
 	public void testEqualListLength() {
 		SearchDataParser parser2 = new SearchDataParser(document);

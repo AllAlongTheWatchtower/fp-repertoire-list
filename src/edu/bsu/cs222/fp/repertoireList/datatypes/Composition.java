@@ -44,23 +44,23 @@ public class Composition {
 		this.ensembleTypeSet = false;
 	}
 	
-	public boolean yearSet() {
+	public boolean isYearSet() {
 		return yearSet;
 	}
 	
-	public boolean performedSet() {
+	public boolean isPerformedSet() {
 		return performedSet;
 	}
 	
-	public boolean memorizedSet() {
+	public boolean isMemorizedSet() {
 		return memorizedSet;
 	}
 	
-	public boolean ensembleSet() {
+	public boolean isEnsembleSet() {
 		return ensembleSet;
 	}
 	
-	public boolean ensembleTypeSet() {
+	public boolean isEnsembleTypeSet() {
 		return ensembleTypeSet;
 	}
 	
@@ -156,5 +156,12 @@ public class Composition {
 		return (other instanceof Composition && 
 			composer.equals(((Composition) other).getComposer()) &&
 			title.equals(((Composition) other).getTitle()));
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 17;
+		hash = hash * title.hashCode() * composer.hashCode();
+		return hash;
 	}
 }

@@ -1,5 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Optional;
 
@@ -89,8 +90,10 @@ public class UserInterface extends Application {
 
 	private void setRepertoireListTable() {
 		RepertoireDataParser parser = null;
+		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("RepertoireList.xml");
 		try {
-			parser = new RepertoireDataParser("RepertoireList.xml");
+			parser = new RepertoireDataParser(fileInputStream);
 		} catch (RuntimeException e) {
 			new WarningDialog("System error: try again!");
 		}

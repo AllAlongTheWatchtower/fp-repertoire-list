@@ -143,7 +143,7 @@ public class RepertoireToDocumentConverter {
         }
 
 		private void addPerformed(Element notes) {
-			if (current.performedSet()) {
+			if (current.isPerformedSet()) {
 				boolean performed = current.wasPerformed();
 				if (performed) {
 					notes.setAttribute("performed", "true");
@@ -154,7 +154,7 @@ public class RepertoireToDocumentConverter {
         }
         
         private void addMemorized(Element notes) {
-        	if (current.memorizedSet()) {
+        	if (current.isMemorizedSet()) {
         		boolean memorized = current.wasMemorized();
         		if (memorized) {
         			notes.setAttribute("memorized", "true");
@@ -165,21 +165,21 @@ public class RepertoireToDocumentConverter {
         }
         
         private void addYear(Element notes) {
-        	if (current.yearSet()) {		
+        	if (current.isYearSet()) {		
              	String year = current.yearLearned();
              	notes.setAttribute("year", year);
         	}
         }
         
         private void addEnsemble(Element notes) {
-        	if (current.ensembleSet()) {
+        	if (current.isEnsembleSet()) {
         		String ensemble = current.getEnsemble();
         		notes.setAttribute("ensemble", ensemble);
         	}
         }
         
         private void addEnsembleType(Element notes) {
-        	if (current.ensembleTypeSet()) {
+        	if (current.isEnsembleTypeSet()) {
         		String ensembleType = current.getEnsembleType();
         		notes.setAttribute("ensembleType", ensembleType);
         	}

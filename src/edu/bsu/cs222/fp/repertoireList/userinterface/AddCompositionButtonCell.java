@@ -31,7 +31,7 @@ public class AddCompositionButtonCell extends NotesPopup {
 			composer = new Label("Composer: " + selectedRecord.getComposer());
 			title = new Label("Title: " + selectedRecord.getTitle());
 			createFilledStage();
-			repertoireObject.addComposition(selectedRecord);
+
 		}
 	}
 
@@ -53,6 +53,12 @@ public class AddCompositionButtonCell extends NotesPopup {
 		super.updateItem(t, empty);
 		if (!empty) {
 			setGraphic(cellButton);
-		}
+		} 
+	}
+
+	@Override
+	public void performOperationBeforeClosing() {
+		repertoireObject.addComposition(selectedRecord);
+		addNotesToComposition();
 	}
 }
