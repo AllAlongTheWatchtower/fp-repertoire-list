@@ -53,7 +53,6 @@ public class NotesButtonCell extends NotesPopup {
 		vBox.getChildren().addAll(directionText, composer, title, yearLearnedLabel, inputYear, ensembleLabel,
 				inputEnsemble, ensembleTypeLabel, ensembleComboBox, memorizedCheckBox, performedCheckBox, addButton,
 				cancelButton);
-
 	}
 
 	@Override
