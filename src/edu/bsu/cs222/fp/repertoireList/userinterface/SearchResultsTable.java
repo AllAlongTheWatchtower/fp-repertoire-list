@@ -12,6 +12,7 @@ import edu.bsu.cs222.fp.repertoireList.network.URLFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
 public class SearchResultsTable extends Table {
@@ -45,8 +46,30 @@ public class SearchResultsTable extends Table {
 		this.repertoireObject = builder.repertoireObject;
 		observableListOfCompositions = makeObservableSearchResultsList(getSearchResults(searchedComposer));
 		searchTable = createTable(observableListOfCompositions);
+		setDoubleClickAction();
 	}
-
+	
+	private void setDoubleClickAction() {
+		searchTable.setRowFactory( tv -> {
+		    TableRow<Composition> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		        	Composition selectedRecord = row.getItem();
+		        	addOnDoubleClick(selectedRecord);
+		        }
+		    });
+		    return row ;
+		});
+	}
+	
+	private void addOnDoubleClick(Composition selectedRecord) {
+		if (repertoireObject.isDuplicate(selectedRecord)) {
+			new InformationDialog("\"" + selectedRecord.getTitle() + "\" is already in your Repertoire List!");
+		} else {
+        	NonButtonPopUp.withComposition(selectedRecord).withReferenceTo(repertoireObject);
+		}
+	}
+	
 	private Document getSearchResults(String composer) {
 		DatabaseConnector connection = null;
 		try {
@@ -82,5 +105,4 @@ public class SearchResultsTable extends Table {
 	public TableCell<Composition, Boolean> editRepertoireButton() {
 		return new AddCompositionButtonCell(repertoireObject);
 	}
-
 }
