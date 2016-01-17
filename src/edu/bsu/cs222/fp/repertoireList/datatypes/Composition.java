@@ -1,13 +1,20 @@
 package edu.bsu.cs222.fp.repertoireList.datatypes;
 
-public class Composition {
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root (name = "Composition")
+public class Composition {
+	
 	public static Builder byComposer(String composer){
 		return new Builder(composer);
 	}
 
 	public static final class Builder {
+		@Element
 		private String composer;
+		@Element
 		private String titleToAdd;
 
 		public Builder(String composer) {
@@ -19,49 +26,36 @@ public class Composition {
 			return new Composition(this);
 		}
 	}	
-
-	private final String composer;
-	private final String title;
+	
+	@Element
+	private String title;
+	
+	@Element
+	private String composer;
+	
+	@Attribute (required = false)
 	private boolean wasPerformed;
+	
+	@Attribute (required = false)
 	private boolean wasMemorized;
+	
+	@Attribute (required = false)
 	private String yearLearned;
-	private String withEnsemble;
-	private boolean yearSet;
-	private boolean performedSet;
-	private boolean memorizedSet;
-	private boolean ensembleSet;
-	private boolean ensembleTypeSet;
-	private enum EnsembleType {SOLO, ENSEMBLE, OPERA, CHAMBER, ORCHESTRA, OTHER}
+	
+	@Attribute (required = false)
+	private String ensemble;
+	
+	private enum EnsembleType {SOLO, ENSEMBLE, OPERA, CHAMBER, ORCHESTRA, OTHER, NONE}
+	
+	@Attribute (required = false)
 	private EnsembleType ensembleType;
+	
+	public Composition() {};
 	
 	public Composition(Builder builder) {
 		this.composer = builder.composer;
 		this.title = builder.titleToAdd;
-		this.yearSet = false;
-		this.performedSet = false;
-		this.memorizedSet = false;
-		this.ensembleSet = false;
-		this.ensembleTypeSet = false;
-	}
-	
-	public boolean isYearSet() {
-		return yearSet;
-	}
-	
-	public boolean isPerformedSet() {
-		return performedSet;
-	}
-	
-	public boolean isMemorizedSet() {
-		return memorizedSet;
-	}
-	
-	public boolean isEnsembleSet() {
-		return ensembleSet;
-	}
-	
-	public boolean isEnsembleTypeSet() {
-		return ensembleTypeSet;
+		this.ensembleType = EnsembleType.NONE;
 	}
 	
 	public String getComposer() {
@@ -71,20 +65,58 @@ public class Composition {
 	public String getTitle() {
 		return title;
 	}
-
+	
+	public String getEnsemble() {
+		return ensemble;
+	}
+	
+	public void setEnsemble(String ensemble) {
+		this.ensemble = ensemble;
+	}
+	
+	public String getYearLearned() {
+		return yearLearned;
+	}
+	
+	public void setYearLearned(String year) {
+		this.yearLearned = year;
+	}
+	
+	public boolean getWasMemorized() {
+		return wasMemorized;
+	}
+	
+	public void setWasMemorized() {
+		this.wasMemorized = true;
+	}
+	
+	public void setWasNotMemorized() {
+		this.wasMemorized = false;
+	}
+	
+	public boolean getWasPerformed() {
+		return wasPerformed;
+	}
+	
+	public void setWasPerformed() {
+		this.wasPerformed = true;
+	}
+	
+	public void setWasNotPerformed() {
+		this.wasPerformed = false;
+	}
+	
 	public String getEnsembleType() {
-		if (this.ensembleTypeSet) {
-			switch (this.ensembleType) {
-				case SOLO:			return "solo";
-				case ENSEMBLE:		return "ensemble";
-				case CHAMBER:		return "chamber";
-				case ORCHESTRA:		return "orchestra";
-				case OPERA:			return "opera";
-				case OTHER:			return "other";
-				default:			return null;
-			}
+		switch (this.ensembleType) {
+			case SOLO:			return "solo";
+			case ENSEMBLE:		return "ensemble";
+			case CHAMBER:		return "chamber";
+			case ORCHESTRA:		return "orchestra";
+			case OPERA:			return "opera";
+			case OTHER:			return "other";
+			case NONE:			return "none";
+			default:			return null;
 		}
-		return null;
 	}
 	
 	public void setEnsembleType(String type) {
@@ -101,54 +133,6 @@ public class Composition {
 		} else if (type.equals("opera")) {
 			this.ensembleType = EnsembleType.OPERA;
 		}
-		
-		this.ensembleTypeSet = true;
-	}
-	
-	public boolean wasPerformed() {
-		return this.wasPerformed;
-	}
-	
-	public void setWasPerformed() {
-		this.wasPerformed = true;
-		this.performedSet = true;
-	}
-	
-	public void setWasNotPerformed() {
-		this.wasPerformed = false;
-		this.performedSet = true;
-	}
-
-	public boolean wasMemorized() {
-		return wasMemorized;
-	}
-
-	public void setWasMemorized() {
-		this.wasMemorized = true;
-		this.memorizedSet = true;
-	}
-	
-	public void setWasNotMemorized() {
-		this.wasMemorized = false;
-		this.memorizedSet = true;
-	}
-
-	public String yearLearned() {
-		return yearLearned;
-	}
-
-	public void setYearLearned(String yearLearned) {
-		this.yearLearned = yearLearned;
-		this.yearSet = true;
-	}
-
-	public String getEnsemble() {
-		return withEnsemble;
-	}
-
-	public void setEnsemble(String withEnsemble) {
-		this.withEnsemble = withEnsemble;
-		this.ensembleSet = true;
 	}
 	
 	@Override
@@ -163,5 +147,9 @@ public class Composition {
 		int hash = 17;
 		hash = hash * title.hashCode() * composer.hashCode();
 		return hash;
+	}
+	
+	public String toString() {
+		return composer + " wrote " + title;
 	}
 }

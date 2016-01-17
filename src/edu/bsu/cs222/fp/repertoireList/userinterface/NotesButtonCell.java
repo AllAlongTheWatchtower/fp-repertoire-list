@@ -22,15 +22,14 @@ public class NotesButtonCell extends NotesPopup {
 			private void prepopulatePopup() {
 				composer = new Label("Composer: " + selectedRecord.getComposer());
 				title = new Label("Title: " + selectedRecord.getTitle());
-				ensembleComboBox.getSelectionModel().select(selectedRecord.getEnsembleType());
-				performedCheckBox.setSelected(selectedRecord.wasPerformed());
-				memorizedCheckBox.setSelected(selectedRecord.wasMemorized());
-				if (selectedRecord.isYearSet()) {
-					inputYear = new TextField(selectedRecord.yearLearned());
-				}
-				if (selectedRecord.isEnsembleSet()) {
-					inputEnsemble = new TextField(selectedRecord.getEnsemble());
-				}
+				if (selectedRecord.getEnsembleType() == null) 
+					ensembleComboBox.getSelectionModel().select("none");
+				else 
+					ensembleComboBox.getSelectionModel().select(selectedRecord.getEnsembleType());
+				performedCheckBox.setSelected(selectedRecord.getWasPerformed());
+				memorizedCheckBox.setSelected(selectedRecord.getWasMemorized());
+				inputYear = new TextField(selectedRecord.getYearLearned());
+				inputEnsemble = new TextField(selectedRecord.getEnsemble());
 			}
 		});
 	}

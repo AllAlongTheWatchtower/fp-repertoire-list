@@ -1,9 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
-import org.w3c.dom.Document;
-
-import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireToDocumentConverter;
-import edu.bsu.cs222.fp.repertoireList.datahandling.XmlWriter;
+import edu.bsu.cs222.fp.repertoireList.datahandling.XmlSerializer;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
 public class SaveButton {
@@ -16,17 +13,9 @@ public class SaveButton {
 	}
 
 	public void saveChanges() {
-		RepertoireToDocumentConverter converter = null;
+		XmlSerializer XmlWriter = new XmlSerializer(repertoireObject);
 		try {
-			converter = new RepertoireToDocumentConverter(repertoireObject);
-		} catch (RuntimeException e) {
-			new WarningDialog("System error!  Please try again.");
-		}
-		Document repertoireAsDocument = converter.getDocument();
-		XmlWriter writer;
-		try {
-			writer = new XmlWriter("RepertoireListData/RepertoireList.xml");
-			writer.writeDocument(repertoireAsDocument);
+			XmlWriter.writeToFile("RepertoireListData/RepertoireList.xml");
 		} catch (RuntimeException e) {
 			new WarningDialog("Could not save list.  Try again!");
 		}
