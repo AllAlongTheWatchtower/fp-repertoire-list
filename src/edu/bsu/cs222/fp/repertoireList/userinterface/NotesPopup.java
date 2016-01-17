@@ -17,21 +17,21 @@ import javafx.stage.Stage;
 
 public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 
-	public Composition selectedRecord;
-	public Button addButton = new Button("Add");
-	public Button cancelButton = new Button("Cancel");
-	public Label directionText = new Label("Please Enter Your Notes:");
-	public Label composer;
-	public Label title;
-	public Label yearLearnedLabel = new Label("The year you learned the composition:");
-	public Label ensembleTypeLabel = new Label(" The ensemble type: ");
-	public Label ensembleLabel = new Label(" The ensemble in which you learned it:");
-	public TextField inputEnsemble = new TextField();
-	public CheckBox memorizedCheckBox = new CheckBox("Memorized");
-	public CheckBox performedCheckBox = new CheckBox("Performed");
-	public TextField inputYear = new TextField();
-	public ComboBox<String> ensembleComboBox = createComboBox();
-	public VBox vBox = new VBox();
+	protected Composition selectedRecord;
+	protected Button addButton = new Button("Add");
+	protected Button cancelButton = new Button("Cancel");
+	protected Label directionText = new Label("Please Enter Your Notes:");
+	protected Label composer;
+	protected Label title;
+	protected Label yearLearnedLabel = new Label("The year you learned the composition:");
+	protected Label ensembleTypeLabel = new Label(" The ensemble type: ");
+	protected Label ensembleLabel = new Label(" The ensemble in which you learned it:");
+	protected TextField inputEnsemble = new TextField();
+	protected CheckBox memorizedCheckBox = new CheckBox("Memorized");
+	protected CheckBox performedCheckBox = new CheckBox("Performed");
+	protected TextField inputYear = new TextField();
+	protected ComboBox<String> ensembleComboBox = createComboBox();
+	protected VBox vBox = new VBox();
 
 	public abstract void addItemsToVbox();
 
@@ -98,7 +98,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 			selectedRecord.setWasNotPerformed();
 		}
 	}
-
+	
 	private void setCancelButtonAction(Stage stage) {
 		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

@@ -1,10 +1,9 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
-import java.io.InputStream;
 import java.util.Observable;
 import java.util.Optional;
 
-import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
+import edu.bsu.cs222.fp.repertoireList.datahandling.XmlDeserializer;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 import javafx.application.Application;
@@ -89,15 +88,15 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		RepertoireDataParser parser = null;
-		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("RepertoireList.xml");
+		//InputStream source = Thread.currentThread().getContextClassLoader()
+				//.getResourceAsStream("RepertoireList2.xml");
+		XmlDeserializer XmlReader = null;
 		try {
-			parser = new RepertoireDataParser(fileInputStream);
+			XmlReader = new XmlDeserializer("RepertoireListData/RepertoireList.xml");
 		} catch (RuntimeException e) {
 			new WarningDialog("System error: try again!");
 		}
-		repertoireObject = parser.getRepertoireObject();
+		repertoireObject = XmlReader.getRepertoireList();
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();

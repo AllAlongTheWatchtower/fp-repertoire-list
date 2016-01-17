@@ -4,13 +4,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-public class Repertoire extends Observable implements Iterable<Composition> {
-	private final List<Composition> repertoireList;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-	public Repertoire(List<Composition> repertoire) {
-		this.repertoireList = repertoire;
-	}
+@Root
+public class Repertoire extends Observable implements Iterable<Composition> {
+	@ElementList (inline = true)
+	private List<Composition> repertoireList;
 	
+	public Repertoire() {};
+
+	public Repertoire(List<Composition> list) {
+  		this.repertoireList = list;
+	}
+
 	public List<Composition> getRepertoireList() {
 		return repertoireList;
 	}
@@ -18,7 +25,7 @@ public class Repertoire extends Observable implements Iterable<Composition> {
 	public int getLength() {
 		return repertoireList.size();
 	}
-
+	
 	public void addComposition(Composition newComposition) {
 		if (!isDuplicate(newComposition)) {
 			repertoireList.add(newComposition);
@@ -37,7 +44,15 @@ public class Repertoire extends Observable implements Iterable<Composition> {
 		setChanged();
 		notifyObservers();
 	}
-
+	
+	public String toString() {
+		String result = "";
+		for (Composition c: repertoireList) {
+			result = result + c.toString() + "\n";
+		}
+		return result;
+	}
+	
 	public boolean isDuplicate(Composition newComposition) {
 		if (repertoireList.contains(newComposition)) {
 			return true;

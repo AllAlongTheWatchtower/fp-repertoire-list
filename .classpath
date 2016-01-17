@@ -38,5 +38,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/simple"/>
+	<classpathentry kind="lib" path="C:/Users/Ari/workspace/simple-xml-2.7.1/simple-xml-2.7.1/jar/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

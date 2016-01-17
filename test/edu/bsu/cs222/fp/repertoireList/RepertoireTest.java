@@ -2,12 +2,10 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
-import java.io.InputStream;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.bsu.cs222.fp.repertoireList.datahandling.RepertoireDataParser;
+import edu.bsu.cs222.fp.repertoireList.datahandling.XmlDeserializer;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 
@@ -16,11 +14,9 @@ public class RepertoireTest {
 	private Composition testComposition = Composition.byComposer("Amadeus Mozart").withTitle("Symphony No. 40");
 	
 	@Before
-	public void intialize() {
-		InputStream fileInputStream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("sampleRepertoireList.xml");
-		RepertoireDataParser parser = new RepertoireDataParser(fileInputStream);
-		repertoire = parser.getRepertoireObject();
+	public void setup() {
+		XmlDeserializer XmlReader = new XmlDeserializer("test-assets/sampleRepertoireList.xml");
+		repertoire = XmlReader.getRepertoireList();
 	}
 	
 	@Test
@@ -28,7 +24,7 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertTrue(lengthBefore+1 == lengthAfter);
+		assertEquals(lengthBefore+1, lengthAfter);
 	}
 	
 	@Test 
@@ -43,7 +39,7 @@ public class RepertoireTest {
 		int lengthBefore = repertoire.getLength();
 		repertoire.addComposition(testComposition);
 		int lengthAfter = repertoire.getLength();
-		assertTrue(lengthBefore == lengthAfter);
+		assertEquals(lengthBefore, lengthAfter);
 	}
 	
 	@Test

@@ -1,1 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><response><status><version>4.2</version><code>0</code><message>Success</message></status><songs><song><artist_name>Mozart - Orchestra Mozart</artist_name><title>Sinfonia Concertante for Winds, K. 297b: III.</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Young Mozart</artist_name><title>Change of Seasons</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Leopold Mozart</artist_name><title>Allegro in D Major</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Girolamo Frescobaldi</artist_name><title>Hinno Ave maris stella</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Girolamo Frescobaldi</artist_name><title>Fiori musicali, Op. 12, Messa della Domenica: Toccata cromaticha per la Levatione</title><notes ensemble="The Orchestra" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Rameau</artist_name><title>Nouvelle Suites: Suite in A Major</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song><song><artist_name>Rameau</artist_name><title>Castor et Pollux</title><notes ensemble="" ensembleType="chamber" memorized="false" performed="false" year=""/></song><song><artist_name>Girolamo Frescobaldi</artist_name><title>Recercar con obligo di cantare la quinta parte senza toccarla</title><notes ensemble="" ensembleType="other" memorized="false" performed="false" year=""/></song></songs></response>
+<repertoire>
+   <Composition wasPerformed="false" wasMemorized="true" yearLearned="1999" ensembleType="NONE">
+      <title>Partita</title>
+      <composer>Bach</composer>
+   </Composition>
+   <Composition wasPerformed="true" wasMemorized="false" ensemble="Ball State University Orchestra" ensembleType="NONE">
+      <title>Suite</title>
+      <composer>Froberger</composer>
+   </Composition>
+   <Composition wasPerformed="true" wasMemorized="false" yearLearned="2008" ensemble="Ball State Orchestra" ensembleType="ORCHESTRA">
+      <title>Concerts royaux: Concerto No. 3 in A Major: VII. Chaconne</title>
+      <composer>François Couperin</composer>
+   </Composition>
+   <Composition wasPerformed="false" wasMemorized="true" yearLearned=" 2004" ensemble="New York Philharmonic" ensembleType="ORCHESTRA">
+      <title>Leçon de Ténèbres: No. 3</title>
+      <composer>François Couperin</composer>
+   </Composition>
+</repertoire>

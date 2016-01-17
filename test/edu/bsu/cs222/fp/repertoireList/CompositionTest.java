@@ -19,12 +19,12 @@ public class CompositionTest {
 	private String ensembleType = "solo";
 	
 	@Before
-	public void initialize() {
-		current.setWasPerformed();
+	public void setup() {
 		current.setEnsemble(ensemble);
-		current.setWasNotMemorized();
 		current.setYearLearned(year);
 		current.setEnsembleType(ensembleType);
+		current.setWasPerformed();
+		current.setWasNotMemorized();
 	}
 	
 	@Test 
@@ -44,17 +44,17 @@ public class CompositionTest {
 	
 	@Test 
 	public void testRetrieveYear() {
-		assertEquals(current.yearLearned(), year);
+		assertEquals(current.getYearLearned(), year);
 	}
 	
 	@Test 
 	public void testRetrieveWasMemorized() {
-		assertEquals(current.wasMemorized(), wasMemorized);
+		assertEquals(current.getWasMemorized(), wasMemorized);
 	}
 	
 	@Test 
 	public void testRetrieveWasPerformed() {
-		assertEquals(current.wasPerformed(), wasPerformed);
+		assertEquals(current.getWasPerformed(), wasPerformed);
 	}
 	
 	@Test
