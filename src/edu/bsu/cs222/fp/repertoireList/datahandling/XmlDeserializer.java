@@ -10,8 +10,7 @@ import edu.bsu.cs222.fp.repertoireList.datatypes.Repertoire;
 public class XmlDeserializer {
 	private Repertoire repertoireList = null;
 	
-	public XmlDeserializer(String file) {
-		File source = new File(file);
+	public XmlDeserializer(File source) {
 		Serializer serializer = new Persister();
 		try {
 			repertoireList = serializer.read(Repertoire.class, source);

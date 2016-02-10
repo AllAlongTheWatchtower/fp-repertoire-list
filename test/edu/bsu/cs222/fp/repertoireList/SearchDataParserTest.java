@@ -33,7 +33,6 @@ public class SearchDataParserTest {
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			document = documentBuilder.parse(fileInputStream);
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -42,6 +41,7 @@ public class SearchDataParserTest {
 	public void testEqualListLength() {
 		SearchDataParser parser2 = new SearchDataParser(document);
 		List<Composition> list = parser2.getListOfCompositions();
+		repertoire = new Repertoire(list);
 		assertTrue(list.size() == repertoire.getLength());
 	}
 }

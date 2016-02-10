@@ -2,6 +2,8 @@ package edu.bsu.cs222.fp.repertoireList;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +17,8 @@ public class RepertoireTest {
 	
 	@Before
 	public void setup() {
-		XmlDeserializer XmlReader = new XmlDeserializer("test-assets/sampleRepertoireList.xml");
+		File source = new File("test-assets/sampleRepertoireList.xml");
+		XmlDeserializer XmlReader = new XmlDeserializer(source);
 		repertoire = XmlReader.getRepertoireList();
 	}
 	

@@ -1,5 +1,6 @@
 package edu.bsu.cs222.fp.repertoireList.userinterface;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -88,11 +90,10 @@ public class UserInterface extends Application {
 	}
 
 	private void setRepertoireListTable() {
-		//InputStream source = Thread.currentThread().getContextClassLoader()
-				//.getResourceAsStream("RepertoireList2.xml");
+		File source = new File("RepertoireListData/RepertoireList.xml");
 		XmlDeserializer XmlReader = null;
 		try {
-			XmlReader = new XmlDeserializer("RepertoireListData/RepertoireList.xml");
+			XmlReader = new XmlDeserializer(source);
 		} catch (RuntimeException e) {
 			new WarningDialog("System error: try again!");
 		}
@@ -100,7 +101,7 @@ public class UserInterface extends Application {
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
-		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
+		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 		setRepertoireObserver();
 	}
 
@@ -110,15 +111,10 @@ public class UserInterface extends Application {
 		});
 	}
 
-	private VBox createNewVBoxWithSearchTable(TableView<Composition> table) {
+	private VBox createNewVBoxWithTable(TableView<Composition> table) {
 		tableVBox = new VBox();
 		tableVBox.getChildren().add(table);
-		return tableVBox;
-	}
-
-	private VBox createNewVBoxWithRepertoireTable(TableView<Composition> table) {
-		tableVBox = new VBox();
-		tableVBox.getChildren().add(table);
+		tableVBox.setVgrow(table, Priority.ALWAYS);
 		return tableVBox;
 	}
 
@@ -127,6 +123,7 @@ public class UserInterface extends Application {
 		searchVBox.setSpacing(15);
 		logoLabel.setGraphic(new ImageView(logo));
 		inputField.setPromptText("Search Field");
+		inputField.setMaxWidth(200);
 		searchVBox.getChildren().addAll(space, welcomeText, directionText, inputField, searchButton, logoLabel,
 				legalText);
 		searchVBox.setAlignment(Pos.CENTER);
@@ -164,7 +161,7 @@ public class UserInterface extends Application {
 		new TableView<Composition>();
 		SearchResultsTable searchResultsTable = SearchResultsTable.withSearchedComposer(inputField.getText())
 				.withReferenceToRepertoire(repertoireObject);
-		resultsTab.setContent(createNewVBoxWithSearchTable(searchResultsTable.getSearchTable()));
+		resultsTab.setContent(createNewVBoxWithTable(searchResultsTable.getSearchTable()));
 	}
 
 	private void setTheEnterKeyAction(TabPane tabPane) {
@@ -212,7 +209,7 @@ public class UserInterface extends Application {
 		RepertoireListTable table = new RepertoireListTable(repertoireObject);
 		repertoireTable = new TableView<Composition>();
 		repertoireTable = table.getRepertoireTable();
-		listTab.setContent(createNewVBoxWithRepertoireTable(repertoireTable));
+		listTab.setContent(createNewVBoxWithTable(repertoireTable));
 	}
 
 	private void askUserIfTheyWouldLikeToSaveUponExist(Stage primaryStage) {

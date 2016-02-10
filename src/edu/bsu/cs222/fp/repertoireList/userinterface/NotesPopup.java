@@ -3,6 +3,7 @@ package edu.bsu.cs222.fp.repertoireList.userinterface;
 import edu.bsu.cs222.fp.repertoireList.datatypes.Composition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,6 +52,7 @@ public abstract class NotesPopup extends TableCell<Composition, Boolean> {
 		vBox.setSpacing(15);
 		addItemsToVbox();
 		vBox.setAlignment(Pos.CENTER);
+		vBox.setPadding(new Insets(0, 15, 15, 15));
 		Scene scene = new Scene(vBox);
 		stage.setScene(scene);
 		stage.setTitle("Notes");

@@ -21,7 +21,8 @@ public class SearchResultsTable extends Table {
 	private String searchedComposer;
 	private ObservableList<Composition> observableListOfCompositions;
 	private TableView<Composition> searchTable = new TableView<Composition>();
-	private final String apiKey = "NDVFILMAVOOY8ITWS";
+	// Apply for an api key from The Echo Nest
+	private final String apiKey = "";
 
 	public static Builder withSearchedComposer(String searched) {
 		return new Builder(searched);

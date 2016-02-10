@@ -1,0 +1,18 @@
+<repertoire>
+   <Composition wasPerformed="false" wasMemorized="true" yearLearned="1999" ensembleType="NONE">
+      <title>Partita</title>
+      <composer>Bach</composer>
+   </Composition>
+   <Composition wasPerformed="true" wasMemorized="false" ensemble="Ball State University Orchestra" ensembleType="NONE">
+      <title>Suite</title>
+      <composer>Froberger</composer>
+   </Composition>
+   <Composition wasPerformed="true" wasMemorized="false" yearLearned="2008" ensemble="Ball State Orchestra" ensembleType="ORCHESTRA">
+      <title>Concerts royaux: Concerto No. 3 in A Major: VII. Chaconne</title>
+      <composer>François Couperin</composer>
+   </Composition>
+   <Composition wasPerformed="false" wasMemorized="true" yearLearned=" 2004" ensemble="New York Philharmonic" ensembleType="ORCHESTRA">
+      <title>Leçon de Ténèbres: No. 3</title>
+      <composer>François Couperin</composer>
+   </Composition>
+</repertoire>
